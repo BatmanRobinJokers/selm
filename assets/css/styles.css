@@ -43,6 +43,23 @@ main {
     margin: 2rem auto;
 }
 
+/* Container for image and text */
+.content-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem; /* Space between image and text */
+}
+
+.left-aligned-img {
+    width: 200px; /* Smaller image size */
+    border: 1px solid #00ffff; /* Neon blue border around the image */
+    box-shadow: 0 0 10px #00ffff; /* Neon blue glow around the image */
+}
+
+.text-content {
+    color: #00ffff;
+}
+
 section {
     margin: 2rem 0;
     padding: 1rem;
@@ -135,6 +152,18 @@ footer {
         flex-direction: column;
         align-items: center;
     }
+
+    .content-container {
+        flex-direction: column; /* Stack image and text on smaller screens */
+        align-items: center;
+    }
+
+    .left-aligned-img {
+        width: 100%; /* Make the image responsive */
+    }
+
+    .text-content {
+        text-align: center;
 
     body {
         padding: 0 1rem;
