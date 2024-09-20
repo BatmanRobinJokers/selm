@@ -8,12 +8,15 @@
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
+    background-color: #000; /* Matrix-inspired black background */
+    color: #00ff99; /* Vibrant neon green */
     padding: 0 2rem;
 }
 
 header {
-    background-color: #333;
+    background-color: #001a33; /* Dark blue (Tron) */
     padding: 1rem 0;
+    border-bottom: 2px solid #00ff99; /* Neon green border */
 }
 
 .nav-links {
@@ -23,13 +26,15 @@ header {
 }
 
 .nav-links li a {
-    color: white;
+    color: #00ff99;
     text-decoration: none;
     padding: 0.5rem;
+    transition: color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .nav-links li a:hover {
-    background-color: #555;
+    color: #00ffff; /* Neon blue when hovered (Tron-inspired) */
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Glowing effect */
     border-radius: 5px;
 }
 
@@ -40,6 +45,64 @@ main {
 
 section {
     margin: 2rem 0;
+    padding: 1rem;
+    background-color: rgba(0, 26, 51, 0.8); /* Semi-transparent dark blue */
+    border: 1px solid #00ffff; /* Neon blue border */
+    border-radius: 8px;
+    box-shadow: 0 0 15px #00ff99, 0 0 30px #00ffff; /* Matrix-style neon glow */
+}
+
+h1, h2 {
+    color: #00ffff; /* Tron-inspired neon blue for headers */
+    text-shadow: 0 0 5px #00ff99, 0 0 10px #00ffff; /* Glowing effect for text */
+}
+
+p {
+    color: #00ff99;
+    font-size: 1.1rem;
+}
+
+button {
+    background-color: #001a33; /* Dark blue */
+    color: #00ff99;
+    border: 2px solid #00ff99;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover {
+    background-color: #00ffff; /* Neon blue */
+    color: #001a33; /* Contrast for hover */
+    box-shadow: 0 0 10px #00ff99, 0 0 20px #00ffff; /* Neon glow */
+}
+
+/* Input Fields */
+input[type="text"], input[type="email"] {
+    background-color: #001a33;
+    color: #00ff99;
+    border: 2px solid #00ffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    width: 100%;
+    box-shadow: 0 0 10px #00ff99, 0 0 20px #00ffff; /* Glowing input */
+    transition: box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="email"]:focus {
+    box-shadow: 0 0 15px #00ff99, 0 0 30px #00ffff; /* Stronger glow on focus */
+    outline: none;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #001a33;
+    border-top: 2px solid #00ff99;
+    color: #00ff99;
 }
 
 /* Responsive Design */
