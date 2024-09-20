@@ -25,6 +25,7 @@ header {
     display: flex;
     justify-content: center; /* Center the navigation links */
     gap: 2rem; /* Space between links */
+    padding-left: 3rem; /* This indents the entire nav */
 }
 
 /* Links: Remove neon glow from text, add hover effect */
