@@ -25,17 +25,19 @@ header {
     justify-content: space-around;
 }
 
-/* Links: Default lime green glow, neon blue on hover */
+/* Links: Default lime green glow, transparent background, neon blue on hover */
 a {
     color: #00ff99; /* Neon lime green */
     text-decoration: none;
+    background-color: transparent; /* Transparent background */
     transition: color 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99; /* Glowing lime effect */
 }
 
 a:hover {
-    color: #00ffff; /* Bright neon blue when hovered (Tron-inspired) */
+    color: #00ffff; /* Bright neon blue when hovered */
     box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Neon blue glow on hover */
+    background-color: transparent; /* Ensure background stays transparent */
 }
 
 main {
