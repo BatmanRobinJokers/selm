@@ -8,6 +8,49 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        ul {
+            list-style-type: none; /* Remove bullet points */
+            padding-left: 0;
+        }
+
+        /* Main image on the left */
+        #home {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        #home img {
+            max-width: 300px;
+            margin-right: 20px; /* Space between image and text */
+        }
+
+        /* Right align the smaller links next to the image */
+        .footer-links {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 10px;
+        }
+
+        .footer-links li {
+            margin-left: 20px;
+        }
+
+        .footer-links a {
+            color: #00ff99;
+            text-decoration: none;
+            background-color: transparent;
+            transition: color 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99;
+        }
+
+        .footer-links a:hover {
+            color: #00ffff;
+            box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -26,9 +69,11 @@
 
     <main>
         <section id="home">
-            <h1>SELM (Small Efficient Language Model)</h1>
-            <p><strong>SELM</strong> - "Vi veri universum vivus vici"</p>
-            <img src="https://github.com/user-attachments/assets/5d6383bd-2a36-44ea-a1c5-6b82dc28dee1" alt="SELM Image" style="width: 100%; max-width: 300px; margin: 20px auto; display: block;">
+            <img src="https://github.com/user-attachments/assets/5d6383bd-2a36-44ea-a1c5-6b82dc28dee1" alt="SELM Image">
+            <div>
+                <h1>SELM (Small Efficient Language Model)</h1>
+                <p><strong>SELM</strong> - "Vi veri universum vivus vici"</p>
+            </div>
         </section>
 
         <section id="introduction">
@@ -120,13 +165,7 @@
                 <li><a href="https://example.com/api-docs.html">📘 <strong>API Documentation</strong></a>
                     <ul>
                         <li><a href="https://example.com/api-docs.html#authentication-api">🔒 <strong>Authentication API</strong></a> - API for managing user sessions and security.</li>
-                        <li><a href="https://example.com/api-docs.html#data-fetch-api">📈 <strong>Data Fetching API</strong></a> - Retrieve data efficiently from the server.</li>
-                    </ul>
-                </li>
-                <li><a href="https://example.com/ui-components.html">💻 <strong>UI Components Guide</strong></a>
-                    <ul>
-                        <li><a href="https://example.com/ui-components.html#reusable-components">🔄 <strong>Reusable Components</strong></a> - Components that can be reused across the app.</li>
-                        <li><a href="https://example.com/ui-components.html#styling">🎨 <strong>Component Styling</strong></a> - Tips on applying consistent styles across components.</li>
+                        <li><a href="https://example.com/api-docs.html#data-fetch-api">📈 <strong>Data Fetching API</
                     </ul>
                 </li>
             </ul>
@@ -134,16 +173,14 @@
 
         <section id="support">
             <h2>📞 Support</h2>
-            <ul>
-                <li><a href="#faq">❓ <strong>FAQ</strong></a> - Frequently asked questions and answers.</li>
-                <li><a href="#contact-information">📧 <strong>Contact Information</strong></a> - How to get in touch with the project team.</li>
-            </ul>
+            <p><a href="#faq">❓ <strong>FAQ</strong></a> - Frequently asked questions and answers.</p>
+            <p><a href="#contact-information">📧 <strong>Contact Information</strong></a> - How to get in touch with the project team.</p>
         </section>
     </main>
 
     <footer>
         <p>&copy; 2024 SELM Project. All rights reserved.</p>
-        <ul class="footer-links">
+        <ul class="footer-links" style="text-align: right; list-style-type: none;">
             <li><a href="https://usernamesare4slaves.github.io/">📖 Official Documentation</a></li>
             <li><a href="https://forum.example.com">💬 Community Forum</a></li>
             <li><a href="https://github.com/UsernamesAre4Slaves/Repo/issues">🐛 GitHub Issues</a></li>
