@@ -25,17 +25,17 @@ header {
     justify-content: space-around;
 }
 
-.nav-links li a {
-    color: #00ff99;
+/* Links: Default lime green glow, neon blue on hover */
+a {
+    color: #00ff99; /* Neon lime green */
     text-decoration: none;
-    padding: 0.5rem;
     transition: color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99; /* Glowing lime effect */
 }
 
-.nav-links li a:hover {
-    color: #00ffff; /* Neon blue when hovered (Tron-inspired) */
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Glowing effect */
-    border-radius: 5px;
+a:hover {
+    color: #00ffff; /* Bright neon blue when hovered (Tron-inspired) */
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Neon blue glow on hover */
 }
 
 main {
@@ -103,6 +103,29 @@ footer {
     background-color: #001a33;
     border-top: 2px solid #00ff99;
     color: #00ff99;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.footer-links li {
+    display: inline;
+    margin: 0 0.5rem;
+}
+
+.footer-links li a {
+    color: #00ff99;
+    text-decoration: none;
+    transition: color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99;
+}
+
+.footer-links li a:hover {
+    color: #00ffff; /* Bright neon blue when hovered */
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Glowing neon blue */
 }
 
 /* Responsive Design */
