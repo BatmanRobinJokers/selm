@@ -9,35 +9,33 @@ body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
     background-color: #000; /* Matrix-inspired black background */
-    color: #00ff99; /* Vibrant neon green */
+    color: #00ffff; /* Neon blue */
     padding: 0 2rem;
 }
 
 header {
     background-color: #001a33; /* Dark blue (Tron) */
     padding: 1rem 0;
-    border-bottom: 2px solid #00ff99; /* Neon green border */
+    border-bottom: 2px solid #00ffff; /* Neon blue border */
+    text-align: center; /* Center align the header content */
 }
 
 .nav-links {
     list-style-type: none;
     display: flex;
-    justify-content: space-around;
+    justify-content: center; /* Center the navigation links */
+    gap: 2rem; /* Space between links */
 }
 
-/* Links: Default lime green glow, transparent background, neon blue on hover */
+/* Links: Remove neon glow from text, add hover effect */
 a {
-    color: #00ff99; /* Neon lime green */
+    color: #00ffff; /* Neon blue */
     text-decoration: none;
-    background-color: transparent; /* Transparent background */
-    transition: color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 10px #00ff99, 0 0 20px #00ff99; /* Glowing lime effect */
+    transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #00ffff; /* Bright neon blue when hovered */
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Neon blue glow on hover */
-    background-color: transparent; /* Ensure background stays transparent */
+    color: #00ff99; /* Neon green on hover */
 }
 
 main {
@@ -51,23 +49,23 @@ section {
     background-color: rgba(0, 26, 51, 0.8); /* Semi-transparent dark blue */
     border: 1px solid #00ffff; /* Neon blue border */
     border-radius: 8px;
-    box-shadow: 0 0 15px #00ff99, 0 0 30px #00ffff; /* Matrix-style neon glow */
+    box-shadow: 0 0 15px #00ffff; /* Neon glow around the box */
 }
 
 h1, h2 {
-    color: #00ffff; /* Tron-inspired neon blue for headers */
-    text-shadow: 0 0 5px #00ff99, 0 0 10px #00ffff; /* Glowing effect for text */
+    color: #00ffff; /* Neon blue for headers */
+    text-shadow: 0 0 5px #00ffff; /* Subtle glow */
 }
 
 p {
-    color: #00ff99;
+    color: #00ffff;
     font-size: 1.1rem;
 }
 
 button {
     background-color: #001a33; /* Dark blue */
-    color: #00ff99;
-    border: 2px solid #00ff99;
+    color: #00ffff;
+    border: 2px solid #00ffff;
     padding: 0.5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
@@ -75,59 +73,60 @@ button {
 }
 
 button:hover {
-    background-color: #00ffff; /* Neon blue */
+    background-color: #00ff99; /* Neon green */
     color: #001a33; /* Contrast for hover */
-    box-shadow: 0 0 10px #00ff99, 0 0 20px #00ffff; /* Neon glow */
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99; /* Neon glow */
 }
 
 /* Input Fields */
 input[type="text"], input[type="email"] {
     background-color: #001a33;
-    color: #00ff99;
+    color: #00ffff;
     border: 2px solid #00ffff;
     padding: 0.5rem;
     border-radius: 4px;
     margin-bottom: 1rem;
     width: 100%;
-    box-shadow: 0 0 10px #00ff99, 0 0 20px #00ffff; /* Glowing input */
+    box-shadow: none; /* Remove glow from input fields */
     transition: box-shadow 0.3s ease;
 }
 
 input[type="text"]:focus, input[type="email"]:focus {
-    box-shadow: 0 0 15px #00ff99, 0 0 30px #00ffff; /* Stronger glow on focus */
+    box-shadow: 0 0 15px #00ffff; /* Neon glow on focus */
     outline: none;
 }
 
 /* Footer */
 footer {
-    text-align: center;
+    text-align: center; /* Center the footer content */
     padding: 1rem;
     background-color: #001a33;
-    border-top: 2px solid #00ff99;
-    color: #00ff99;
+    border-top: 2px solid #00ffff;
+    color: #00ffff;
 }
 
 .footer-links {
     list-style: none;
     padding: 0;
     margin-top: 1rem;
+    display: flex;
+    justify-content: center; /* Center the footer links */
+    gap: 1rem; /* Space between links */
 }
 
 .footer-links li {
     display: inline;
-    margin: 0 0.5rem;
 }
 
 .footer-links li a {
-    color: #00ff99;
+    color: #00ffff;
     text-decoration: none;
-    transition: color 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99;
+    transition: color 0.3s ease;
+    box-shadow: none; /* Remove glow from text */
 }
 
 .footer-links li a:hover {
-    color: #00ffff; /* Bright neon blue when hovered */
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; /* Glowing neon blue */
+    color: #00ff99; /* Neon green on hover */
 }
 
 /* Responsive Design */
