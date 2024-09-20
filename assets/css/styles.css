@@ -69,6 +69,15 @@ section {
     box-shadow: 0 0 15px #00ffff; /* Neon glow around the box */
 }
 
+/* Indent nested lists */
+section ul {
+    padding-left: 1.5rem; /* Indent all <ul> within <section> */
+}
+
+section ul ul {
+    padding-left: 1.5rem; /* Indent nested <ul> specifically */
+}
+
 h1, h2 {
     color: #00ffff; /* Neon blue for headers */
     text-shadow: 0 0 5px #00ffff; /* Subtle glow */
