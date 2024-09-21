@@ -5,23 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatInput = document.getElementById('chatInput');
     const messages = document.getElementById('messages');
 
-    const openChat = () => {
-        chatContainer.style.display = "block"; // Show the chat container
-        setTimeout(() => { // Use a timeout to allow display to take effect
-            chatContainer.style.opacity = "1"; // Fade in
-            chatContainer.style.height = "auto"; // Allow natural height
-        }, 10);
-    };
+    openChatBtn.addEventListener('click', () => {
+        chatContainer.style.display = "block";
+    });
 
-    const closeChat = () => {
-        chatContainer.style.opacity = "0"; // Fade out
-        setTimeout(() => {
-            chatContainer.style.display = "none"; // Hide after fade out
-        }, 500); // Match the timeout with CSS transition duration
-    };
-
-    openChatBtn.addEventListener('click', openChat);
-    closeChatBtn.addEventListener('click', closeChat);
+    closeChatBtn.addEventListener('click', () => {
+        chatContainer.style.display = "none";
+    });
 
     // Function to sanitize and format message
     const sanitizeMessage = (message) => {
