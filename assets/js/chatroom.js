@@ -13,23 +13,46 @@ document.addEventListener("DOMContentLoaded", function () {
         chatContainer.style.display = "none";
     });
 
+    // Function to sanitize and format message
+    const sanitizeMessage = (message) => {
+        // Escape HTML special characters
+        const escapedMessage = message
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+        
+        // Replace newlines with <br> tags for HTML display
+        return escapedMessage.replace(/\n/g, '<br>');
+    };
+
     const sendMessage = () => {
         const message = chatInput.value;
         if (message) {
+            // Sanitize the user's message
+            const sanitizedMessage = sanitizeMessage(message);
+
             // Display the user's message
-            messages.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+            messages.innerHTML += `<div><strong>You:</strong> ${sanitizedMessage}</div>`;
             
             // Clear the input
             chatInput.value = '';
 
-            // Send GET request with the message
+            // Send GET request with the sanitized message
             const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
             
             fetch(url)
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(data => {
+                    // Extract the 'generated_text' field from the JSON response
+                    const serverMessage = data.generated_text || 'No response';
+
+                    // Sanitize the server's response
+                    const sanitizedResponse = sanitizeMessage(serverMessage);
+
                     // Display the server's response
-                    messages.innerHTML += `<div><strong>Selm:</strong> ${data}</div>`;
+                    messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizedResponse}</div>`;
                 })
                 .catch(error => {
                     console.error('Error:', error);
