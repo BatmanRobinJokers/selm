@@ -39,14 +39,22 @@ document.addEventListener("DOMContentLoaded", function () {
             // Clear the input
             chatInput.value = '';
 
-            // Send GET request with the sanitized message
+            // Send GET request with the message
             const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
             
             fetch(url)
-                .then(response => response.json())
+                .then(response => response.text())  // Expect the response as text
                 .then(data => {
-                    // Extract the 'generated_text' field from the JSON response
-                    const serverMessage = data.generated_text || 'No response';
+                    // Parse the data to extract 'generated_text' from JSON
+                    let jsonResponse;
+                    try {
+                        jsonResponse = JSON.parse(data);
+                    } catch (e) {
+                        console.error('Invalid JSON:', e);
+                    }
+
+                    // Extract 'generated_text' if it's available
+                    const serverMessage = jsonResponse?.[0]?.generated_text || 'No response';
 
                     // Sanitize the server's response
                     const sanitizedResponse = sanitizeMessage(serverMessage);
