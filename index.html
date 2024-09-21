@@ -21,6 +21,7 @@
 
         .text-content {
             max-width: 600px;
+            position: relative; /* Position relative for absolute positioning of chat button */
         }
 
         /* Modal Styles */
@@ -101,6 +102,24 @@
             width: calc(100% - 20px);
             box-sizing: border-box;
         }
+
+        /* Chat button positioning */
+        #openChatBtn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 0 0 0 10px; /* Rounded corner for aesthetics */
+        }
+
+        #openChatBtn:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
     </style>
 </head>
 <body>
@@ -124,6 +143,7 @@
                 <img src="https://github.com/user-attachments/assets/5d6383bd-2a36-44ea-a1c5-6b82dc28dee1" alt="SELM Image" class="left-aligned-img">
                 <div class="text-content">
                     <h2>(Small Efficient Language Model)</h2>
+                    <button id="openChatBtn">Open Chat</button> <!-- Chat button moved here -->
                     <p id="about-description"></p> <!-- Placeholder for typing effect -->
                 </div>
             </div>
@@ -163,7 +183,6 @@
             <div id="messages" class="chat-messages"></div>
             <input type="text" id="chatInput" placeholder="Type a message..." />
         </div>
-        <button id="openChatBtn">Open Chat</button>
     </main>
 
     <footer>
@@ -229,21 +248,25 @@
             const chatInput = document.getElementById('chatInput');
             const messages = document.getElementById('messages');
 
+            // Open chat container
             openChatBtn.addEventListener('click', () => {
-                chatContainer.style.display = "flex";
+                chatContainer.style.display = 'flex';
+                chatInput.focus();
             });
 
+            // Close chat container
             closeChatBtn.addEventListener('click', () => {
-                chatContainer.style.display = "none";
+                chatContainer.style.display = 'none';
             });
 
-            chatInput.addEventListener('keypress', (event) => {
-                if (event.key === 'Enter' && chatInput.value.trim()) {
+            // Send message on Enter key press
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && chatInput.value.trim() !== '') {
                     const message = document.createElement('p');
                     message.textContent = chatInput.value;
                     messages.appendChild(message);
-                    chatInput.value = ''; // Clear input field
-                    messages.scrollTop = messages.scrollHeight; // Scroll to bottom
+                    chatInput.value = '';
+                    messages.scrollTop = messages.scrollHeight; // Auto-scroll to the bottom
                 }
             });
         });
