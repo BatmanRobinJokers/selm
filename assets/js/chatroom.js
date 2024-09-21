@@ -26,10 +26,16 @@ document.addEventListener("DOMContentLoaded", function () {
             const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
             
             fetch(url)
-                .then(response => response.text())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json(); // Parse JSON response
+                })
                 .then(data => {
-                    // Display the server's response
-                    messages.innerHTML += `<div><strong>Selm:</strong> ${data}</div>`;
+                    // Extract and format the relevant data from the JSON
+                    const formattedResponse = data.responseText || 'No response available'; // Adjust based on your JSON structure
+                    messages.innerHTML += `<div><strong>Selm:</strong> ${formattedResponse}</div>`;
                 })
                 .catch(error => {
                     console.error('Error:', error);
