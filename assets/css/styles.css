@@ -125,7 +125,7 @@ input[type="text"]:focus {
     background-size: cover; /* Ensure the image covers the entire chatbox */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
-    opacity: 0.9; /* Adjust transparency (optional) */
+    /* opacity: 0.9; */
 }
 
 footer {
