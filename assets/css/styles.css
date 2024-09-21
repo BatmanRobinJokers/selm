@@ -119,18 +119,6 @@ input[type="text"]:focus {
     overflow-y: auto;
     padding: 10px;
     box-shadow: 0 0 15px #f500f2; /* Optional: Add a neon glow effect */
-    background: rgba(0, 0, 0, 0.8); /* Optional: semi-transparent background for the chatbox */
-    transition: opacity 0.5s ease, height 0.5s ease; /* Add easing transitions */
-    opacity: 0; /* Initially hidden */
-    height: 0; /* Initial height of 0 for hiding */
-    display: none; /* Hide initially */
-}
-
-/* Visible chat box state */
-#chatMessages.open {
-    opacity: 1; /* Fully visible */
-    height: 370px; /* Reset height when opened */
-    display: block; /* Ensure it is displayed */
 }
 
 footer {
