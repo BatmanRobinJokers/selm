@@ -57,6 +57,50 @@
             text-decoration: none;
             cursor: pointer;
         }
+
+        /* Chatroom Styles */
+        .chat-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            border: 1px solid #ccc;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+            display: none; /* Hidden by default */
+        }
+
+        .chat-header {
+            background: #007bff;
+            color: white;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            max-height: 200px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .chat-messages p {
+            margin: 0;
+            padding: 5px 0;
+        }
+
+        #chatInput {
+            border: none;
+            padding: 10px;
+            width: calc(100% - 20px);
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -110,6 +154,16 @@
             </div>
         </div>
 
+        <!-- Chatroom -->
+        <div id="chatContainer" class="chat-container">
+            <div class="chat-header">
+                <h2>Chatroom</h2>
+                <button id="closeChatBtn">&times;</button>
+            </div>
+            <div id="messages" class="chat-messages"></div>
+            <input type="text" id="chatInput" placeholder="Type a message..." />
+        </div>
+        <button id="openChatBtn">Open Chat</button>
     </main>
 
     <footer>
@@ -166,6 +220,31 @@
                         modal.style.display = "none";
                     }
                 });
+            });
+
+            // Chatroom functionality
+            const openChatBtn = document.getElementById('openChatBtn');
+            const closeChatBtn = document.getElementById('closeChatBtn');
+            const chatContainer = document.getElementById('chatContainer');
+            const chatInput = document.getElementById('chatInput');
+            const messages = document.getElementById('messages');
+
+            openChatBtn.addEventListener('click', () => {
+                chatContainer.style.display = "flex";
+            });
+
+            closeChatBtn.addEventListener('click', () => {
+                chatContainer.style.display = "none";
+            });
+
+            chatInput.addEventListener('keypress', (event) => {
+                if (event.key === 'Enter' && chatInput.value.trim()) {
+                    const message = document.createElement('p');
+                    message.textContent = chatInput.value;
+                    messages.appendChild(message);
+                    chatInput.value = ''; // Clear input field
+                    messages.scrollTop = messages.scrollHeight; // Scroll to bottom
+                }
             });
         });
     </script>
