@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(response => response.text())
                 .then(data => {
                     // Display the server's response
-                    messages.innerHTML += `<div><strong>Server:</strong> ${data}</div>`;
+                    messages.innerHTML += `<div><strong>Selm:</strong> ${data}</div>`;
                 })
                 .catch(error => {
                     console.error('Error:', error);
