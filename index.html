@@ -160,16 +160,16 @@
                 };
                 type();
             };
-        
+
             // Define the text for the #about section
             const aboutText = "The SELM model combines cutting-edge techniques to enhance summarization and knowledge management. With a focus on scalable solutions, it integrates GNNs, optimized transformers, and dynamic inference mechanisms. - \"Vi veri universum vivus vici\"";
             typingEffect(aboutText, "about-description", 100); // Speed can be adjusted
-        
+
             // Modal functionality
             const openModalLinks = document.querySelectorAll('.open-modal');
             const modals = document.querySelectorAll('.modal');
             const closeButtons = document.querySelectorAll('.close');
-        
+
             openModalLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -177,13 +177,13 @@
                     document.getElementById(modalId).style.display = "block";
                 });
             });
-        
+
             closeButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     button.closest('.modal').style.display = "none";
                 });
             });
-        
+
             // Close modal if clicking outside of the modal content
             window.addEventListener('click', (event) => {
                 modals.forEach(modal => {
@@ -192,43 +192,65 @@
                     }
                 });
             });
-        
+
             // Chatroom functionality
             const openChatBtn = document.getElementById('openChatBtn');
             const closeChatBtn = document.getElementById('closeChatBtn');
             const chatContainer = document.getElementById('chatContainer');
             const chatInput = document.getElementById('chatInput');
             const messages = document.getElementById('messages');
-        
+
             openChatBtn.addEventListener('click', () => {
                 chatContainer.style.display = 'block';
             });
-        
+
             closeChatBtn.addEventListener('click', () => {
                 chatContainer.style.display = 'none';
             });
-        
-            chatInput.addEventListener('keydown', function (event) {
-                if (event.key === 'Enter') {
-                    const message = chatInput.value;
-                    if (message.trim()) {
-                        // Send message to the server
-                        fetch('https://selmai.pythonanywhere.com/chat', {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify({ message })
-                        })
-                        .then(response => response.json())
-                        .then(data => {
-                            const newMessage = document.createElement('div');
-                            newMessage.textContent = data.response; // Display the server's response
+
+            document.getElementById('sendMessage').addEventListener('click', () => {
+                const message = chatInput.value.trim();
+                if (message) {
+                    // Send message to the server
+                    fetch('https://selmai.pythonanywhere.com/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ message })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const newMessage = document.createElement('div');
+                        newMessage.textContent = data.response; // Display the server's
                             messages.appendChild(newMessage);
                             chatInput.value = ''; // Clear the input
                         })
                         .catch(error => console.error('Error:', error));
                     }
+                }
+            });
+
+            // Send message when clicking the send button
+            document.getElementById('sendMessage').addEventListener('click', () => {
+                const message = chatInput.value;
+                if (message.trim()) {
+                    // Send message to the server
+                    fetch('https://selmai.pythonanywhere.com/chat', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ message })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const newMessage = document.createElement('div');
+                        newMessage.textContent = data.response; // Display the server's response
+                        messages.appendChild(newMessage);
+                        chatInput.value = ''; // Clear the input
+                    })
+                    .catch(error => console.error('Error:', error));
                 }
             });
         });
