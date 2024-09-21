@@ -26,7 +26,7 @@
 
     <main>
 
-        <section>
+        <section id="about">
             <div class="content-container">
                 <img src="https://github.com/user-attachments/assets/5d6383bd-2a36-44ea-a1c5-6b82dc28dee1" alt="SELM Image" class="left-aligned-img">
                 <div class="text-content">
@@ -150,6 +150,31 @@
             <li><a href="https://github.com/UsernamesAre4Slaves/Repo/issues">🐛 GitHub Issues</a></li>
         </ul>
     </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const typingEffect = (text, elementId, speed) => {
+                const element = document.getElementById(elementId);
+                let index = 0;
+                const type = () => {
+                    if (index < text.length) {
+                        element.textContent += text.charAt(index);
+                        index++;
+                        setTimeout(type, speed);
+                    }
+                };
+                type();
+            };
+
+            // Define the text for the #about section
+            const aboutText = "The SELM model combines cutting-edge techniques to enhance summarization and knowledge management. With a focus on scalable solutions, it integrates GNNs, optimized transformers, and dynamic inference mechanisms. - \"Vi veri universum vivus vici\"";
+            typingEffect(aboutText, "about-description", 100); // Speed can be adjusted
+
+            // Define the text for the #setup section
+            const setupText = "This section provides detailed instructions for setting up the SELM project.";
+            typingEffect(setupText, "setup-description", 100); // Speed can be adjusted
+        });
+    </script>
 
     <!-- External JavaScript -->
     <!-- <script src="assets/js/textype.js"></script> -->
