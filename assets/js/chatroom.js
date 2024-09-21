@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
             chatInput.value = '';
 
             // Send GET request with the message
-            const url = `https://selmai.pythonanywhere.com/?type=chat&chat=${encodeURIComponent(message)}`;
+            const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
             
             fetch(url)
                 .then(response => response.text())
