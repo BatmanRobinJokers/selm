@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         chatContainer.style.display = "none";
     });
 
-    document.getElementById('sendMessage').addEventListener('click', () => {
+    const sendMessage = () => {
         const message = chatInput.value;
         if (message) {
             // Display the user's message
@@ -35,6 +35,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error('Error:', error);
                     messages.innerHTML += `<div><strong>Error:</strong> Unable to send message</div>`;
                 });
+        }
+    };
+
+    document.getElementById('sendMessage').addEventListener('click', sendMessage);
+
+    // Add 'Enter' key functionality
+    chatInput.addEventListener('keypress', (event) => {
+        if (event.key === 'Enter') {
+            sendMessage();
         }
     });
 });
