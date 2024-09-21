@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Escape HTML special characters
         const escapedMessage = message
             .replace(/&/g, '&amp;')
-            .replace(/<//g, '&lt;')
+            .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
@@ -43,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
             
             // Clear the input
             chatInput.value = '';
+
+            // Scroll to the bottom
+            scrollToBottom();
 
             // Send GET request with the message
             const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
@@ -75,9 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     messages.innerHTML += `<div><strong>Error:</strong> Unable to send message</div>`;
                     scrollToBottom();
                 });
-
-            // Scroll to the bottom after sending the message
-            scrollToBottom();
         }
     };
 
@@ -86,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Add 'Enter' key functionality
     chatInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
-            event.preventDefault(); // Prevent the default 'Enter' behavior
             sendMessage();
         }
     });
