@@ -13,5 +13,5 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const aboutText = "The SELM model combines cutting-edge techniques to enhance summarization and knowledge management. With a focus on scalable solutions, it integrates GNNs, optimized transformers, and dynamic inference mechanisms. - \"Vi veri universum vivus vici\"";
-    typingEffect(aboutText, "about-description", 50); // Speed can be adjusted
+    typingEffect(aboutText, "about-description", 13); // Speed can be adjusted
 });
