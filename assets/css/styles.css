@@ -121,7 +121,7 @@ input[type="text"]:focus {
     overflow-y: auto;
     padding: 10px;
     box-shadow: 0 0 15px #f500f2; /* Optional: Add a neon glow effect */
-    background-image: url('../images/chatbox.jpeg'); /* Add your image path here */
+    background-image: url('../images/chat.jpeg'); /* Add your image path here */
     background-size: cover; /* Ensure the image covers the entire chatbox */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
