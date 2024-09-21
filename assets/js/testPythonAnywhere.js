@@ -3,15 +3,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatInput = document.getElementById('chatInput');
     const sendMessageBtn = document.getElementById('sendMessage');
 
-    // Function to send a request to the PythonAnywhere server
+    // Function to send a GET request to the PythonAnywhere server
     const sendRequest = async (message) => {
         try {
-            const response = await fetch('https://selmai.pythonanywhere.com', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message: message })
+            const response = await fetch(`https://selmai.pythonanywhere.com?message=${encodeURIComponent(message)}`, {
+                method: 'GET',
             });
             const data = await response.text(); // assuming response is plain text
             displayMessage(data); // Display response in the chat window
@@ -31,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const message = chatInput.value;
         if (message) {
             displayMessage(`You: ${message}`);
-            sendRequest(message); // Send message to the server
+            sendRequest(message); // Send message as a GET request to the server
             chatInput.value = ''; // Clear input field
         }
     });
