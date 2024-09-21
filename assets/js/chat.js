@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Chatroom functionality
     const openChatBtn = document.getElementById('openChatBtn');
     const closeChatBtn = document.getElementById('closeChatBtn');
     const chatContainer = document.getElementById('chatContainer');
