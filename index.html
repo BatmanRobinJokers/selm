@@ -10,26 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const typingEffect = (text, elementId, speed) => {
-                const element = document.getElementById(elementId);
-                let index = 0;
-                const type = () => {
-                    if (index < text.length) {
-                        element.textContent += text.charAt(index);
-                        index++;
-                        setTimeout(type, speed);
-                    }
-                };
-                type();
-            };
-
-            // Define the text to be typed
-            const setupText = "This section provides detailed instructions for setting up the SELM project.";
-            typingEffect(setupText, "setup-description", 100); // Speed can be adjusted
-        });
-    </script>
     <header>
         <nav>
             <ul class="nav-links">
