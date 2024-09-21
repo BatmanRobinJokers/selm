@@ -101,7 +101,10 @@ input[type="text"] {
     padding: 0.5rem;
     border-radius: 4px;
     margin-bottom: 1rem;
+    margin-top: 5px; /* Add space above the input box */
     width: 100%;
+    box-shadow: none; /* Remove glow from input fields */
+    transition: box-shadow 0.3s ease;
 }
 
 input[type="text"]:focus {
