@@ -8,34 +8,33 @@
 body {
     font-family: 'Roboto', sans-serif;
     line-height: 1.6;
-    background-color: #000; /* Matrix-inspired black background */
-    color: #00ffff; /* Neon blue */
+    background-color: #000;
+    color: #00ffff;
     padding: 0 2rem;
 }
 
 header {
-    background-color: #001a33; /* Dark blue (Tron) */
+    background-color: #001a33;
     padding: 1rem 0;
-    border-bottom: 2px solid #00ffff; /* Neon blue border */
-    text-align: center; /* Center align the header content */
+    border-bottom: 2px solid #00ffff;
+    text-align: center;
 }
 
 .nav-links {
     list-style-type: none;
     display: flex;
-    justify-content: center; /* Center the navigation links */
-    gap: 2rem; /* Space between links */
+    justify-content: center;
+    gap: 2rem;
 }
 
-/* Links: Remove neon glow from text, add hover effect */
 a {
-    color: #00ffff; /* Neon blue */
+    color: #00ffff;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 a:hover {
-    color: #00ff99; /* Neon green on hover */
+    color: #00ff99;
 }
 
 main {
@@ -43,48 +42,35 @@ main {
     margin: 2rem auto;
 }
 
-/* Container for image and text */
 .content-container {
     display: flex;
-    align-items: flex-start; /* Align content at the start */
-    gap: 2rem; /* Space between image and text */
+    align-items: flex-start;
+    gap: 2rem;
     margin: 20px 0;
 }
 
 .left-aligned-img {
-    max-width: 300px; /* Maximum image size */
-    width: 200px; /* Smaller image size */
-    border: 1px solid #00ffff; /* Neon blue border around the image */
-    box-shadow: 0 0 10px #00ffff; /* Neon blue glow around the image */
-    margin-right: 20px;
+    max-width: 300px;
+    border: 1px solid #00ffff;
+    box-shadow: 0 0 10px #00ffff;
 }
 
 .text-content {
     max-width: 600px;
-    color: #00ffff;
 }
 
 section {
     margin: 2rem 0;
     padding: 1rem;
-    background-color: rgba(0, 26, 51, 0.8); /* Semi-transparent dark blue */
-    border: 1px solid #00ffff; /* Neon blue border */
+    background-color: rgba(0, 26, 51, 0.8);
+    border: 1px solid #00ffff;
     border-radius: 8px;
-    box-shadow: 0 0 15px #00ffff; /* Neon glow around the box */
-}
-
-/* Indent nested lists */
-section ul {
-    padding-left: 1.5rem; /* Indent all <ul> within <section> */
-}
-
-section ul ul {
-    padding-left: 1.5rem; /* Indent nested <ul> specifically */
+    box-shadow: 0 0 15px #00ffff;
 }
 
 h1, h2 {
-    color: #00ffff; /* Neon blue for headers */
-    text-shadow: 0 0 5px #00ffff; /* Subtle glow */
+    color: #00ffff;
+    text-shadow: 0 0 5px #00ffff;
 }
 
 p {
@@ -93,7 +79,7 @@ p {
 }
 
 button {
-    background-color: #001a33; /* Dark blue */
+    background-color: #001a33;
     color: #00ffff;
     border: 2px solid #00ffff;
     padding: 0.5rem 1rem;
@@ -103,13 +89,12 @@ button {
 }
 
 button:hover {
-    background-color: #00ff99; /* Neon green */
-    color: #001a33; /* Contrast for hover */
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99; /* Neon glow */
+    background-color: #00ff99;
+    color: #001a33;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
 }
 
-/* Input Fields */
-input[type="text"], input[type="email"] {
+input[type="text"] {
     background-color: #001a33;
     color: #00ffff;
     border: 2px solid #00ffff;
@@ -117,86 +102,37 @@ input[type="text"], input[type="email"] {
     border-radius: 4px;
     margin-bottom: 1rem;
     width: 100%;
-    box-shadow: none; /* Remove glow from input fields */
-    transition: box-shadow 0.3s ease;
 }
 
-input[type="text"]:focus, input[type="email"]:focus {
-    box-shadow: 0 0 15px #00ffff; /* Neon glow on focus */
+input[type="text"]:focus {
+    box-shadow: 0 0 15px #00ffff;
     outline: none;
 }
 
-/* Modal Styles */
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; 
-    z-index: 1000; 
-    left: 0;
-    top: 0;
-    width: 100%; 
-    height: 100%; 
-    overflow: auto; 
-    background-color: rgba(0, 0, 0, 0.5); 
+#chatMessages {
+    border: 1px solid #ccc;
+    height: 400px;
+    overflow-y: auto;
+    padding: 10px;
 }
 
-.modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; 
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; 
-}
-
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* Chat button styles */
-#openChatBtn {
-    background-color: #4CAF50; /* Green */
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    margin-left: 15px; /* Space from support */
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-/* Footer */
 footer {
-    position: fixed; /* Fixed position */
-    bottom: 0; /* Stick to the bottom */
-    left: 0; /* Align to the left */
-    width: 100%; /* Full width */
-    text-align: center; /* Center the footer content */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
     padding: 1rem;
     background-color: #001a33;
     border-top: 2px solid #00ffff;
     color: #00ffff;
-    z-index: 1000; /* Ensure it stays above other content */
 }
 
 .footer-links {
     list-style: none;
-    padding: 0;
-    margin-top: 1rem;
     display: flex;
-    justify-content: center; /* Center the footer links */
-    gap: 1rem; /* Space between links */
+    justify-content: center;
+    gap: 1rem;
 }
 
 .footer-links li {
@@ -205,13 +141,11 @@ footer {
 
 .footer-links li a {
     color: #00ffff;
-    text-decoration: none;
     transition: color 0.3s ease;
-    box-shadow: none; /* Remove glow from text */
 }
 
 .footer-links li a:hover {
-    color: #00ff99; /* Neon green on hover */
+    color: #00ff99;
 }
 
 /* Responsive Design */
@@ -222,12 +156,12 @@ footer {
     }
 
     .content-container {
-        flex-direction: column; /* Stack image and text on smaller screens */
+        flex-direction: column;
         align-items: center;
     }
 
     .left-aligned-img {
-        width: 100%; /* Make the image responsive */
+        width: 100%;
     }
 
     .text-content {
