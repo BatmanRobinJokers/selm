@@ -27,6 +27,11 @@ document.addEventListener("DOMContentLoaded", function () {
         return escapedMessage.replace(/\n/g, '<br>');
     };
 
+    // Function to scroll chatbox to the bottom
+    const scrollToBottom = () => {
+        messages.scrollTop = messages.scrollHeight;
+    };
+
     const sendMessage = () => {
         const message = chatInput.value;
         if (message) {
@@ -38,6 +43,9 @@ document.addEventListener("DOMContentLoaded", function () {
             
             // Clear the input
             chatInput.value = '';
+
+            // Scroll to the bottom
+            scrollToBottom();
 
             // Send GET request with the message
             const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
@@ -61,10 +69,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Display the server's response
                     messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizedResponse}</div>`;
+                    
+                    // Scroll to the bottom
+                    scrollToBottom();
                 })
                 .catch(error => {
                     console.error('Error:', error);
                     messages.innerHTML += `<div><strong>Error:</strong> Unable to send message</div>`;
+                    scrollToBottom();
                 });
         }
     };
