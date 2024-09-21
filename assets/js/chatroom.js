@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     openChatBtn.addEventListener('click', () => {
         chatContainer.style.display = "block";
-        pollMessages();  // Start polling when chat is opened
     });
 
     closeChatBtn.addEventListener('click', () => {
@@ -17,40 +16,25 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('sendMessage').addEventListener('click', () => {
         const message = chatInput.value;
         if (message) {
-            fetch('/chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ message: message })
-            }).then(response => response.json())
-              .then(data => {
-                  messages.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
-                  chatInput.value = '';
-              });
+            // Display the user's message
+            messages.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+            
+            // Clear the input
+            chatInput.value = '';
+
+            // Send GET request with the message
+            const url = `https://selmai.pythonanywhere.com/?type=chat&chat=${encodeURIComponent(message)}`;
+            
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    // Display the server's response
+                    messages.innerHTML += `<div><strong>Selm:</strong> ${data}</div>`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messages.innerHTML += `<div><strong>Error:</strong> Unable to send message</div>`;
+                });
         }
     });
-
-    // Function to poll for new messages
-    function pollMessages() {
-        fetch('/poll')
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('No new messages');
-                }
-            })
-            .then(data => {
-                data.messages.forEach(message => {
-                    messages.innerHTML += `<div><strong>Server:</strong> ${message}</div>`;
-                });
-            })
-            .catch(error => {
-                console.error('Polling error:', error);
-            })
-            .finally(() => {
-                setTimeout(pollMessages, 1000);  // Poll again after 1 second
-            });
-    }
 });
