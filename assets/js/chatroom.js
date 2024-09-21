@@ -16,8 +16,25 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('sendMessage').addEventListener('click', () => {
         const message = chatInput.value;
         if (message) {
-            messages.innerHTML += `<div>${message}</div>`;
+            // Display the user's message
+            messages.innerHTML += `<div><strong>You:</strong> ${message}</div>`;
+            
+            // Clear the input
             chatInput.value = '';
+
+            // Send GET request with the message
+            const url = `https://selmai.pythonanywhere.com/?type=chat&chat=${encodeURIComponent(message)}`;
+            
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    // Display the server's response
+                    messages.innerHTML += `<div><strong>Server:</strong> ${data}</div>`;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    messages.innerHTML += `<div><strong>Error:</strong> Unable to send message</div>`;
+                });
         }
     });
 });
