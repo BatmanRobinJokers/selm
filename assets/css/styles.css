@@ -114,7 +114,7 @@ input[type="text"]:focus {
 }
 
 #chatMessages {
-    color: #ffffff;
+    color: #05f024;
     font-weight: bold;
     border: 2px solid #f500f2; /* Neon bright purple */
     height: 370px;
