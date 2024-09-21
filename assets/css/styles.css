@@ -178,11 +178,16 @@ input[type="text"]:focus, input[type="email"]:focus {
 
 /* Footer */
 footer {
+    position: fixed; /* Fixed position */
+    bottom: 0; /* Stick to the bottom */
+    left: 0; /* Align to the left */
+    width: 100%; /* Full width */
     text-align: center; /* Center the footer content */
     padding: 1rem;
     background-color: #001a33;
     border-top: 2px solid #00ffff;
     color: #00ffff;
+    z-index: 1000; /* Ensure it stays above other content */
 }
 
 .footer-links {
