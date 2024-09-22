@@ -87,11 +87,17 @@ button {
     color: #00ffff;
     border: 2px solid #f500f2;
     box-shadow: 0 0 15px #f500f2;
-    padding: 0.5rem;
+    padding: 0.5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 50%; /* Make buttons round */
+}
+
+.round-button {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding: 0; /* No padding for round button */
 }
 
 button:hover {
@@ -100,7 +106,25 @@ button:hover {
     box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
 }
 
+input[type="text"] {
+    background-color: #001a33;
+    color: #ffffff;
+    border: 2px solid #00ffff;
+    padding: 0.5rem;
+    border-radius: 4px;
+    margin: 10px 0; /* Add space above the input box */
+    width: calc(100% - 50px); /* Adjust width for send button */
+    box-shadow: none; /* Remove glow from input fields */
+    transition: box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus {
+    box-shadow: 0 0 15px #00ffff;
+    outline: none;
+}
+
 #chatMessages {
+    position: relative; /* Position relative for absolute positioning of close button */
     color: #02f5e9;
     border: 2px solid #f500f2; /* Neon bright purple */
     height: 370px;
@@ -111,45 +135,44 @@ button:hover {
     background-size: cover; /* Ensure the image covers the entire chatbox */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
+
+    /* Stronger Glass effect */
     background-color: rgba(255, 255, 255, 0.3); /* More opaque white overlay */
     backdrop-filter: blur(20px); /* Increase the blur strength */
     -webkit-backdrop-filter: blur(20px); /* Safari support */
     border-radius: 10px; /* Rounded corners for the glass effect */
-    position: relative; /* Position relative for absolute children */
 }
 
-#inputContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px; /* Add space above the input box */
-}
-
-input[type="text"] {
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
     background-color: #001a33;
-    color: #ffffff;
-    border: 2px solid #00ffff;
-    padding: 0.5rem;
-    border-radius: 4px;
-    width: calc(100% - 50px); /* Adjust width to leave space for the send button */
-    box-shadow: none; /* Remove glow from input fields */
-    transition: box-shadow 0.3s ease;
+    border-top: 2px solid #00ffff;
+    color: #00ffff;
 }
 
-input[type="text"]:focus {
-    box-shadow: 0 0 15px #00ffff;
-    outline: none;
+.footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
 }
 
-#closeChatBtn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
+.footer-links li {
+    display: inline;
 }
 
-#sendMessage {
-    padding: 0.5rem;
-    width: 40px; /* Set fixed width for the send button */
+.footer-links li a {
+    color: #00ffff;
+    transition: color 0.3s ease;
+}
+
+.footer-links li a:hover {
+    color: #00ff99;
 }
 
 /* Responsive Design */
