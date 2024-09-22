@@ -64,7 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Sanitize the user's message
             const sanitizedMessage = sanitizeMessage(message);
 
-            // Display the user's message
+            // Clear the screen and display the user's message
+            messages.innerHTML = '';  // Clear the chat log before showing the new message
             messages.innerHTML += `<div><strong>You:</strong> ${sanitizedMessage}</div>`;
 
             // Save the message to the conversation history
@@ -92,17 +93,23 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(url)
                 .then(response => response.text())  // Expect the response as text
                 .then(data => {
-                    // Process response for conversation history or error
-                    messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizeMessage(data)}</div>`;
+                    // Clear the screen before displaying the chat log
+                    messages.innerHTML = '';  
 
-                    // Save the server's response to the conversation history
+                    // Add server response to conversation history
                     conversationHistory.session.push({
                         sender: mode === 'selm' ? 'Selm' : 'Public',
                         message: data,
                         timestamp: getCurrentTimestamp(),
                     });
 
-                    // Scroll to the bottom
+                    // Display the public chat log or append a new message in 'selm' mode
+                    if (mode === 'public') {
+                        displayConversation();  // Print the entire public conversation
+                    } else {
+                        messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
+                    }
+
                     scrollToBottom();
                 })
                 .catch(error => {
@@ -143,43 +150,39 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Polling Function to check for new messages
-const pollForNewMessages = () => {
-    let pollUrl;
-    if (mode === "selm") {
-        pollUrl = `https://selmai.pythonanywhere.com/?selm_poll`;
-    } else if (mode === "public") {
-        pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
-    }
+    const pollForNewMessages = () => {
+        let pollUrl;
+        if (mode === "selm") {
+            pollUrl = `https://selmai.pythonanywhere.com/?selm_poll`;
+        } else if (mode === "public") {
+            pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
+        }
 
-    fetch(pollUrl)
-        .then(response => response.text())
-        .then(data => {
-            // Process the polled data
-            if (data) {
-                // Clear the messages before displaying the current chat log
+        fetch(pollUrl)
+            .then(response => response.text())
+            .then(data => {
+                // Clear the screen before showing new chat log in public mode
                 messages.innerHTML = '';  
 
-                // Add the new message to conversation history
+                // Add new message to conversation history
                 conversationHistory.session.push({
                     sender: mode === 'selm' ? 'Selm' : 'Public',
                     message: data,
                     timestamp: getCurrentTimestamp(),
                 });
 
-                // Print only the current chat log (for public mode)
-                if (mode === "public") {
-                    displayConversation();  // Print the entire conversation
+                // Display the current chat log only in 'public' mode
+                if (mode === 'public') {
+                    displayConversation();
                 } else {
-                    // In "selm" mode, just append the new message
                     messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
                 }
 
                 scrollToBottom();
-            }
-        })
-        .catch(error => {
-            console.error('Polling error:', error);
-        });
+            })
+            .catch(error => {
+                console.error('Polling error:', error);
+            });
     };
 
     // Set interval for polling every 5 seconds
