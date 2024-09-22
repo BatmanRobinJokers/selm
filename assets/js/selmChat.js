@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Dictionary to store the conversation history
     const conversationHistory = {
         session: [],
+        lastMessage: '',  // Track the last message in public chat to prevent duplication
     };
 
     // Initialize mode
@@ -45,11 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
         messages.scrollTop = messages.scrollHeight;
     };
 
-    // Function to get the current timestamp
-    const getCurrentTimestamp = () => {
-        return new Date().toLocaleString();
-    };
-
     const sendMessage = () => {
         const message = chatInput.value.trim();
 
@@ -72,7 +68,6 @@ document.addEventListener("DOMContentLoaded", function () {
             conversationHistory.session.push({
                 sender: 'You',
                 message: message,
-                timestamp: getCurrentTimestamp(),
             });
 
             // Clear the input
@@ -93,21 +88,20 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(url)
                 .then(response => response.text())  // Expect the response as text
                 .then(data => {
-                    // Clear the screen before displaying the chat log
-                    messages.innerHTML = '';  
+                    // Only add new messages to the conversation if the content differs
+                    if (data !== conversationHistory.lastMessage) {
+                        conversationHistory.session.push({
+                            sender: mode === 'selm' ? 'Selm' : 'Public',
+                            message: data,
+                        });
 
-                    // Add server response to conversation history
-                    conversationHistory.session.push({
-                        sender: mode === 'selm' ? 'Selm' : 'Public',
-                        message: data,
-                        timestamp: getCurrentTimestamp(),
-                    });
-
-                    // Display the public chat log or append a new message in 'selm' mode
-                    if (mode === 'public') {
-                        displayConversation();  // Print the entire public conversation
-                    } else {
-                        messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
+                        // Update the last message for public mode
+                        if (mode === 'public') {
+                            conversationHistory.lastMessage = data;
+                            displayConversation();  // Print the entire public conversation
+                        } else {
+                            messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
+                        }
                     }
 
                     scrollToBottom();
@@ -122,7 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     conversationHistory.session.push({
                         sender: 'System',
                         message: errorMessage,
-                        timestamp: getCurrentTimestamp(),
                     });
 
                     scrollToBottom();
@@ -144,47 +137,38 @@ document.addEventListener("DOMContentLoaded", function () {
         messages.innerHTML = '';  // Clear the chatbox
         conversationHistory.session.forEach((entry) => {
             const sanitizedMessage = sanitizeMessage(entry.message);
-            messages.innerHTML += `<div><strong>${entry.sender}:</strong> ${sanitizedMessage} <em>(${entry.timestamp})</em></div>`;
+            messages.innerHTML += `<div><strong>${entry.sender}:</strong> ${sanitizedMessage}</div>`;
         });
         scrollToBottom();  // Scroll to the bottom after displaying the conversation
     };
 
-    // Polling Function to check for new messages
+    // Polling Function to check for new messages (Only for public chat)
     const pollForNewMessages = () => {
-        let pollUrl;
-        if (mode === "selm") {
-            pollUrl = `https://selmai.pythonanywhere.com/?selm_poll`;
-        } else if (mode === "public") {
-            pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
-        }
+        if (mode === "public") {
+            const pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
 
-        fetch(pollUrl)
-            .then(response => response.text())
-            .then(data => {
-                // Clear the screen before showing new chat log in public mode
-                messages.innerHTML = '';  
+            fetch(pollUrl)
+                .then(response => response.text())
+                .then(data => {
+                    // Only add new messages to the conversation if they differ from the last message
+                    if (data !== conversationHistory.lastMessage) {
+                        conversationHistory.session.push({
+                            sender: 'Public',
+                            message: data,
+                        });
 
-                // Add new message to conversation history
-                conversationHistory.session.push({
-                    sender: mode === 'selm' ? 'Selm' : 'Public',
-                    message: data,
-                    timestamp: getCurrentTimestamp(),
+                        conversationHistory.lastMessage = data;
+                        displayConversation();  // Print the entire public conversation
+                    }
+
+                    scrollToBottom();
+                })
+                .catch(error => {
+                    console.error('Polling error:', error);
                 });
-
-                // Display the current chat log only in 'public' mode
-                if (mode === 'public') {
-                    displayConversation();
-                } else {
-                    messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
-                }
-
-                scrollToBottom();
-            })
-            .catch(error => {
-                console.error('Polling error:', error);
-            });
+        }
     };
 
-    // Set interval for polling every 5 seconds
+    // Set interval for polling every 5 seconds for public chat
     setInterval(pollForNewMessages, 5000);
 });
