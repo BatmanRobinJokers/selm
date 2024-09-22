@@ -135,7 +135,7 @@ button:hover {
     padding: 10px;
     box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background for input */
-    border-top: 2px solid #f500f2; /* Neon purple border on top */
+    /* border-top: 2px solid #f500f2; /* Neon purple border on top */
     display: flex;
     gap: 10px; /* Space between buttons and input */
 }
