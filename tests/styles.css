@@ -19,7 +19,6 @@ body {
     position: relative;
 }
 
-/* Chat messages area */
 .chat-messages {
     flex: 1;
     padding: 20px;
@@ -30,20 +29,17 @@ body {
     margin-bottom: 10px;
 }
 
-/* Input container at the bottom */
 .input-container {
     display: flex;
     align-items: center;
     border-top: 1px solid #444;
     background-color: #2c2c2e;
     padding: 10px;
-    position: relative;
 }
 
-/* Input box for typing messages */
 .input-box {
     flex-grow: 1;
-    padding: 12px 50px 12px 40px; /* Left space for paperclip, right space for send button */
+    padding: 12px 50px 12px 40px;
     border-radius: 20px;
     border: none;
     outline: none;
@@ -56,33 +52,23 @@ body {
     color: #6c6c6e;
 }
 
-/* Neon pink outlined send button */
 .send-btn {
-    border: 2px solid #ff00ff; /* Neon pink outline */
+    border: 2px solid #ff00ff;
     background-color: transparent;
     width: 32px;
     height: 32px;
     border-radius: 50%;
     cursor: pointer;
-    position: absolute;
-    right: 15px; /* Added padding to the right */
-    top: 50%;
-    transform: translateY(-50%);
+    margin-left: 10px; /* Added margin instead of absolute positioning */
     box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
     transition: box-shadow 0.2s ease;
-    outline: none; /* Prevent default focus outline */
+    outline: none;
 }
 
 .send-btn:hover {
     box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
 }
 
-.send-btn:active {
-    box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff; /* Keeps the glow on click */
-    transform: scale(1); /* Remove scaling effect */
-}
-
-/* Paperclip button inside input box */
 .file-btn {
     color: white;
     background-color: transparent;
@@ -90,17 +76,12 @@ body {
     padding: 0 10px;
     cursor: pointer;
     font-size: 20px;
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .file-input {
     display: none;
 }
 
-/* Neon turquoise copy button at top right */
 .copy-btn {
     position: absolute;
     top: 10px;
@@ -108,7 +89,7 @@ body {
     width: 30px;
     height: 30px;
     background-color: transparent;
-    border: 2px solid #40e0d0; /* Neon turquoise outline */
+    border: 2px solid #40e0d0;
     border-radius: 50%;
     cursor: pointer;
     box-shadow: 0 0 10px #40e0d0, 0 0 20px #40e0d0;
@@ -120,7 +101,7 @@ body {
 }
 
 .copy-btn:before {
-    content: '\f0c5'; /* FontAwesome copy icon */
+    content: '\f0c5';
     font-family: FontAwesome;
     font-size: 18px;
     color: #40e0d0;
