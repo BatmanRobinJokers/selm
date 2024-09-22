@@ -161,6 +161,51 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Polling Function to check for new messages
+    const pollForNewMessages = () => {
+        let pollUrl;
+        if (mode === "selm") {
+            pollUrl = `https://selmai.pythonanywhere.com/?selm_poll`;
+        } else if (mode === "public") {
+            pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
+        }
+
+        fetch(pollUrl)
+            .then(response => response.text())
+            .then(data => {
+                // Process the polled data
+                let jsonResponse;
+                try {
+                    jsonResponse = JSON.parse(data);
+                } catch (e) {
+                    console.error('Invalid JSON:', e);
+                }
+
+                // Extract any new messages
+                const newMessage = jsonResponse?.[0]?.generated_text || null;
+
+                if (newMessage) {
+                    const sanitizedMessage = sanitizeMessage(newMessage);
+                    messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizedMessage}</div>`;
+
+                    // Save the new message to conversation history
+                    conversationHistory.session.push({
+                        sender: mode === 'selm' ? 'Selm' : 'Public',
+                        message: newMessage,
+                        timestamp: getCurrentTimestamp(),
+                    });
+
+                    scrollToBottom();
+                }
+            })
+            .catch(error => {
+                console.error('Polling error:', error);
+            });
+    };
+
+    // Set interval for polling every 5 seconds
+    setInterval(pollForNewMessages, 5000);
+
     // Access conversation history when needed
     window.getConversationHistory = () => conversationHistory;
 });
