@@ -29,6 +29,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Notify the user of the mode change
         messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
+
+        // Start polling for new messages if in public mode
+        if (mode === "public") {
+            pollForNewMessages();
+        }
     });
 
     // Function to sanitize and format message
@@ -62,12 +67,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // Sanitize the user's message
             const sanitizedMessage = sanitizeMessage(message);
 
-            // If this is the first message, print the entire chat log once
-            if (!firstMessageSent) {
-                displayConversation();  // Show the entire conversation history once
-                firstMessageSent = true;  // Set the flag after the first message is sent
-            }
-
             // Append the user's message to the screen
             messages.innerHTML += `<div>${sanitizedMessage}</div>`;
 
@@ -95,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(url)
                 .then(response => response.text())  // Expect the response as text
                 .then(data => {
-                    // Only add new messages to the conversation if the content differs
+                    // Only append the server's response to the chat log if it's new
                     if (data !== conversationHistory.lastMessage) {
                         conversationHistory.session.push({
                             sender: mode === 'selm' ? 'Selm' : 'Public',
@@ -140,14 +139,15 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Function to display the entire conversation (printed only once)
-    const displayConversation = () => {
+    // Function to display the last 20 messages (not the entire conversation)
+    const displayLastMessages = (lastMessages) => {
         messages.innerHTML = '';  // Clear the chatbox
-        conversationHistory.session.forEach((entry) => {
+
+        lastMessages.forEach((entry) => {
             const sanitizedMessage = sanitizeMessage(entry.message);
             messages.innerHTML += `<div>${sanitizedMessage}</div>`;
         });
-        scrollToBottom();  // Scroll to the bottom after displaying the conversation
+        scrollToBottom();  // Scroll to the bottom after displaying the last 20 messages
     };
 
     // Polling function to check for new messages (Only for public chat)
@@ -156,21 +156,18 @@ document.addEventListener("DOMContentLoaded", function () {
             const pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
 
             fetch(pollUrl)
-                .then(response => response.text())
+                .then(response => response.json())  // Assume response as JSON object
                 .then(data => {
-                    // Only add new messages if they differ from the last message
-                    if (data !== conversationHistory.lastMessage) {
-                        conversationHistory.session.push({
-                            sender: 'Public',
-                            message: data,
-                        });
+                    // Extract the last 20 messages from the server
+                    const lastMessages = data.slice(-20);
 
-                        conversationHistory.lastMessage = data;
-                        // Append new message to the chat log
-                        messages.innerHTML += `<div>${sanitizeMessage(data)}</div>`;
+                    // Display only the last 20 messages when switching to public mode
+                    displayLastMessages(lastMessages);
+
+                    // Update the last message to prevent duplicates
+                    if (lastMessages.length > 0) {
+                        conversationHistory.lastMessage = lastMessages[lastMessages.length - 1].message;
                     }
-
-                    scrollToBottom();
                 })
                 .catch(error => {
                     console.error('Polling error:', error);
