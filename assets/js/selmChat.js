@@ -64,9 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // Sanitize the user's message
             const sanitizedMessage = sanitizeMessage(message);
 
-            // Display the user's message
-            messages.innerHTML += `<div><strong>You:</strong> ${sanitizedMessage}</div>`;
-
             // Save the message to the conversation history
             conversationHistory.session.push({
                 sender: 'You',
@@ -92,8 +89,27 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(url)
                 .then(response => response.text())  // Expect the response as text
                 .then(data => {
-                    // Process response for conversation history or error
-                    messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizeMessage(data)}</div>`;
+                    // Process response based on mode
+                    if (mode === "selm") {
+                        messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
+                    } else if (mode === "public") {
+                        // Clear chat for public mode
+                        messages.innerHTML = '';
+
+                        // Append user's message and return last 20 messages
+                        conversationHistory.session.push({
+                            sender: 'You',
+                            message: message,
+                            timestamp: getCurrentTimestamp(),
+                        });
+
+                        // Only keep the last 20 messages
+                        const lastMessages = conversationHistory.session.slice(-20);
+
+                        lastMessages.forEach(entry => {
+                            messages.innerHTML += `<div>${sanitizeMessage(entry.message)}</div>`;
+                        });
+                    }
 
                     // Save the server's response to the conversation history
                     conversationHistory.session.push({
@@ -156,15 +172,25 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 // Process the polled data
                 if (data) {
-                    messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizeMessage(data)}</div>`;
+                    if (mode === "selm") {
+                        messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
+                    } else if (mode === "public") {
+                        messages.innerHTML = ''; // Clear chat in public mode
 
-                    // Save the new message to conversation history
-                    conversationHistory.session.push({
-                        sender: mode === 'selm' ? 'Selm' : 'Public',
-                        message: data,
-                        timestamp: getCurrentTimestamp(),
-                    });
+                        // Save the new message to conversation history and display last 20 messages
+                        conversationHistory.session.push({
+                            sender: 'Public',
+                            message: data,
+                            timestamp: getCurrentTimestamp(),
+                        });
 
+                        // Only keep the last 20 messages
+                        const lastMessages = conversationHistory.session.slice(-20);
+
+                        lastMessages.forEach(entry => {
+                            messages.innerHTML += `<div>${sanitizeMessage(entry.message)}</div>`;
+                        });
+                    }
                     scrollToBottom();
                 }
             })
