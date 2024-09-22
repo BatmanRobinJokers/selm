@@ -1,61 +1,52 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const openChatBtn = document.getElementById('openChatBtn');
-    const closeChatBtn = document.getElementById('closeChatBtn');
-    const chatContainer = document.getElementById('chatContainer');
-    const chatInput = document.getElementById('chatInput');
-    const messages = document.getElementById('messages');
+document.addEventListener("DOMContentLoaded", function() {
+    const openChatBtn = document.getElementById("openChatBtn");
+    const chatContainer = document.getElementById("chatContainer");
+    const closeChatBtn = document.getElementById("closeChatBtn");
+    const sendMessageBtn = document.getElementById("sendMessage");
+    const chatInput = document.getElementById("chatInput");
+    const messagesDiv = document.getElementById("messages");
 
-    openChatBtn.addEventListener('click', () => {
+    // Open chat container
+    openChatBtn.addEventListener("click", () => {
         chatContainer.style.display = "block";
+        chatInput.focus();
     });
 
-    closeChatBtn.addEventListener('click', () => {
+    // Close chat container
+    closeChatBtn.addEventListener("click", () => {
         chatContainer.style.display = "none";
     });
 
-    // Function to sanitize and format message
-    const sanitizeMessage = (message) => {
-        const escapedMessage = message
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#39;');
-        return escapedMessage.replace(/\n/g, '<br>');
-    };
+    // Send message on button click
+    sendMessageBtn.addEventListener("click", sendMessage);
 
-    const scrollToBottom = () => {
-        messages.scrollTop = messages.scrollHeight;
-    };
-
-    const sendMessage = () => {
-        const message = chatInput.value;
-        if (message) {
-            const sanitizedMessage = sanitizeMessage(message);
-            messages.innerHTML += `<div><strong>You:</strong> ${sanitizedMessage}</div>`;
-            chatInput.value = '';
-            scrollToBottom();
-
-            const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
-
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    const botResponse = sanitizeMessage(data.response);
-                    messages.innerHTML += `<div><strong>Bot:</strong> ${botResponse}</div>`;
-                    scrollToBottom();
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-        }
-    };
-
-    document.getElementById('sendMessage').addEventListener('click', sendMessage);
-
-    chatInput.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
+    // Send message on Enter key press
+    chatInput.addEventListener("keypress", (event) => {
+        if (event.key === "Enter") {
             sendMessage();
         }
     });
+
+    function sendMessage() {
+        const message = chatInput.value.trim();
+        if (message) {
+            // Display user's message
+            appendMessage("You: " + message);
+            chatInput.value = ""; // Clear input field
+
+            // Simulate sending the message to a backend (replace with actual API call)
+            setTimeout(() => {
+                // Simulated response from server
+                const response = "Bot: " + message; // Here, replace with actual API response
+                appendMessage(response);
+            }, 1000);
+        }
+    }
+
+    function appendMessage(message) {
+        const messageElement = document.createElement("div");
+        messageElement.textContent = message;
+        messagesDiv.appendChild(messageElement);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight; // Auto-scroll to the bottom
+    }
 });
