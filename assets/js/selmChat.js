@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize mode
     let mode = "selm";  // Default mode is 'selm'
+    let firstMessageSent = false;  // Flag to indicate if the first message has been sent
 
     openChatBtn.addEventListener('click', () => {
         chatContainer.style.display = "block";
@@ -27,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mode = (mode === "selm") ? "public" : "selm";
 
         // Notify the user of the mode change
-        messages.innerHTML += `Chat mode switched to ${mode}.<br>`;
+        messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
     });
 
     // Function to sanitize and format message
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function () {
         messages.scrollTop = messages.scrollHeight;
     };
 
+    // Function to send message
     const sendMessage = () => {
         const message = chatInput.value.trim();
 
@@ -60,8 +62,18 @@ document.addEventListener("DOMContentLoaded", function () {
             // Sanitize the user's message
             const sanitizedMessage = sanitizeMessage(message);
 
+            // If this is the first message, print the entire chat log once
+            if (!firstMessageSent) {
+                displayConversation();  // Show the entire conversation history once
+                firstMessageSent = true;  // Set the flag after the first message is sent
+            }
+
+            // Append the user's message to the screen
+            messages.innerHTML += `<div>${sanitizedMessage}</div>`;
+
             // Save the message to the conversation history
             conversationHistory.session.push({
+                sender: 'You',
                 message: message,
             });
 
@@ -83,17 +95,20 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(url)
                 .then(response => response.text())  // Expect the response as text
                 .then(data => {
-                    // Only add new messages if they differ from the last
+                    // Only add new messages to the conversation if the content differs
                     if (data !== conversationHistory.lastMessage) {
                         conversationHistory.session.push({
+                            sender: mode === 'selm' ? 'Selm' : 'Public',
                             message: data,
                         });
 
-                        // Append the message to the chat
-                        messages.innerHTML += `${sanitizeMessage(data)}<br>`;
+                        // Append the server's response to the chat log
+                        messages.innerHTML += `<div>${sanitizeMessage(data)}</div>`;
 
                         // Update the last message for public mode
-                        conversationHistory.lastMessage = data;
+                        if (mode === 'public') {
+                            conversationHistory.lastMessage = data;
+                        }
                     }
 
                     scrollToBottom();
@@ -106,6 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Save the error to the conversation history
                     conversationHistory.session.push({
+                        sender: 'System',
                         message: errorMessage,
                     });
 
@@ -114,26 +130,27 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    // Add event listener to the send button
     document.getElementById('sendMessage').addEventListener('click', sendMessage);
 
-    // Add 'Enter' key functionality
+    // Add 'Enter' key functionality for sending messages
     chatInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             sendMessage();
         }
     });
 
-    // Function to display the entire conversation (used for 'get conversation' command)
+    // Function to display the entire conversation (printed only once)
     const displayConversation = () => {
         messages.innerHTML = '';  // Clear the chatbox
         conversationHistory.session.forEach((entry) => {
             const sanitizedMessage = sanitizeMessage(entry.message);
-            messages.innerHTML += `${sanitizedMessage}<br>`;
+            messages.innerHTML += `<div>${sanitizedMessage}</div>`;
         });
         scrollToBottom();  // Scroll to the bottom after displaying the conversation
     };
 
-    // Polling Function to check for new messages (Only for public chat)
+    // Polling function to check for new messages (Only for public chat)
     const pollForNewMessages = () => {
         if (mode === "public") {
             const pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
@@ -141,20 +158,19 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(pollUrl)
                 .then(response => response.text())
                 .then(data => {
-                    // Only add new messages if they differ from the last
+                    // Only add new messages if they differ from the last message
                     if (data !== conversationHistory.lastMessage) {
                         conversationHistory.session.push({
+                            sender: 'Public',
                             message: data,
                         });
 
-                        // Append the new message
-                        messages.innerHTML += `${sanitizeMessage(data)}<br>`;
-
-                        // Update last message
                         conversationHistory.lastMessage = data;
-
-                        scrollToBottom();
+                        // Append new message to the chat log
+                        messages.innerHTML += `<div>${sanitizeMessage(data)}</div>`;
                     }
+
+                    scrollToBottom();
                 })
                 .catch(error => {
                     console.error('Polling error:', error);
