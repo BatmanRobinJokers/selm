@@ -86,7 +86,7 @@ button {
     background-color: #001a33;
     color: #00ffff;
     border: 2px solid #f500f2;
-    box-shadow: 0 0 15px #f500f2;
+    /* box-shadow: 0 0 15px #f500f2; */
     padding: 0.5rem 1rem;
     font-size: 1rem;
     cursor: pointer;
