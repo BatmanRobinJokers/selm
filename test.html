@@ -3,16 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat with PythonAnywhere</title>
+    <title>Create File Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            resize: none;
+        }
+    </style>
 </head>
 <body>
-    <div id="chatContainer">
-        <div id="messages"></div>
-        <input type="text" id="chatInput" placeholder="Type your message here" />
-        <button id="sendMessage">Send</button>
-    </div>
+    <h1>Create and Download a File</h1>
+    
+    <label for="fileNameInput">File Name:</label>
+    <input type="text" id="fileNameInput" placeholder="example.txt"><br><br>
+    
+    <label for="fileContentInput">File Content:</label><br>
+    <textarea id="fileContentInput" rows="10" placeholder="Write your file content here..."></textarea><br><br>
 
-    <!-- Include the test script -->
-    <script src="assets/js/testPythonAnywhere.js"></script>
+    <button id="createFileButton">Create File</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const createFileButton = document.getElementById('createFileButton');
+            const fileNameInput = document.getElementById('fileNameInput');
+            const fileContentInput = document.getElementById('fileContentInput');
+
+            createFileButton.addEventListener('click', function () {
+                // Get file name and content from input fields
+                const fileName = fileNameInput.value || 'default.txt'; // Default name if none is provided
+                const fileContent = fileContentInput.value || 'No content provided'; // Default content if empty
+
+                // Create a new Blob object (file)
+                const blob = new Blob([fileContent], { type: 'text/plain' });
+
+                // Create an object URL for the Blob
+                const url = URL.createObjectURL(blob);
+
+                // Create a temporary anchor element
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = fileName;  // Set the filename to download
+
+                // Append the anchor to the document body (it won't be visible)
+                document.body.appendChild(a);
+
+                // Programmatically click the anchor to trigger the download
+                a.click();
+
+                // Remove the anchor from the document after download
+                document.body.removeChild(a);
+
+                // Revoke the object URL to free memory
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
 </body>
 </html>
