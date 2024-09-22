@@ -8,16 +8,16 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script>
-        // Function to detect if the user is on a mobile device
-        function isMobile() {
-            return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-        }
+    // Function to detect if the user is on a mobile device
+    function isMobile() {
+        return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    }
 
-        // If on a mobile device, redirect to Facebook.com
-        if (isMobile()) {
-            window.location.href = "http://www.google.co";
-        }
-    </script>
+    // If on a mobile device, redirect to Facebook.com
+    if (isMobile()) {
+        window.location.href = "http://www.google.co";
+    }
+</script>
 </head>
 <body>
     <header>
@@ -49,12 +49,13 @@
         <div id="chatContainer" style="display: none;">
             <div id="chatMessages">
                 <div id="messages"></div>
-                <input type="text" id="chatInput" placeholder="Type a message..." style="background: transparent; border: none; color: white; width: 100%;">
-                <button id="sendMessage">Send</button>
-                <button id="closeChatBtn">Close</button>
+                <button id="closeChatBtn" class="fixed-btn">Close</button>
+                <button id="sendMessage" class="fixed-btn">Send</button>
+                <input type="text" id="chatInput" placeholder="Type a message..." class="fixed-input">
             </div>
         </div>        
     </main>
+
     <script src="assets/js/typingEffect.js"></script>
     <script src="assets/js/chatroom.js"></script>
 </body>
