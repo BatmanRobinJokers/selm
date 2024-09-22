@@ -148,5 +148,5 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Set interval for polling every 5 seconds (if needed)
-    // setInterval(pollForNewMessages, 5000);
+    setInterval(pollForNewMessages, 5000);
 });
