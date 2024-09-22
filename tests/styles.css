@@ -39,7 +39,7 @@ body {
 
 .input-box {
     flex-grow: 1;
-    padding: 12px;
+    padding: 12px 12px 12px 40px; /* Adjust left padding to leave space for the paperclip */
     border-radius: 20px;
     border: none;
     outline: none;
@@ -81,7 +81,9 @@ body {
     cursor: pointer;
     font-size: 20px;
     position: absolute;
-    left: 10px;
+    left: 15px; /* Align the paperclip inside the input box */
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .file-input {
