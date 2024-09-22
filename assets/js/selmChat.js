@@ -64,6 +64,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Sanitize the user's message
             const sanitizedMessage = sanitizeMessage(message);
 
+            // Display the user's message
+            messages.innerHTML += `<div><strong>You:</strong> ${sanitizedMessage}</div>`;
+
             // Save the message to the conversation history
             conversationHistory.session.push({
                 sender: 'You',
@@ -73,11 +76,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Clear the input
             chatInput.value = '';
-
-            // If in public mode, append the message to the conversation log and display last 20 messages
-            if (mode === "public") {
-                displayLast20Messages();  // Display the last 20 messages
-            }
 
             // Scroll to the bottom
             scrollToBottom();
@@ -94,20 +92,15 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(url)
                 .then(response => response.text())  // Expect the response as text
                 .then(data => {
+                    // Process response for conversation history or error
+                    messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizeMessage(data)}</div>`;
+
                     // Save the server's response to the conversation history
                     conversationHistory.session.push({
                         sender: mode === 'selm' ? 'Selm' : 'Public',
                         message: data,
                         timestamp: getCurrentTimestamp(),
                     });
-
-                    if (mode === "public") {
-                        // Clear chat and display the last 20 messages in public mode
-                        displayLast20Messages();
-                    } else {
-                        // Display the server's response in selm mode
-                        messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
-                    }
 
                     // Scroll to the bottom
                     scrollToBottom();
@@ -149,26 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
         scrollToBottom();  // Scroll to the bottom after displaying the conversation
     };
 
-    // Function to display the last 20 messages from conversation history
-    const displayLast20Messages = () => {
-        // Clear the chat screen
-        messages.innerHTML = '';
-
-        // Get the last 20 messages from the session history
-        const last20Messages = conversationHistory.session.slice(-20);
-
-        // Display each message
-        last20Messages.forEach((entry) => {
-            const sanitizedMessage = sanitizeMessage(entry.message);
-            // Do not display "You:", "Public: Message saved to chat log", or "Current Chat Log:"
-            if (entry.sender !== "You" && !sanitizedMessage.includes("Message saved to chat log") && !sanitizedMessage.includes("Current Chat Log:")) {
-                messages.innerHTML += `<div><strong>${entry.sender}:</strong> ${sanitizedMessage} <em>(${entry.timestamp})</em></div>`;
-            }
-        });
-
-        scrollToBottom();  // Scroll to the bottom after displaying messages
-    };
-
     // Polling Function to check for new messages
     const pollForNewMessages = () => {
         let pollUrl;
@@ -183,18 +156,14 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(data => {
                 // Process the polled data
                 if (data) {
+                    messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizeMessage(data)}</div>`;
+
                     // Save the new message to conversation history
                     conversationHistory.session.push({
                         sender: mode === 'selm' ? 'Selm' : 'Public',
                         message: data,
                         timestamp: getCurrentTimestamp(),
                     });
-
-                    if (mode === "public") {
-                        displayLast20Messages();
-                    } else {
-                        messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
-                    }
 
                     scrollToBottom();
                 }
