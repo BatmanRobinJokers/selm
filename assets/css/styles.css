@@ -101,7 +101,7 @@ button:hover {
 
 #chatContainer {
     position: relative;
-    height: 400px; /* Adjust as needed */
+    height: 500px; /* Adjust as needed */
     border: 2px solid #f500f2; /* Neon bright purple */
     border-radius: 10px;
     overflow: hidden; /* Ensure no overflow */
