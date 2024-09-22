@@ -136,6 +136,10 @@ input[type="text"]:focus {
     border-radius: 10px; /* Rounded corners for the glass effect */
 }
 
+.chatMessages {
+    position: fixed;
+}
+
 footer {
     position: fixed;
     bottom: 0;
