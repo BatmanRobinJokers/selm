@@ -90,7 +90,10 @@ button:hover {
     box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
 }
 
+/* Add this CSS to your existing styles.css */
+
 #chatMessages {
+    position: relative; /* To position the input container */
     color: #02f5e9;
     border: 2px solid #f500f2; /* Neon bright purple */
     height: 370px;
@@ -98,19 +101,24 @@ button:hover {
     padding: 10px;
     box-shadow: 0 0 15px #f500f2; /* Neon glow effect */
     background-image: url('../images/chat.png'); /* Your image path */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 10px;
+    background-size: cover; /* Ensure the image covers the entire chatbox */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+
+    /* Stronger Glass effect */
+    background-color: rgba(255, 255, 255, 0.3); /* More opaque white overlay */
+    backdrop-filter: blur(20px); /* Increase the blur strength */
+    -webkit-backdrop-filter: blur(20px); /* Safari support */
+    border-radius: 10px; /* Rounded corners for the glass effect */
 }
 
 #inputContainer {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 10px;
+    position: absolute; /* Fixes the input container to the bottom */
+    bottom: 10px; /* Space from the bottom */
+    left: 10px; /* Space from the left */
+    right: 10px; /* Space from the right */
+    display: flex; /* Aligns input and buttons in a row */
+    gap: 10px; /* Space between input and buttons */
 }
 
 input[type="text"] {
