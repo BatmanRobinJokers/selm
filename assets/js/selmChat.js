@@ -155,16 +155,18 @@ document.addEventListener("DOMContentLoaded", function () {
             .then(response => response.text())
             .then(data => {
                 // Process the polled data
-                messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizeMessage(data)}</div>`;
+                if (data) {
+                    messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizeMessage(data)}</div>`;
 
-                // Save the new message to conversation history
-                conversationHistory.session.push({
-                    sender: mode === 'selm' ? 'Selm' : 'Public',
-                    message: data,
-                    timestamp: getCurrentTimestamp(),
-                });
+                    // Save the new message to conversation history
+                    conversationHistory.session.push({
+                        sender: mode === 'selm' ? 'Selm' : 'Public',
+                        message: data,
+                        timestamp: getCurrentTimestamp(),
+                    });
 
-                scrollToBottom();
+                    scrollToBottom();
+                }
             })
             .catch(error => {
                 console.error('Polling error:', error);
