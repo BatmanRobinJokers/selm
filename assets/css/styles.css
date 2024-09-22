@@ -122,11 +122,15 @@ button:hover {
     box-shadow: 0 0 15px #f500f2; /* Neon glow effect */
 
 
-    /* Stronger Glass effect */
-    background-color: rgba(255, 255, 255, 0.3); /* More opaque white overlay */
-    backdrop-filter: blur(20px); /* Increase the blur strength */
-    -webkit-backdrop-filter: blur(20px); /* Safari support */
-    border-radius: 10px 10px 0 0; /* Rounded corners for the glass effect */
+    /* Glossy Glass effect */
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.1)); /* Glossy gradient */
+    backdrop-filter: blur(5px); /* Reduce blur */
+    -webkit-backdrop-filter: blur(5px); /* Safari support */
+    border-radius: 10px 10px 0 0; /* Rounded corners */
+    box-shadow: inset 0 4px 10px rgba(255, 255, 255, 0.5), /* Inner glow for gloss */
+                0 4px 10px rgba(0, 0, 0, 0.2); /* Outer shadow for depth */
+    border: 1px solid rgba(255, 255, 255, 0.4); /* Light border for reflective effect */
+
 }
 
 #inputBox {
