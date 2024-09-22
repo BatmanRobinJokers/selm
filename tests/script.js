@@ -1,6 +1,4 @@
-document.getElementById('sendButton').addEventListener('click', function() {
-    sendMessage();
-});
+document.getElementById('sendButton').addEventListener('click', sendMessage);
 
 document.getElementById('messageInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
@@ -8,13 +6,8 @@ document.getElementById('messageInput').addEventListener('keypress', function(e)
     }
 });
 
-document.getElementById('fileInput').addEventListener('change', function() {
-    handleFileUpload();
-});
-
-document.getElementById('copyButton').addEventListener('click', function() {
-    copyChatContent();
-});
+document.getElementById('fileInput').addEventListener('change', handleFileUpload);
+document.getElementById('copyButton').addEventListener('click', copyChatContent);
 
 function sendMessage() {
     const inputBox = document.getElementById('messageInput');
@@ -28,7 +21,6 @@ function sendMessage() {
 
         chatMessages.appendChild(messageElement);
         chatMessages.scrollTop = chatMessages.scrollHeight; // auto-scroll
-
         inputBox.value = ''; // clear the input box
     }
 }
