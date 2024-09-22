@@ -40,8 +40,26 @@ document.addEventListener("DOMContentLoaded", function () {
         return new Date().toLocaleString();
     };
 
+    // Function to display the entire conversation
+    const displayConversation = () => {
+        messages.innerHTML = '';  // Clear the chatbox
+        conversationHistory.session.forEach((entry) => {
+            const sanitizedMessage = sanitizeMessage(entry.message);
+            messages.innerHTML += `<div><strong>${entry.sender}:</strong> ${sanitizedMessage} <em>(${entry.timestamp})</em></div>`;
+        });
+        scrollToBottom();  // Scroll to the bottom after displaying the conversation
+    };
+
     const sendMessage = () => {
-        const message = chatInput.value;
+        const message = chatInput.value.trim();
+
+        // Check if the command "get conversation" was entered
+        if (message.toLowerCase() === 'get conversation') {
+            displayConversation();  // Display the entire conversation
+            chatInput.value = '';   // Clear the input box
+            return;  // Do not send anything to the server
+        }
+
         if (message) {
             // Sanitize the user's message
             const sanitizedMessage = sanitizeMessage(message);
