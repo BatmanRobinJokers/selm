@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script>
-    // Function to detect if the user is on a mobile device
-    function isMobile() {
-        return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-    }
+        // Function to detect if the user is on a mobile device
+        function isMobile() {
+            return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+        }
 
-    // If on a mobile device, redirect to Facebook.com
-    if (isMobile()) {
-        window.location.href = "http://www.google.co";
-    }
+        // If on a mobile device, redirect to Facebook.com
+        if (isMobile()) {
+            window.location.href = "http://www.google.co";
+        }
     </script>
 </head>
 <body>
@@ -48,12 +48,12 @@
 
         <div id="chatContainer" style="display: none;">
             <div id="chatMessages">
+                <button id="closeChatBtn">✖</button>
                 <div id="messages"></div>
+            </div>
+            <div id="inputContainer">
                 <input type="text" id="chatInput" placeholder="Type a message...">
-                <div class="chat-controls">
-                    <button id="sendMessage">Send</button>
-                    <button id="closeChatBtn">Close</button>
-                </div>
+                <button id="sendMessage">➤</button>
             </div>
         </div>        
     </main>
