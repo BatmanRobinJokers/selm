@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
         chatContainer.style.display = "none";
     });
 
+    // Function to sanitize and format message
     const sanitizeMessage = (message) => {
         const escapedMessage = message
             .replace(/&/g, '&amp;')
@@ -20,7 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
-        
         return escapedMessage.replace(/\n/g, '<br>');
     };
 
@@ -37,33 +37,23 @@ document.addEventListener("DOMContentLoaded", function () {
             scrollToBottom();
 
             const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
-            
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    let jsonResponse;
-                    try {
-                        jsonResponse = JSON.parse(data);
-                    } catch (e) {
-                        console.error('Invalid JSON:', e);
-                    }
 
-                    const serverMessage = jsonResponse?.[0]?.generated_text || 'No response';
-                    const sanitizedResponse = sanitizeMessage(serverMessage);
-                    messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizedResponse}</div>`;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const botResponse = sanitizeMessage(data.response);
+                    messages.innerHTML += `<div><strong>Bot:</strong> ${botResponse}</div>`;
                     scrollToBottom();
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    messages.innerHTML += `<div><strong>Error:</strong> Unable to send message</div>`;
-                    scrollToBottom();
                 });
         }
     };
 
     document.getElementById('sendMessage').addEventListener('click', sendMessage);
 
-    chatInput.addEventListener('keypress', (event) => {
+    chatInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
             sendMessage();
         }
