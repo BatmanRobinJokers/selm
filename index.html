@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script>
-    // Function to detect if the user is on a mobile device
-    function isMobile() {
-        return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-    }
+        // Function to detect if the user is on a mobile device
+        function isMobile() {
+            return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+        }
 
-    // If on a mobile device, redirect to Facebook.com
-    if (isMobile()) {
-        window.location.href = "http://www.google.co";
-    }
+        // If on a mobile device, redirect to Facebook.com
+        if (isMobile()) {
+            window.location.href = "http://www.google.co";
+        }
     </script>
 </head>
 <body>
@@ -41,7 +41,7 @@
                 <img src="https://github.com/user-attachments/assets/5d6383bd-2a36-44ea-a1c5-6b82dc28dee1" alt="SELM Image" class="left-aligned-img">
                 <div class="text-content">
                     <h2>(Small Efficient Learning Model)</h2>
-                    <p id="about-description"></p> <!-- Placeholder for typing effect -->
+                    <p id="about-description"></p>
                 </div>
             </div>
         </section>
@@ -51,8 +51,8 @@
                 <div id="messages"></div>
                 <div id="inputContainer">
                     <input type="text" id="chatInput" placeholder="Type a message...">
-                    <button id="sendMessage">➡️</button> <!-- You can use an icon or emoji -->
-                    <button id="closeChatBtn">❌</button> <!-- You can use an icon or emoji -->
+                    <button id="sendMessage">Send</button>
+                    <button id="closeChatBtn">Close</button>
                 </div>
             </div>
         </div>        
