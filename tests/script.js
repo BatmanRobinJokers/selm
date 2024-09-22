@@ -46,7 +46,7 @@ body {
 
 .input-box {
     flex-grow: 1;
-    padding: 12px 40px 12px 50px; /* Adjusted padding for paperclip space */
+    padding: 12px 40px 12px 60px; /* Adjusted padding for paperclip space */
     border-radius: 20px;
     border: none;
     outline: none;
@@ -83,7 +83,7 @@ body {
     cursor: pointer;
     font-size: 20px;
     position: absolute;
-    left: 10px; /* Positioning of paperclip */
+    left: 15px; /* Adjusted position of paperclip */
     top: 50%;
     transform: translateY(-50%);
 }
