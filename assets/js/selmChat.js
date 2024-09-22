@@ -10,12 +10,27 @@ document.addEventListener("DOMContentLoaded", function () {
         session: [],
     };
 
+    // Initialize mode
+    let mode = "selm";  // Default mode is 'selm'
+
     openChatBtn.addEventListener('click', () => {
         chatContainer.style.display = "block";
     });
 
+    // Toggle mode and clear chat on close button click
     closeChatBtn.addEventListener('click', () => {
-        chatContainer.style.display = "none";
+        // Clear the chat screen
+        messages.innerHTML = '';
+
+        // Toggle mode between "selm" and "public"
+        if (mode === "selm") {
+            mode = "public";
+        } else {
+            mode = "selm";
+        }
+
+        // Notify the user of the mode change
+        messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
     });
 
     // Function to sanitize and format message
@@ -80,9 +95,15 @@ document.addEventListener("DOMContentLoaded", function () {
             // Scroll to the bottom
             scrollToBottom();
 
+            // Decide server endpoint based on mode
+            let url;
+            if (mode === "selm") {
+                url = `https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(message)}`;
+            } else if (mode === "public") {
+                url = `https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)}`;
+            }
+
             // Send GET request with the message
-            const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
-            
             fetch(url)
                 .then(response => response.text())  // Expect the response as text
                 .then(data => {
@@ -101,11 +122,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     const sanitizedResponse = sanitizeMessage(serverMessage);
 
                     // Display the server's response
-                    messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizedResponse}</div>`;
+                    messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizedResponse}</div>`;
 
                     // Save the server's response to the conversation history
                     conversationHistory.session.push({
-                        sender: 'Selm',
+                        sender: mode === 'selm' ? 'Selm' : 'Public',
                         message: serverMessage,
                         timestamp: getCurrentTimestamp(),
                     });
