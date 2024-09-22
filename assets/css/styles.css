@@ -157,7 +157,7 @@ input[type="text"]:focus {
 }
 
 #sendMessage, #closeChatBtn {
-    background-color: #00ffff;
+    /* background-color: #00ffff; */
     color: #001a33;
     border: none;
     padding: 0.5rem 1rem;
