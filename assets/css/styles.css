@@ -160,7 +160,7 @@ input[type="text"]:focus {
     /* background-color: #00ffff; */
     color: #001a33;
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 1rem;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
