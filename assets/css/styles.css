@@ -118,6 +118,7 @@ input[type="text"]:focus {
 }
 
 #chatMessages {
+    position: relative;
     color: #02f5e9;
     border: 2px solid #f500f2; /* Neon bright purple */
     height: 370px;
@@ -137,7 +138,7 @@ input[type="text"]:focus {
 }
 
 .inputBox {
-    position: fixed;
+    position: absolute;
     bottom: 0;
 }
 
