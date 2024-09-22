@@ -52,28 +52,28 @@ body {
     color: #6c6c6e;
 }
 
-/* Send button inside input box */
+/* Neon pink round send button */
 .send-btn {
-    background-color: #4CAF50;
+    background-color: #ff00ff; /* Neon pink */
     border: none;
-    color: white;
-    padding: 8px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 16px;
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
     transition: background-color 0.2s ease;
-}
-
-.send-btn:hover {
-    background-color: #45a049;
 }
 
 .send-btn:active {
     transform: scale(0.95);
+}
+
+.send-btn:hover {
+    box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
 }
 
 /* Paperclip button inside input box */
