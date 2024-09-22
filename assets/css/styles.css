@@ -27,6 +27,10 @@ header {
     gap: 2rem;
 }
 
+.nav-links li:first-child a {
+    color: #fb8151;
+}
+
 a {
     color: #00ffff;
     text-decoration: none;
