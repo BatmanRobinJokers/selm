@@ -8,15 +8,15 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <script>
-        // Function to detect if the user is on a mobile device
-        function isMobile() {
-            return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-        }
+    // Function to detect if the user is on a mobile device
+    function isMobile() {
+        return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+    }
 
-        // If on a mobile device, redirect to Facebook.com
-        if (isMobile()) {
-            window.location.href = "http://www.google.co";
-        }
+    // If on a mobile device, redirect to Facebook.com
+    if (isMobile()) {
+        window.location.href = "http://www.google.co";
+    }
     </script>
 </head>
 <body>
@@ -49,14 +49,13 @@
         <div id="chatContainer" style="display: none;">
             <div id="chatMessages">
                 <div id="messages"></div>
-            </div>
-            <input type="text" id="chatInput" placeholder="Type a message...">
-            
-            <button id="sendMessage">Send</button>
-            <div class="chat-buttons">
-                <button id="closeChatBtn" class="round-button">✖️</button>
-                <button id="copyBtn" class="round-button">📋</button>
-                <button id="downloadBtn" class="round-button">⬇️</button>
+                <input type="text" id="chatInput" placeholder="Type a message...">
+                <div class="chat-buttons">
+                    <button id="sendMessage" class="round-button">Send</button>
+                    <button id="closeChatBtn" class="round-button">✖️</button>
+                    <button id="copyBtn" class="round-button">📋</button>
+                    <button id="downloadBtn" class="round-button">⬇️</button>
+                </div>
             </div>
         </div>        
     </main>
