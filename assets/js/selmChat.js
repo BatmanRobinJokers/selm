@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mode = (mode === "selm") ? "public" : "selm";
 
         // Notify the user of the mode change
-        messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
+        messages.innerHTML += `Chat mode switched to ${mode}.<br>`;
     });
 
     // Function to sanitize and format message
@@ -60,13 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Sanitize the user's message
             const sanitizedMessage = sanitizeMessage(message);
 
-            // Clear the screen and display the user's message
-            messages.innerHTML = '';  // Clear the chat log before showing the new message
-            messages.innerHTML += `<div><strong>You:</strong> ${sanitizedMessage}</div>`;
-
             // Save the message to the conversation history
             conversationHistory.session.push({
-                sender: 'You',
                 message: message,
             });
 
@@ -88,20 +83,17 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(url)
                 .then(response => response.text())  // Expect the response as text
                 .then(data => {
-                    // Only add new messages to the conversation if the content differs
+                    // Only add new messages if they differ from the last
                     if (data !== conversationHistory.lastMessage) {
                         conversationHistory.session.push({
-                            sender: mode === 'selm' ? 'Selm' : 'Public',
                             message: data,
                         });
 
+                        // Append the message to the chat
+                        messages.innerHTML += `${sanitizeMessage(data)}<br>`;
+
                         // Update the last message for public mode
-                        if (mode === 'public') {
-                            conversationHistory.lastMessage = data;
-                            displayConversation();  // Print the entire public conversation
-                        } else {
-                            messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
-                        }
+                        conversationHistory.lastMessage = data;
                     }
 
                     scrollToBottom();
@@ -114,7 +106,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Save the error to the conversation history
                     conversationHistory.session.push({
-                        sender: 'System',
                         message: errorMessage,
                     });
 
@@ -132,12 +123,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Function to display the entire conversation
+    // Function to display the entire conversation (used for 'get conversation' command)
     const displayConversation = () => {
         messages.innerHTML = '';  // Clear the chatbox
         conversationHistory.session.forEach((entry) => {
             const sanitizedMessage = sanitizeMessage(entry.message);
-            messages.innerHTML += `<div><strong>${entry.sender}:</strong> ${sanitizedMessage}</div>`;
+            messages.innerHTML += `${sanitizedMessage}<br>`;
         });
         scrollToBottom();  // Scroll to the bottom after displaying the conversation
     };
@@ -150,18 +141,20 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(pollUrl)
                 .then(response => response.text())
                 .then(data => {
-                    // Only add new messages to the conversation if they differ from the last message
+                    // Only add new messages if they differ from the last
                     if (data !== conversationHistory.lastMessage) {
                         conversationHistory.session.push({
-                            sender: 'Public',
                             message: data,
                         });
 
-                        conversationHistory.lastMessage = data;
-                        displayConversation();  // Print the entire public conversation
-                    }
+                        // Append the new message
+                        messages.innerHTML += `${sanitizeMessage(data)}<br>`;
 
-                    scrollToBottom();
+                        // Update last message
+                        conversationHistory.lastMessage = data;
+
+                        scrollToBottom();
+                    }
                 })
                 .catch(error => {
                     console.error('Polling error:', error);
