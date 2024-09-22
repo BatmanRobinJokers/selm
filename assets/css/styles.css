@@ -27,6 +27,10 @@ header {
     gap: 2rem;
 }
 
+.nav-links li:first-child a {
+    color: #fb8151;
+}
+
 a {
     color: #00ffff;
     text-decoration: none;
@@ -73,12 +77,17 @@ h1, h2 {
     text-shadow: 0 0 5px #00ffff;
 }
 
+p {
+    color: #00ffff;
+    font-size: 1.1rem;
+}
+
 button {
     background-color: #001a33;
     color: #00ffff;
     border: 2px solid #f500f2;
     box-shadow: 0 0 15px #f500f2;
-    padding: 0.5rem; /* Adjust padding for roundness */
+    padding: 0; /* Remove extra padding */
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -88,6 +97,7 @@ button {
     display: flex; /* Center icon/text */
     justify-content: center; /* Center icon/text */
     align-items: center; /* Center icon/text */
+    margin-left: 5px; /* Decrease spacing */
 }
 
 button:hover {
@@ -96,49 +106,94 @@ button:hover {
     box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
 }
 
-/* Add this CSS to your existing styles.css */
-
-#chatMessages {
-    position: relative; /* To position the input container */
-    color: #02f5e9;
-    border: 2px solid #f500f2; /* Neon bright purple */
-    height: 370px;
-    overflow-y: auto;
-    padding: 10px;
-    box-shadow: 0 0 15px #f500f2; /* Neon glow effect */
-    background-image: url('../images/chat.png'); /* Your image path */
-    background-size: cover; /* Ensure the image covers the entire chatbox */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
-
-    /* Stronger Glass effect */
-    background-color: rgba(255, 255, 255, 0.3); /* More opaque white overlay */
-    backdrop-filter: blur(20px); /* Increase the blur strength */
-    -webkit-backdrop-filter: blur(20px); /* Safari support */
-    border-radius: 10px; /* Rounded corners for the glass effect */
-}
-
-#inputContainer {
-    position: absolute; /* Fixes the input container to the bottom */
-    bottom: 10px; /* Space from the bottom */
-    left: 10px; /* Space from the left */
-    right: 10px; /* Space from the right */
-    display: flex; /* Aligns input and buttons in a row */
-    gap: 10px; /* Space between input and buttons */
-}
-
 input[type="text"] {
     background-color: #001a33;
     color: #ffffff;
     border: 2px solid #00ffff;
     padding: 0.5rem;
     border-radius: 4px;
-    width: 80%; /* Adjusted width for better layout */
-    box-shadow: none; 
+    margin-bottom: 1rem;
+    margin-top: 10px;
+    width: calc(100% - 60px); /* Adjust width to accommodate buttons */
+    box-shadow: none;
     transition: box-shadow 0.3s ease;
 }
 
 input[type="text"]:focus {
     box-shadow: 0 0 15px #00ffff;
     outline: none;
+}
+
+#chatMessages {
+    color: #02f5e9;
+    border: 2px solid #f500f2; 
+    height: 370px;
+    overflow-y: auto;
+    padding: 10px;
+    box-shadow: 0 0 15px #f500f2; 
+    background-image: url('../images/chat.png');
+    background-size: cover;
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px); 
+    border-radius: 10px; 
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    background-color: #001a33;
+    border-top: 2px solid #00ffff;
+    color: #00ffff;
+}
+
+.footer-links {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.footer-links li {
+    display: inline;
+}
+
+.footer-links li a {
+    color: #00ffff;
+    transition: color 0.3s ease;
+}
+
+.footer-links li a:hover {
+    color: #00ff99;
+}
+
+/* Responsive Design */
+@media (max-width: 300px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-aligned-img {
+        width: 100%;
+    }
+
+    .text-content {
+        text-align: center;
+    }
+
+    body {
+        padding: 0 1rem;
+    }
 }
