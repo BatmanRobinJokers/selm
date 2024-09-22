@@ -39,7 +39,7 @@ body {
 
 .input-box {
     flex-grow: 1;
-    padding: 12px 40px 12px 40px; /* Left space for paperclip and right space for send button */
+    padding: 12px 50px 12px 40px; /* Left space for paperclip, right space for send button */
     border-radius: 20px;
     border: none;
     outline: none;
@@ -52,28 +52,28 @@ body {
     color: #6c6c6e;
 }
 
-/* Neon pink round send button */
+/* Neon pink outlined send button */
 .send-btn {
-    background-color: #ff00ff; /* Neon pink */
-    border: none;
+    border: 2px solid #ff00ff; /* Neon pink outline */
+    background-color: transparent;
     width: 32px;
     height: 32px;
     border-radius: 50%;
     cursor: pointer;
     position: absolute;
-    right: 10px;
+    right: 15px; /* Added padding to the right */
     top: 50%;
     transform: translateY(-50%);
-    box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff00ff;
-    transition: background-color 0.2s ease;
-}
-
-.send-btn:active {
-    transform: scale(0.95);
+    box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
+    transition: box-shadow 0.2s ease;
 }
 
 .send-btn:hover {
     box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+}
+
+.send-btn:active {
+    transform: scale(0.95);
 }
 
 /* Paperclip button inside input box */
