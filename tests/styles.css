@@ -70,6 +70,7 @@ body {
     transform: translateY(-50%);
     box-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff;
     transition: box-shadow 0.2s ease;
+    outline: none; /* Prevent default focus outline */
 }
 
 .send-btn:hover {
@@ -77,7 +78,8 @@ body {
 }
 
 .send-btn:active {
-    transform: scale(0.95);
+    box-shadow: 0 0 15px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff; /* Keeps the glow on click */
+    transform: scale(1); /* Remove scaling effect */
 }
 
 /* Paperclip button inside input box */
