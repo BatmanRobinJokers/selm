@@ -142,11 +142,35 @@ document.addEventListener("DOMContentLoaded", function () {
         scrollToBottom();  // Scroll to the bottom after displaying the conversation
     };
 
-    // Polling Function to check for new messages (optional)
+    // Polling Function to check for new messages
     const pollForNewMessages = () => {
-        // Implement if necessary, but adjust based on your needs
+        let pollUrl;
+        if (mode === "selm") {
+            pollUrl = `https://selmai.pythonanywhere.com/?selm_poll`;
+        } else if (mode === "public") {
+            pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
+        }
+
+        fetch(pollUrl)
+            .then(response => response.text())
+            .then(data => {
+                // Process the polled data
+                messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizeMessage(data)}</div>`;
+
+                // Save the new message to conversation history
+                conversationHistory.session.push({
+                    sender: mode === 'selm' ? 'Selm' : 'Public',
+                    message: data,
+                    timestamp: getCurrentTimestamp(),
+                });
+
+                scrollToBottom();
+            })
+            .catch(error => {
+                console.error('Polling error:', error);
+            });
     };
 
-    // Set interval for polling every 5 seconds (if needed)
+    // Set interval for polling every 5 seconds
     setInterval(pollForNewMessages, 5000);
 });
