@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatInput = document.getElementById('chatInput');
     const messages = document.getElementById('messages');
 
+    // Dictionary to store the conversation history
+    const conversationHistory = {
+        session: [],
+    };
+
     openChatBtn.addEventListener('click', () => {
         chatContainer.style.display = "block";
     });
@@ -15,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to sanitize and format message
     const sanitizeMessage = (message) => {
-        // Escape HTML special characters
         const escapedMessage = message
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
@@ -23,13 +27,17 @@ document.addEventListener("DOMContentLoaded", function () {
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
         
-        // Replace newlines with <br> tags for HTML display
         return escapedMessage.replace(/\n/g, '<br>');
     };
 
     // Function to scroll chatbox to the bottom
     const scrollToBottom = () => {
         messages.scrollTop = messages.scrollHeight;
+    };
+
+    // Function to get the current timestamp
+    const getCurrentTimestamp = () => {
+        return new Date().toLocaleString();
     };
 
     const sendMessage = () => {
@@ -40,7 +48,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Display the user's message
             messages.innerHTML += `<div><strong>You:</strong> ${sanitizedMessage}</div>`;
-            
+
+            // Save the message to the conversation history
+            conversationHistory.session.push({
+                sender: 'You',
+                message: message,
+                timestamp: getCurrentTimestamp(),
+            });
+
             // Clear the input
             chatInput.value = '';
 
@@ -69,13 +84,30 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // Display the server's response
                     messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizedResponse}</div>`;
-                    
+
+                    // Save the server's response to the conversation history
+                    conversationHistory.session.push({
+                        sender: 'Selm',
+                        message: serverMessage,
+                        timestamp: getCurrentTimestamp(),
+                    });
+
                     // Scroll to the bottom
                     scrollToBottom();
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    messages.innerHTML += `<div><strong>Error:</strong> Unable to send message</div>`;
+                    const errorMessage = 'Unable to send message';
+
+                    messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
+
+                    // Save the error to the conversation history
+                    conversationHistory.session.push({
+                        sender: 'System',
+                        message: errorMessage,
+                        timestamp: getCurrentTimestamp(),
+                    });
+
                     scrollToBottom();
                 });
         }
@@ -89,4 +121,7 @@ document.addEventListener("DOMContentLoaded", function () {
             sendMessage();
         }
     });
+
+    // Access conversation history when needed
+    window.getConversationHistory = () => conversationHistory;
 });
