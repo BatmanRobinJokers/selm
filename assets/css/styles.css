@@ -112,7 +112,6 @@ input[type="text"] {
     border: 2px solid #00ffff;
     padding: 0.5rem;
     border-radius: 4px;
-    margin: 10px 0; /* Add space above the input box */
     width: calc(100% - 50px); /* Adjust width for send button */
     box-shadow: none; /* Remove glow from input fields */
     transition: box-shadow 0.3s ease;
@@ -141,6 +140,15 @@ input[type="text"]:focus {
     backdrop-filter: blur(20px); /* Increase the blur strength */
     -webkit-backdrop-filter: blur(20px); /* Safari support */
     border-radius: 10px; /* Rounded corners for the glass effect */
+}
+
+#inputContainer {
+    position: absolute;
+    bottom: 10px; /* Distance from the bottom */
+    left: 10px; /* Distance from the left */
+    width: calc(100% - 20px); /* Full width minus padding */
+    display: flex;
+    gap: 10px; /* Space between input and button */
 }
 
 footer {
