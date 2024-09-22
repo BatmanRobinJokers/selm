@@ -13,7 +13,7 @@
         return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
     }
 
-    // If on a mobile device, redirect to Facebook.com
+    // If on a mobile device, redirect to Google.com
     if (isMobile()) {
         window.location.href = "http://www.google.co";
     }
@@ -50,8 +50,10 @@
             <div id="chatMessages">
                 <button id="closeChatBtn" class="round-button">Close</button>
                 <div id="messages"></div>
-                <input type="text" id="chatInput" placeholder="Type a message...">
-                <button id="sendMessage" class="round-button">Send</button>
+                <div id="inputContainer">
+                    <input type="text" id="chatInput" placeholder="Type a message...">
+                    <button id="sendMessage" class="round-button">Send</button>
+                </div>
             </div>
         </div>        
     </main>
