@@ -7,39 +7,53 @@ document.addEventListener("DOMContentLoaded", function () {
 
     openChatBtn.addEventListener('click', () => {
         chatContainer.style.display = "block";
-        chatInput.focus(); // Focus input when chat opens
     });
 
     closeChatBtn.addEventListener('click', () => {
         chatContainer.style.display = "none";
     });
 
+    // Function to sanitize and format message
     const sanitizeMessage = (message) => {
+        // Escape HTML special characters
         const escapedMessage = message
             .replace(/&/g, '&amp;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;');
+        
+        // Replace newlines with <br> tags for HTML display
         return escapedMessage.replace(/\n/g, '<br>');
     };
 
+    // Function to scroll chatbox to the bottom
     const scrollToBottom = () => {
         messages.scrollTop = messages.scrollHeight;
     };
 
     const sendMessage = () => {
-        const message = chatInput.value.trim();
+        const message = chatInput.value;
         if (message) {
+            // Sanitize the user's message
             const sanitizedMessage = sanitizeMessage(message);
+
+            // Display the user's message
             messages.innerHTML += `<div><strong>You:</strong> ${sanitizedMessage}</div>`;
+            
+            // Clear the input
             chatInput.value = '';
+
+            // Scroll to the bottom
             scrollToBottom();
 
+            // Send GET request with the message
             const url = `https://selmai.pythonanywhere.com/?chat=${encodeURIComponent(message)}`;
+            
             fetch(url)
-                .then(response => response.text())
+                .then(response => response.text())  // Expect the response as text
                 .then(data => {
+                    // Parse the data to extract 'generated_text' from JSON
                     let jsonResponse;
                     try {
                         jsonResponse = JSON.parse(data);
@@ -47,9 +61,16 @@ document.addEventListener("DOMContentLoaded", function () {
                         console.error('Invalid JSON:', e);
                     }
 
+                    // Extract 'generated_text' if it's available
                     const serverMessage = jsonResponse?.[0]?.generated_text || 'No response';
+
+                    // Sanitize the server's response
                     const sanitizedResponse = sanitizeMessage(serverMessage);
+
+                    // Display the server's response
                     messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizedResponse}</div>`;
+                    
+                    // Scroll to the bottom
                     scrollToBottom();
                 })
                 .catch(error => {
@@ -61,6 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     document.getElementById('sendMessage').addEventListener('click', sendMessage);
+
+    // Add 'Enter' key functionality
     chatInput.addEventListener('keypress', (event) => {
         if (event.key === 'Enter') {
             sendMessage();
