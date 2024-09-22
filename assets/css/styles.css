@@ -78,10 +78,16 @@ button {
     color: #00ffff;
     border: 2px solid #f500f2;
     box-shadow: 0 0 15px #f500f2;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem; /* Adjust padding for roundness */
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 50%; /* Make buttons round */
+    width: 40px; /* Set width */
+    height: 40px; /* Set height */
+    display: flex; /* Center icon/text */
+    justify-content: center; /* Center icon/text */
+    align-items: center; /* Center icon/text */
 }
 
 button:hover {
