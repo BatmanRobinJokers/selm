@@ -1,11 +1,9 @@
 document.getElementById('sendButton').addEventListener('click', sendMessage);
-
 document.getElementById('messageInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         sendMessage();
     }
 });
-
 document.getElementById('fileInput').addEventListener('change', handleFileUpload);
 document.getElementById('copyButton').addEventListener('click', copyChatContent);
 
