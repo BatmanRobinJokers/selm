@@ -99,6 +99,32 @@ button:hover {
     box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
 }
 
+.chat-buttons {
+    display: flex;
+    gap: 10px; /* Space between buttons */
+    position: absolute; /* Position the buttons relative to the chat container */
+    top: 10px; /* Adjust the vertical position */
+    right: 10px; /* Adjust the horizontal position */
+}
+
+.round-button {
+    background-color: #001a33;
+    color: #00ffff;
+    border: 2px solid #f500f2;
+    border-radius: 50%; /* Make buttons round */
+    width: 40px; /* Set width */
+    height: 40px; /* Set height */
+    box-shadow: 0 0 15px #f500f2;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.round-button:hover {
+    background-color: #00ff99;
+    color: #001a33;
+    box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
+}
+
 input[type="text"] {
     background-color: #001a33;
     color: #ffffff;
