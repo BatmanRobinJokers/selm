@@ -212,9 +212,45 @@ footer {
 
     .text-content {
         text-align: center;
+   
+/* Responsive Design */
+@media (max-width: 300px) {
+    .nav-links {
+        flex-direction: column;
+        align-items: center;
     }
 
-    body {
-        padding: 0 1rem;
+    .content-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .left-aligned-img {
+        width: 100%;
+    }
+
+    .text-content {
+        text-align: center;
+        max-width: 100%; /* Ensure it doesn't overflow */
+    }
+
+    button {
+        font-size: 0.8rem; /* Adjust button size for smaller screens */
+        padding: 0.5rem;
+    }
+
+    input[type="text"] {
+        font-size: 0.9rem; /* Adjust input font size */
+    }
+
+    .chat-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        position: static; /* Reset position */
+        gap: 5px; /* Space between buttons */
+    }
+
+    .round-button {
+        width: 35px; /* Smaller button size */
+        height: 35px; /* Smaller button size */
     }
 }
