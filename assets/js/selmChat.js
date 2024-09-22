@@ -143,34 +143,43 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Polling Function to check for new messages
-    const pollForNewMessages = () => {
-        let pollUrl;
-        if (mode === "selm") {
-            pollUrl = `https://selmai.pythonanywhere.com/?selm_poll`;
-        } else if (mode === "public") {
-            pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
-        }
+const pollForNewMessages = () => {
+    let pollUrl;
+    if (mode === "selm") {
+        pollUrl = `https://selmai.pythonanywhere.com/?selm_poll`;
+    } else if (mode === "public") {
+        pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
+    }
 
-        fetch(pollUrl)
-            .then(response => response.text())
-            .then(data => {
-                // Process the polled data
-                if (data) {
-                    messages.innerHTML += `<div><strong>${mode === 'selm' ? 'Selm' : 'Public'}:</strong> ${sanitizeMessage(data)}</div>`;
+    fetch(pollUrl)
+        .then(response => response.text())
+        .then(data => {
+            // Process the polled data
+            if (data) {
+                // Clear the messages before displaying the current chat log
+                messages.innerHTML = '';  
 
-                    // Save the new message to conversation history
-                    conversationHistory.session.push({
-                        sender: mode === 'selm' ? 'Selm' : 'Public',
-                        message: data,
-                        timestamp: getCurrentTimestamp(),
-                    });
+                // Add the new message to conversation history
+                conversationHistory.session.push({
+                    sender: mode === 'selm' ? 'Selm' : 'Public',
+                    message: data,
+                    timestamp: getCurrentTimestamp(),
+                });
 
-                    scrollToBottom();
+                // Print only the current chat log (for public mode)
+                if (mode === "public") {
+                    displayConversation();  // Print the entire conversation
+                } else {
+                    // In "selm" mode, just append the new message
+                    messages.innerHTML += `<div><strong>Selm:</strong> ${sanitizeMessage(data)}</div>`;
                 }
-            })
-            .catch(error => {
-                console.error('Polling error:', error);
-            });
+
+                scrollToBottom();
+            }
+        })
+        .catch(error => {
+            console.error('Polling error:', error);
+        });
     };
 
     // Set interval for polling every 5 seconds
