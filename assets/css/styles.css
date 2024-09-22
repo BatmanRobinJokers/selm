@@ -100,18 +100,20 @@ button:hover {
 }
 
 input[type="text"] {
-    background-color: transparent; /* Make input box transparent */
+    background-color: #001a33;
     color: #ffffff;
-    border: none; /* Remove border */
+    border: 2px solid #00ffff;
     padding: 0.5rem;
-    margin-bottom: 1rem;
-    width: 100%;
-    box-shadow: none;
+    border-radius: 4px;
+    margin-top: 10px; /* Add space above the input box */
+    width: calc(100% - 12px); /* Adjust width considering padding and border */
+    box-shadow: none; /* Remove glow from input fields */
     transition: box-shadow 0.3s ease;
 }
 
 input[type="text"]:focus {
-    outline: none; /* Remove outline on focus */
+    box-shadow: 0 0 15px #00ffff;
+    outline: none;
 }
 
 #chatMessages {
@@ -120,29 +122,22 @@ input[type="text"]:focus {
     height: 370px;
     overflow-y: auto;
     padding: 10px;
-    position: relative; /* Allow positioning of buttons and input */
-    box-shadow: 0 0 15px #f500f2;
-    background-image: url('../images/chat.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-radius: 10px;
+    position: relative; /* For absolute positioning of input */
+    box-shadow: 0 0 15px #f500f2; /* Neon glow effect */
+    background-image: url('../images/chat.png'); /* Your image path */
+    background-size: cover; /* Ensure the image covers the entire chatbox */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    background-color: rgba(255, 255, 255, 0.3); /* More opaque white overlay */
+    backdrop-filter: blur(20px); /* Increase the blur strength */
+    -webkit-backdrop-filter: blur(20px); /* Safari support */
+    border-radius: 10px; /* Rounded corners for the glass effect */
 }
 
-.fixed-btn {
-    position: absolute;
-    top: 10px; /* Position buttons at the top */
-    right: 10px; /* Align to the right */
-}
-
-.fixed-input {
-    position: absolute;
-    bottom: 10px; /* Position input at the bottom */
-    left: 10px; /* Align to the left */
-    width: calc(100% - 20px); /* Adjust for padding */
+.chat-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
 }
 
 footer {
