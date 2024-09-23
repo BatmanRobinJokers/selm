@@ -111,6 +111,32 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    // Function to poll recent chat from the server
+    const pollRecentChat = () => {
+        fetch("https://selmai.pythonanywhere.com/?poll_chat")
+            .then(response => response.json())  // Expect the response as JSON
+            .then(data => {
+                // Extract the "last_10_lines" field from the JSON response
+                const recentMessages = data.last_10_lines || [];
+
+                recentMessages.forEach(message => {
+                    // Only append new lines to the chat if they haven't already been appended
+                    if (!conversationHistory.public.includes(message)) {
+                        conversationHistory.public.push(message);
+
+                        // Append the new line to the chat log
+                        messages.innerHTML += `<div>${sanitizeMessage(message)}</div>`;
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error during polling:', error);
+            });
+    };
+
+    // Set polling interval for fetching recent chat every 5 seconds
+    setInterval(pollRecentChat, 5000);
+
     // Add event listener to the send button
     document.getElementById('sendMessage').addEventListener('click', sendMessage);
 
