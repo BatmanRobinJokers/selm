@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const closeChatBtn = document.getElementById('chatModeBtn');
+    const chatModeBtn = document.getElementById('chatModeBtn');
     const chatContainer = document.getElementById('chatContainer');
     const chatInput = document.getElementById('chatInput');
     const messages = document.getElementById('messages');
