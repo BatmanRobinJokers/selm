@@ -113,7 +113,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to poll recent chat from the server
     const pollRecentChat = () => {
-        alert("box");
         fetch("https://selmai.pythonanywhere.com/?poll_chat=true")
             .then(response => response.json())  // Expect the response as JSON
             .then(data => {
