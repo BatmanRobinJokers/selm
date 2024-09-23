@@ -54,12 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (message) {
-            // Sanitize the user's message
-            const sanitizedMessage = sanitizeMessage(message);
-
-            // Append the user's message to the screen
-            messages.innerHTML += `<div>${sanitizedMessage}</div>`;
-
             // Save the message to the conversation history for the current mode
             conversationHistory[mode].push({
                 sender: 'You',
@@ -79,23 +73,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Send GET request with the message
             fetch(url)
-                .then(response => response.text())  // Expect the response as text
+                .then(response => response.json())  // Expect the response as JSON
                 .then(data => {
-                    // Only append the server's response to the chat log if it's new
-                    if (data !== conversationHistory.lastMessage) {
-                        conversationHistory[mode].push({
-                            sender: mode === 'selm' ? 'Selm' : 'Public',
-                            message: data,
-                        });
+                    // Extract the "responses" field from the JSON response
+                    const responseMessages = data.responses || [];
 
-                        // Append the server's response to the chat log
-                        messages.innerHTML += `<div>${sanitizeMessage(data)}</div>`;
+                    responseMessages.forEach(responseMessage => {
+                        // Only append the server's response to the chat log if it's new
+                        if (responseMessage !== conversationHistory.lastMessage) {
+                            conversationHistory[mode].push({
+                                sender: mode === 'selm' ? 'Selm' : 'Public',
+                                message: responseMessage,
+                            });
 
-                        // Update the last message for public mode
-                        if (mode === 'public') {
-                            conversationHistory.lastMessage = data;
+                            // Append the server's response to the chat log
+                            messages.innerHTML += `<div>${sanitizeMessage(responseMessage)}</div>`;
+
+                            // Update the last message for public mode
+                            if (mode === 'public') {
+                                conversationHistory.lastMessage = responseMessage;
+                            }
                         }
-                    }
+                    });
                 })
                 .catch(error => {
                     console.error('Error:', error);
