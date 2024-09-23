@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    const openChatBtn = document.getElementById('openChatBtn');
-    const closeChatBtn = document.getElementById('closeChatBtn');
+    const chatModeBtn = document.getElementById('chatModeBtn');
     const chatContainer = document.getElementById('chatContainer');
     const chatInput = document.getElementById('chatInput');
     const messages = document.getElementById('messages');
@@ -15,12 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let mode = "selm";  // Default mode is 'selm'
     let firstMessageSent = false;  // Flag to indicate if the first message has been sent
 
-    openChatBtn.addEventListener('click', () => {
-        chatContainer.style.display = "block";
-    });
-
     // Toggle mode and clear chat on close button click
-    closeChatBtn.addEventListener('click', () => {
+    chatModeBtn.addEventListener('click', () => {
         // Clear the chat screen
         messages.innerHTML = '';
 
