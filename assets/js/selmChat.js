@@ -74,21 +74,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // Send GET request with the message
             fetch(url)
-                .then(response => response.text())  // Expect the response as text
+                .then(response => response.json())  // Expect the response as JSON
                 .then(data => {
+                    // Extract the response text
+                    let responseText = data.generated_text || "";  // Adjust according to your JSON structure
+                    let formattedText = responseText.split("\n").slice(1).join("\n").trim(); // Remove first line and join the rest
+
                     // Only append the server's response to the chat log if it's new
-                    if (data !== conversationHistory.lastMessage) {
+                    if (formattedText !== conversationHistory.lastMessage) {
                         conversationHistory.session.push({
                             sender: mode === 'selm' ? 'Selm' : 'Public',
-                            message: data,
+                            message: formattedText,
                         });
 
                         // Append the server's response to the chat log
-                        messages.innerHTML += `<div>${sanitizeMessage(data)}</div>`;
+                        messages.innerHTML += `<div>${sanitizeMessage(formattedText)}</div>`;
 
                         // Update the last message for public mode
                         if (mode === 'public') {
-                            conversationHistory.lastMessage = data;
+                            conversationHistory.lastMessage = formattedText;
                         }
                     }
                 })
