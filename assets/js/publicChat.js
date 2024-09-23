@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Toggle mode and clear chat on close button click
-    closeChatBtn.addEventListener('click', () => {
+    chatModeBtn.addEventListener('click', () => {
         messages.innerHTML = ''; // Clear the chat screen
         mode = (mode === "selm") ? "public" : "selm"; // Toggle mode
         messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
