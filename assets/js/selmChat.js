@@ -13,22 +13,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize mode
     let mode = "selm";  // Default mode is 'selm'
-    let firstMessageSent = false;  // Flag to indicate if the first message has been sent
-
+    
     openChatBtn.addEventListener('click', () => {
         chatContainer.style.display = "block";
     });
 
-    // Toggle mode and clear chat on close button click
+    // Toggle mode without clearing chat history
     closeChatBtn.addEventListener('click', () => {
-        // Clear the chat screen
-        messages.innerHTML = '';
-
         // Toggle mode between "selm" and "public"
         mode = (mode === "selm") ? "public" : "selm";
 
         // Notify the user of the mode change
         messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
+
+        // Display previous messages when switching modes
+        displayPreviousMessages();
 
         // Start polling for new messages if in public mode
         if (mode === "public") {
@@ -139,15 +138,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Function to display the last 20 messages (not the entire conversation)
-    const displayLastMessages = (lastMessages) => {
-        messages.innerHTML = '';  // Clear the chatbox
-
-        lastMessages.forEach((entry) => {
+    // Function to display previous messages when switching modes
+    const displayPreviousMessages = () => {
+        messages.innerHTML = '';  // Clear the chatbox for fresh display
+        conversationHistory.session.forEach(entry => {
             const sanitizedMessage = sanitizeMessage(entry.message);
             messages.innerHTML += `<div>${sanitizedMessage}</div>`;
         });
-        scrollToBottom();  // Scroll to the bottom after displaying the last 20 messages
+        scrollToBottom();  // Scroll to the bottom after displaying messages
     };
 
     // Polling function to check for new messages (Only for public chat)
