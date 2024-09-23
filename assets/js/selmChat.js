@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Dictionary to store the conversation history
     const conversationHistory = {
-        session: [],
+        selm: [],
+        public: [],
         lastMessage: '',  // Track the last message in public chat to prevent duplication
     };
 
     // Initialize mode
     let mode = "selm";  // Default mode is 'selm'
-    let firstMessageSent = true;  // Flag to indicate if the first message has been sent
 
     // Toggle mode and clear chat on chat mode button click
     chatModeBtn.addEventListener('click', () => {
@@ -24,6 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Notify the user of the mode change
         messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
+
+        // Display the conversation history for the current mode
+        conversationHistory[mode].forEach(entry => {
+            messages.innerHTML += `<div>${sanitizeMessage(entry.message)}</div>`;
+        });
     });
 
     // Function to sanitize and format message
@@ -55,8 +60,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Append the user's message to the screen
             messages.innerHTML += `<div>${sanitizedMessage}</div>`;
 
-            // Save the message to the conversation history
-            conversationHistory.session.push({
+            // Save the message to the conversation history for the current mode
+            conversationHistory[mode].push({
                 sender: 'You',
                 message: message,
             });
@@ -78,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 .then(data => {
                     // Only append the server's response to the chat log if it's new
                     if (data !== conversationHistory.lastMessage) {
-                        conversationHistory.session.push({
+                        conversationHistory[mode].push({
                             sender: mode === 'selm' ? 'Selm' : 'Public',
                             message: data,
                         });
@@ -99,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
 
                     // Save the error to the conversation history
-                    conversationHistory.session.push({
+                    conversationHistory[mode].push({
                         sender: 'System',
                         message: errorMessage,
                     });
