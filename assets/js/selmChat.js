@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize mode
     let mode = "selm";  // Default mode is 'selm'
-    let firstMessageSent = false;  // Flag to indicate if the first message has been sent
+    let firstMessageSent = true;  // Flag to indicate if the first message has been sent
 
     // Toggle mode and clear chat on close button click
     chatModeBtn.addEventListener('click', () => {
