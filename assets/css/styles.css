@@ -153,7 +153,7 @@ input[type="text"]:focus {
     outline: none;
 }
 
-#sendMessage, #closeChatBtn {
+#sendMessage, #chatModeBtn {
     /* background-color: #00ffff; */
     color: #001a33;
     border: 2px solid #00ffff;
@@ -164,7 +164,7 @@ input[type="text"]:focus {
     transition: background-color 0.3s ease;
 }
 
-#sendMessage:hover, #closeChatBtn:hover {
+#sendMessage:hover, #chatModeBtn:hover {
     /* background-color: #00ccff; */
 }
 
