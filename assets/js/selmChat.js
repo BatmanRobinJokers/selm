@@ -8,27 +8,20 @@ document.addEventListener("DOMContentLoaded", function () {
     // Initialize mode
     let mode = "selm";  // Default mode is 'selm'
 
+    // Open chat on button click
     openChatBtn.addEventListener('click', () => {
         chatContainer.style.display = "block";
+        fetchChatLog(); // Fetch initial chat log when opening the chat
     });
 
     // Toggle mode and clear chat on close button click
     closeChatBtn.addEventListener('click', () => {
-        // Clear the chat screen
-        messages.innerHTML = '';
-
-        // Toggle mode between "selm" and "public"
-        mode = (mode === "selm") ? "public" : "selm";
-
-        // Notify the user of the mode change
+        messages.innerHTML = ''; // Clear the chat screen
+        mode = (mode === "selm") ? "public" : "selm"; // Toggle mode
         messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
-
-        // Fetch and display the last 10 lines of the chat log
-        fetchChatLog();
-
-        // Start polling for new messages if in public mode
+        fetchChatLog(); // Fetch chat log based on the new mode
         if (mode === "public") {
-            pollForNewMessages();
+            pollForNewMessages(); // Start polling for new messages in public mode
         }
     });
 
@@ -52,7 +45,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const sendMessage = () => {
         const message = chatInput.value.trim();
 
-        // Check if the command "get conversation" was entered
         if (message.toLowerCase() === 'get conversation') {
             displayConversation();  // Display the entire conversation
             chatInput.value = '';   // Clear the input box
@@ -60,32 +52,24 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (message) {
-            // Sanitize the user's message
             const sanitizedMessage = sanitizeMessage(message);
-
-            // Clear the input
-            chatInput.value = '';
+            chatInput.value = ''; // Clear the input
 
             // Decide server endpoint based on mode
-            let url;
-            if (mode === "selm") {
-                url = `https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(message)}`;
-            } else if (mode === "public") {
-                url = `https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)}`;
-            }
+            let url = mode === "selm"
+                ? `https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(message)}`
+                : `https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)}`;
 
             // Send GET request with the message
             fetch(url)
                 .then(response => response.text())  // Expect the response as text
                 .then(data => {
-                    // Append the server's response to the chat log
                     messages.innerHTML += `<div>${sanitizeMessage(data)}</div>`;
                     scrollToBottom();
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    const errorMessage = 'Unable to send message';
-                    messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
+                    messages.innerHTML += `<div><strong>Error:</strong> Unable to send message</div>`;
                     scrollToBottom();
                 });
         }
@@ -93,18 +77,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to fetch the chat log
     const fetchChatLog = () => {
-        const logUrl = `https://selmai.pythonanywhere.com/?public_poll`;
+        const logUrl = `https://selmai.pythonanywhere.com/?${mode}_poll`;
 
         fetch(logUrl)
             .then(response => response.json())
             .then(data => {
-                // Display the last 10 messages from the chat log
+                messages.innerHTML = ''; // Clear the chatbox
                 const lastMessages = data.slice(-10);
-                messages.innerHTML = '';  // Clear the chatbox
                 lastMessages.forEach(entry => {
                     messages.innerHTML += `<div>${sanitizeMessage(entry.message)}</div>`;
                 });
-                scrollToBottom();  // Scroll to the bottom after displaying messages
+                scrollToBottom(); // Scroll to the bottom after displaying messages
             })
             .catch(error => {
                 console.error('Error fetching chat log:', error);
@@ -119,12 +102,11 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(pollUrl)
                 .then(response => response.json())
                 .then(data => {
-                    // Extract the new messages
                     data.forEach(entry => {
                         const sanitizedMessage = sanitizeMessage(entry.message);
                         messages.innerHTML += `<div>${sanitizedMessage}</div>`;
                     });
-                    scrollToBottom();  // Scroll to the bottom after appending new messages
+                    scrollToBottom();
                 })
                 .catch(error => {
                     console.error('Polling error:', error);
