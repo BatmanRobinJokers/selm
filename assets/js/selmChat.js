@@ -116,7 +116,4 @@ document.addEventListener("DOMContentLoaded", function () {
             sendMessage();
         }
     });
-
-    // Set interval for polling every 5 seconds for public chat
-    setInterval(pollForNewMessages, 5000);
 });
