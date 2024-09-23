@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Initialize mode
     let mode = "selm";  // Default mode is 'selm'
-    let firstMessageSent = true;  // Flag to indicate if the first message has been sent
 
     // Toggle mode and clear chat on chat mode button click
     chatModeBtn.addEventListener('click', () => {
@@ -65,34 +64,28 @@ document.addEventListener("DOMContentLoaded", function () {
             chatInput.value = '';
 
             // Decide server endpoint based on mode
-            let url;
-            if (mode === "selm") {
-                url = `https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(message)}`;
-            } else if (mode === "public") {
-                url = `https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)}`;
-            }
+            let url = `https://selmai.pythonanywhere.com/?${mode}_chat=${encodeURIComponent(message)}`;
 
             // Send GET request with the message
             fetch(url)
                 .then(response => response.json())  // Expect the response as JSON
                 .then(data => {
                     // Extract the response text
-                    let responseText = data.generated_text || "";  // Adjust according to your JSON structure
-                    let formattedText = responseText.split("\n").slice(1).join("\n").trim(); // Remove first line and join the rest
+                    let responseText = data.generated_text || "No response from server.";  // Handle missing response
 
                     // Only append the server's response to the chat log if it's new
-                    if (formattedText !== conversationHistory.lastMessage) {
+                    if (responseText !== conversationHistory.lastMessage) {
                         conversationHistory.session.push({
                             sender: mode === 'selm' ? 'Selm' : 'Public',
-                            message: formattedText,
+                            message: responseText,
                         });
 
                         // Append the server's response to the chat log
-                        messages.innerHTML += `<div>${sanitizeMessage(formattedText)}</div>`;
+                        messages.innerHTML += `<div>${sanitizeMessage(responseText)}</div>`;
 
                         // Update the last message for public mode
                         if (mode === 'public') {
-                            conversationHistory.lastMessage = formattedText;
+                            conversationHistory.lastMessage = responseText;
                         }
                     }
                 })
