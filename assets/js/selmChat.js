@@ -116,8 +116,8 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("https://selmai.pythonanywhere.com/?poll_chat")
             .then(response => response.json())  // Expect the response as JSON
             .then(data => {
-                // Extract the "last_10_lines" field from the JSON response
-                const recentMessages = data.last_10_lines || [];
+                // Extract the "last_lines" field from the JSON response
+                const recentMessages = data.last_lines || [];
 
                 recentMessages.forEach(message => {
                     // Only append new lines to the chat if they haven't already been appended
