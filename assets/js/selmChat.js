@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mode = (mode === "selm") ? "public" : "selm";
 
         // Notify the user of the mode change
-        messages.innerHTML += <div><strong>System:</strong> Chat mode switched to ${mode}.</div>;
+        messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
     });
 
     // Function to sanitize and format message
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const sanitizedMessage = sanitizeMessage(message);
 
             // Append the user's message to the screen
-            messages.innerHTML += <div>${sanitizedMessage}</div>;
+            messages.innerHTML += `<div>${sanitizedMessage}</div>`;
 
             // Save the message to the conversation history
             conversationHistory.session.push({
@@ -67,9 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Decide server endpoint based on mode
             let url;
             if (mode === "selm") {
-                url = https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(message)};
+                url = `https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(message)}`;
             } else if (mode === "public") {
-                url = https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)};
+                url = `https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)}`;
             }
 
             // Send GET request with the message
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         });
 
                         // Append the server's response to the chat log
-                        messages.innerHTML += <div>${sanitizeMessage(data)}</div>;
+                        messages.innerHTML += `<div>${sanitizeMessage(data)}</div>`;
 
                         // Update the last message for public mode
                         if (mode === 'public') {
@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     console.error('Error:', error);
                     const errorMessage = 'Unable to send message';
 
-                    messages.innerHTML += <div><strong>Error:</strong> ${errorMessage}</div>;
+                    messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
 
                     // Save the error to the conversation history
                     conversationHistory.session.push({
@@ -117,4 +117,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
