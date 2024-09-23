@@ -116,10 +116,11 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch("https://selmai.pythonanywhere.com/?poll_chat=true")
             .then(response => response.json())  // Expect the response as JSON
             .then(data => {
-                // Extract the "last_lines" field from the JSON response
-                const recentMessages = data.last_lines || [];
-
+                // data is now an array of messages
+                const recentMessages = data || [];
+    
                 recentMessages.forEach(message => {
+                    // Ensure the message is not already in conversation history
                     if (!conversationHistory.public.some(entry => entry.message === message)) {
                         conversationHistory.public.push({ sender: 'Public', message });
                         messages.innerHTML += `<div>${sanitizeMessage(message)}</div>`;
