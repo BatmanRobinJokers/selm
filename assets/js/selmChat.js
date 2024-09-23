@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let mode = "selm";  // Default mode is 'selm'
     let firstMessageSent = true;  // Flag to indicate if the first message has been sent
 
-    // Toggle mode and clear chat on close button click
+    // Toggle mode and clear chat on chat mode button click
     chatModeBtn.addEventListener('click', () => {
         // Clear the chat screen
         messages.innerHTML = '';
@@ -24,11 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Notify the user of the mode change
         messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
-
-        // Start polling for new messages if in public mode
-        if (mode === "public") {
-            pollForNewMessages();
-        }
     });
 
     // Function to sanitize and format message
@@ -40,11 +35,6 @@ document.addEventListener("DOMContentLoaded", function () {
             .replace(/"/g, '&quot;')
             .replace(/'/g, '&#39;')
             .replace(/\n/g, '<br>');
-    };
-
-    // Function to scroll chatbox to the bottom
-    const scrollToBottom = () => {
-        messages.scrollTop = messages.scrollHeight;
     };
 
     // Function to send message
@@ -74,9 +64,6 @@ document.addEventListener("DOMContentLoaded", function () {
             // Clear the input
             chatInput.value = '';
 
-            // Scroll to the bottom
-            scrollToBottom();
-
             // Decide server endpoint based on mode
             let url;
             if (mode === "selm") {
@@ -104,8 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
                             conversationHistory.lastMessage = data;
                         }
                     }
-
-                    scrollToBottom();
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -118,8 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         sender: 'System',
                         message: errorMessage,
                     });
-
-                    scrollToBottom();
                 });
         }
     };
@@ -133,42 +116,6 @@ document.addEventListener("DOMContentLoaded", function () {
             sendMessage();
         }
     });
-
-    // Function to display the last 20 messages (not the entire conversation)
-    const displayLastMessages = (lastMessages) => {
-        messages.innerHTML = '';  // Clear the chatbox
-
-        lastMessages.forEach((entry) => {
-            const sanitizedMessage = sanitizeMessage(entry.message);
-            messages.innerHTML += `<div>${sanitizedMessage}</div>`;
-        });
-        scrollToBottom();  // Scroll to the bottom after displaying the last 20 messages
-    };
-
-    // Polling function to check for new messages (Only for public chat)
-    const pollForNewMessages = () => {
-        if (mode === "public") {
-            const pollUrl = `https://selmai.pythonanywhere.com/?public_poll`;
-
-            fetch(pollUrl)
-                .then(response => response.json())  // Assume response as JSON object
-                .then(data => {
-                    // Extract the last 20 messages from the server
-                    const lastMessages = data.slice(-20);
-
-                    // Display only the last 20 messages when switching to public mode
-                    displayLastMessages(lastMessages);
-
-                    // Update the last message to prevent duplicates
-                    if (lastMessages.length > 0) {
-                        conversationHistory.lastMessage = lastMessages[lastMessages.length - 1].message;
-                    }
-                })
-                .catch(error => {
-                    console.error('Polling error:', error);
-                });
-        }
-    };
 
     // Set interval for polling every 5 seconds for public chat
     setInterval(pollForNewMessages, 5000);
