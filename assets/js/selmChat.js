@@ -120,11 +120,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 const recentMessages = data.last_lines || [];
 
                 recentMessages.forEach(message => {
-                    // Only append new lines to the chat if they haven't already been appended
-                    if (!conversationHistory.public.includes(message)) {
-                        conversationHistory.public.push(message);
-
-                        // Append the new line to the chat log
+                    if (!conversationHistory.public.some(entry => entry.message === message)) {
+                        conversationHistory.public.push({ sender: 'Public', message });
                         messages.innerHTML += `<div>${sanitizeMessage(message)}</div>`;
                     }
                 });
