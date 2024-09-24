@@ -1,5 +1,6 @@
 // messageHandler.js
-import { sanitizeMessage, getGeolocation, scrollToBottom } from './utils.js';
+import { sanitizeMessage, scrollToBottom } from './assets/js/utils.js';
+import { handleWeatherCommand } from './assets/js/weatherHandler.js';
 
 export const sendMessage = (chatInput, messages, spinner, conversationHistory, mode) => {
     const message = chatInput.value.trim();
@@ -15,18 +16,12 @@ export const sendMessage = (chatInput, messages, spinner, conversationHistory, m
         chatInput.value = '';
         spinner.style.display = 'block';
 
-        let url = (mode === "selm") 
+        const url = (mode === "selm") 
             ? `https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(message)}`
             : `https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)}`;
 
         if (message.toLowerCase().startsWith('weather')) {
-            getGeolocation()
-                .then(({ latitude, longitude }) => {
-                    const geoMessage = `weather ${latitude} ${longitude}`;
-                    return fetch(url);
-                })
-                .then(response => handleResponse(response, messages, conversationHistory, mode, spinner))
-                .catch(error => handleError(error, messages, conversationHistory, mode, spinner));
+            handleWeatherCommand(message, url, messages, conversationHistory, mode, spinner);
         } else {
             fetch(url)
                 .then(response => handleResponse(response, messages, conversationHistory, mode, spinner))
