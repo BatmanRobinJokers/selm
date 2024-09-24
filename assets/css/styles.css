@@ -58,10 +58,13 @@ main {
 }
 
 .left-align-img {
+    width: 200px;
+    height: 200px;
     max-width: 200px;
     border: 1px solid #00ffff;
     box-shadow: 0 0 10px #00ffff;
     margin-left: 0;
+    margin-right: auto;
 }
 
 .text-content {
