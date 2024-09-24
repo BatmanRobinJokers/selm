@@ -31,6 +31,10 @@ header {
     color: #fb8151;
 }
 
+.nav-links li:seventh-child a {
+    color: #8675309
+}
+
 a {
     color: #00ffff;
     text-decoration: none;
