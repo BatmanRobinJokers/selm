@@ -27,18 +27,18 @@ header {
     gap: 2rem;
 }
 
+.nav-links a {
+    color: #00ffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
 .nav-links li:first-child a {
     color: #fb8151;
 }
 
 .nav-links li:last-child a {
-    color: #867530; /* 9 */
-}
-
-a {
-    color: #00ffff;
-    text-decoration: none;
-    transition: color 0.3s ease;
+    color: #867530;
 }
 
 a:hover {
@@ -52,7 +52,7 @@ main {
 
 .content-container {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 2rem;
     margin: 20px 0;
 }
@@ -60,15 +60,13 @@ main {
 .left-align-img {
     width: 200px;
     height: 200px;
-    max-width: 200px;
     border: 1px solid #00ffff;
     box-shadow: 0 0 10px #00ffff;
-    margin-left: 0;
-    margin-right: auto;
 }
 
 .text-content {
     max-width: 600px;
+    text-align: left;
 }
 
 section {
@@ -106,10 +104,6 @@ button:hover {
     box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
 }
 
-input[type="file"] {
-    display: none;
-}
-
 #chatContainer {
     position: relative;
     height: 700px;
@@ -117,7 +111,6 @@ input[type="file"] {
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 0 15px #f500f2;
-
     background-image: url('../images/chat.png');
     background-size: cover;
     background-position: center;
@@ -152,7 +145,6 @@ input[type="text"] {
     padding: 0.5rem;
     border-radius: 4px;
     width: 100%;
-    box-shadow: none;
     transition: box-shadow 0.3s ease;
 }
 
@@ -162,7 +154,6 @@ input[type="text"]:focus {
 }
 
 #uploadFile, #chatModeBtn, #sendMessage {
-    color: #001a33;
     border: 2px solid #00ffff;
     padding: 0.0rem 1rem;
     border-radius: 4px;
@@ -170,18 +161,14 @@ input[type="text"]:focus {
     transition: background-color 0.3s ease;
 }
 
-@media (max-width: 300px) {
-    .nav-links {
-        flex-direction: column;
-        align-items: center;
-    }
-
+/* Responsive adjustments */
+@media (max-width: 768px) {
     .content-container {
         flex-direction: column;
         align-items: center;
     }
 
-    .left-aligned-img {
+    .left-align-img {
         width: 100%;
     }
 
@@ -193,21 +180,3 @@ input[type="text"]:focus {
         padding: 0 1rem;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
