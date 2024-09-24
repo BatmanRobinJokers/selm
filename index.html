@@ -33,7 +33,7 @@
                 </div>
             </div>
         </section>
-        <div id="chatContainer" display="none">
+        <div id="chatContainer" style="display:none;">
             <div id="chatMessages">
                 <div id="messages"></div>
                 <div id="spinner" style="display:none; text-align:center; padding: 10px;">
@@ -42,22 +42,18 @@
             </div>
             <div id="inputBox">
                 <input type="text" id="chatInput" placeholder="Type a message...">
-                <button id="uploadFile"></button>
-                <button id="chatModeBtn"></button>
-                <button id="sendMessage"></button>
+                <button id="uploadFile" class="icon-button">
+                    <img src="assets/images/paperclip.png" alt="Upload" />
+                </button>
+                <button id="chatModeBtn" class="icon-button">
+                    <img src="assets/images/chat-mode.png" alt="Chat Mode" />
+                </button>
+                <button id="sendMessage" class="icon-button">
+                    <img src="assets/images/send.png" alt="Send" />
+                </button>
             </div>
         </div>
     </main>
-<!--
-    <footer>
-        <p>&copy; 2024 SELM Project. All rights reserved.</p>
-        <ul class="footer-links">
-            <li><a href="https://usernamesare4slaves.github.io/">📖 Official Documentation</a></li>
-            <li><a href="https://forum.example.com">💬 Community Forum</a></li>
-            <li><a href="https://github.com/UsernamesAre4Slaves/Repo/issues">🐛 GitHub Issues</a></li>
-        </ul>
-    </footer>
--->
     <script type="module">
         import { toggleChatMode } from './assets/js/chat.js';
         import { sendMessage } from './assets/js/messageHandler.js';
