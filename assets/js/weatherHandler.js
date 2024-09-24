@@ -1,5 +1,6 @@
 // weatherHandler.js
-import { getGeolocation } from './assets/js/utils.js';
+
+import { getGeolocation, sanitizeMessage, scrollToBottom } from './utils.js';
 
 export const handleWeatherCommand = (message, url, messages, conversationHistory, mode, spinner) => {
     return getGeolocation()
