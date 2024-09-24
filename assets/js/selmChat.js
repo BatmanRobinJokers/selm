@@ -64,27 +64,27 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to send message
     const sendMessage = () => {
         const message = chatInput.value.trim();
-
+    
         // Check if the command "get conversation" was entered
         if (message.toLowerCase() === 'get conversation') {
             displayConversation();  // Display the entire conversation
             chatInput.value = '';   // Clear the input box
             return;  // Do not send anything to the server
         }
-
+    
         if (message) {
             // Save the message to the conversation history for the current mode
             conversationHistory[mode].push({
                 sender: 'You',
                 message: message,
             });
-
+    
             // Clear the input
             chatInput.value = '';
-
+    
             // Show the spinner while waiting for the server response
             spinner.style.display = 'block';
-
+    
             // Decide server endpoint based on mode
             let url;
             if (mode === "selm") {
@@ -92,23 +92,24 @@ document.addEventListener("DOMContentLoaded", function () {
             } else if (mode === "public") {
                 url = `https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)}`;
             }
-
+    
             // Check if the message is "weather" and get geolocation
-            if (message.toLowerCase() === 'weather') {
+            if (message.toLowerCase().startsWith('weather')) {
                 getGeolocation()
                     .then(({ latitude, longitude }) => {
-                        // Append geolocation to the URL
-                        url += `&lat=${latitude}&lon=${longitude}`;
+                        // Include latitude and longitude in the message
+                        const geoMessage = `weather ${latitude} ${longitude}`;
+                        url = `https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(geoMessage)}`;
                         return fetch(url);
                     })
                     .then(response => response.json())  // Expect the response as JSON
                     .then(data => {
                         // Hide the spinner after receiving the response
                         spinner.style.display = 'none';
-
+    
                         // Extract the "responses" field from the JSON response
                         const responseMessages = data.responses || [];
-
+    
                         responseMessages.forEach(responseMessage => {
                             // Only append the server's response to the chat log if it's new
                             if (responseMessage !== conversationHistory.lastMessage) {
@@ -116,32 +117,32 @@ document.addEventListener("DOMContentLoaded", function () {
                                     sender: mode === 'selm' ? 'Selm' : 'Public',
                                     message: responseMessage,
                                 });
-
+    
                                 // Append the server's response to the chat log
                                 messages.innerHTML += `<div>${sanitizeMessage(responseMessage)}</div>`;
-
+    
                                 // Update the last message for public mode
                                 if (mode === 'public') {
                                     conversationHistory.lastMessage = responseMessage;
                                 }
                             }
                         });
-
+    
                         scrollToBottom();  // Scroll to the bottom after new messages
                     })
                     .catch(error => {
                         console.error('Error:', error);
                         spinner.style.display = 'none';  // Hide spinner on error
                         const errorMessage = 'Unable to send message';
-
+    
                         messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
-
+    
                         // Save the error to the conversation history
                         conversationHistory[mode].push({
                             sender: 'System',
                             message: errorMessage,
                         });
-
+    
                         scrollToBottom();  // Scroll to the bottom after an error
                     });
             } else {
@@ -151,10 +152,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     .then(data => {
                         // Hide the spinner after receiving the response
                         spinner.style.display = 'none';
-
+    
                         // Extract the "responses" field from the JSON response
                         const responseMessages = data.responses || [];
-
+    
                         responseMessages.forEach(responseMessage => {
                             // Only append the server's response to the chat log if it's new
                             if (responseMessage !== conversationHistory.lastMessage) {
@@ -162,38 +163,38 @@ document.addEventListener("DOMContentLoaded", function () {
                                     sender: mode === 'selm' ? 'Selm' : 'Public',
                                     message: responseMessage,
                                 });
-
+    
                                 // Append the server's response to the chat log
                                 messages.innerHTML += `<div>${sanitizeMessage(responseMessage)}</div>`;
-
+    
                                 // Update the last message for public mode
                                 if (mode === 'public') {
                                     conversationHistory.lastMessage = responseMessage;
                                 }
                             }
                         });
-
+    
                         scrollToBottom();  // Scroll to the bottom after new messages
                     })
                     .catch(error => {
                         console.error('Error:', error);
                         spinner.style.display = 'none';  // Hide spinner on error
                         const errorMessage = 'Unable to send message';
-
+    
                         messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
-
+    
                         // Save the error to the conversation history
                         conversationHistory[mode].push({
                             sender: 'System',
                             message: errorMessage,
                         });
-
+    
                         scrollToBottom();  // Scroll to the bottom after an error
                     });
             }
         }
     };
-
+    
     // Function to poll recent chat from the server
     const pollRecentChat = () => {
         fetch("https://selmai.pythonanywhere.com/?public_poll")
