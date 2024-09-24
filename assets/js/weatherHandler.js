@@ -1,3 +1,4 @@
+// weatherHandler.js
 import { getGeolocation } from './assets/js/utils.js';
 
 export const handleWeatherCommand = (message, url, messages, conversationHistory, mode, spinner) => {
