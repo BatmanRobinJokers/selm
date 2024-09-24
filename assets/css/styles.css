@@ -31,7 +31,7 @@ header {
     color: #fb8151;
 }
 
-.nav-links li:seventh-child a {
+.nav-links li:last-child a {
     color: #8675309;
 }
 
