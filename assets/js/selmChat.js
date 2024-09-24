@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const chatContainer = document.getElementById('chatContainer');
     const chatInput = document.getElementById('chatInput');
     const messages = document.getElementById('messages');
+    const spinner = document.getElementById('spinner');  // Spinner element
 
     // Dictionary to store the conversation history
     const conversationHistory = {
@@ -29,6 +30,8 @@ document.addEventListener("DOMContentLoaded", function () {
         conversationHistory[mode].forEach(entry => {
             messages.innerHTML += `<div>${sanitizeMessage(entry.message)}</div>`;
         });
+
+        scrollToBottom();  // Scroll to the bottom after mode switch
     });
 
     // Function to sanitize and format message
@@ -63,6 +66,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Clear the input
             chatInput.value = '';
 
+            // Show the spinner while waiting for the server response
+            spinner.style.display = 'block';
+
             // Decide server endpoint based on mode
             let url;
             if (mode === "selm") {
@@ -75,6 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
             fetch(url)
                 .then(response => response.json())  // Expect the response as JSON
                 .then(data => {
+                    // Hide the spinner after receiving the response
+                    spinner.style.display = 'none';
+
                     // Extract the "responses" field from the JSON response
                     const responseMessages = data.responses || [];
 
@@ -95,9 +104,12 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                         }
                     });
+
+                    scrollToBottom();  // Scroll to the bottom after new messages
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    spinner.style.display = 'none';  // Hide spinner on error
                     const errorMessage = 'Unable to send message';
 
                     messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
@@ -107,6 +119,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         sender: 'System',
                         message: errorMessage,
                     });
+
+                    scrollToBottom();  // Scroll to the bottom after an error
                 });
         }
     };
@@ -126,10 +140,17 @@ document.addEventListener("DOMContentLoaded", function () {
                         messages.innerHTML += `<div>${sanitizeMessage(message)}</div>`;
                     }
                 });
+
+                scrollToBottom();  // Scroll to the bottom after new polled messages
             })
             .catch(error => {
                 console.error('Error during polling:', error);
             });
+    };
+
+    // Function to scroll to the bottom of the chat box
+    const scrollToBottom = () => {
+        messages.scrollTop = messages.scrollHeight;
     };
 
     // Set polling interval for fetching recent chat every 5 seconds
