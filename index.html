@@ -1,80 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SELM - Small Efficient Learning Model</title>
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
-    <link rel="stylesheet" href="assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script>
-    // Function to detect if the user is on a mobile device
-    function isMobile() {
-        return /Mobi|Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
-    }
-
-    // If on a mobile device, redirect to Facebook.com
-    if (isMobile()) {
-        window.location.href = "http://www.google.co";
-    }
-</script>
-</head>
-<body>
-    <header>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="#introduction">Introduction</a></li>
-                <li><a href="#setup">Setup</a></li>
-                <li><a href="#features">Features</a></li>
-                <li><a href="#usage">Usage</a></li>
-                <li><a href="#development">Development</a></li>
-                <li><a href="#docs">Documentation</a></li>
-                <li><a href="#support">Support</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <section id="about">
-            <div class="content-container">
-                <img src="assets/images/selm.gif" alt="SELM Image" class="left-aligned-img">
-                <div class="text-content">
-                    <h2>selm - (Small Efficient Learning Model)</h2>
-                    <p id="about-description"></p> <!-- Placeholder for typing effect -->
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SELM - Small Efficient Learning Model</title>
+        <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+        <link rel="stylesheet" href="assets/css/styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#setup">Setup</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#usage">Usage</a></li>
+                    <li><a href="#development">Development</a></li>
+                    <li><a href="#docs">Documentation</a></li>
+                    <li><a href="#support">Support</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section id="about">
+                <div class="content-container">
+                    <img src="assets/images/selm.gif" alt="SELM Image" class="left-aligned-img">
+                    <div class="text-content">
+                        <h2>selm - (Small Efficient Learning Model)</h2>
+                        <p id="about-description"></p>
+                    </div>
+                </div>
+            </section>
+            <div id="chatContainer">
+                <div id="chatMessages">
+                    <div id="messages"></div>
+                </div>
+                <div id="inputBox">
+                    <input type="text" id="chatInput" placeholder="Type a message...">
+                    <button id="sendMessageBtn"></button>
+                    <button id="chatModeBtn"></button>
+                    <button id="uploadFileBtn"></button>
                 </div>
             </div>
-        </section>
-
-
-        
-        <div id="chatContainer" display="none">
-            <div id="chatMessages">
-                <div id="messages"></div>
-            </div>
-            <div id="inputBox">
-                <input type="text" id="chatInput" placeholder="Type a message...">
-                <button id="sendMessage"></button>
-                <button id="chatModeBtn"></button>
-            </div>
-        </div>
-
-
-
-
-        
-    </main>
-<!--
-    <footer>
-        <p>&copy; 2024 SELM Project. All rights reserved.</p>
-        <ul class="footer-links">
-            <li><a href="https://usernamesare4slaves.github.io/">📖 Official Documentation</a></li>
-            <li><a href="https://forum.example.com">💬 Community Forum</a></li>
-            <li><a href="https://github.com/UsernamesAre4Slaves/Repo/issues">🐛 GitHub Issues</a></li>
-        </ul>
-    </footer>
--->
-    <script src="assets/js/typingEffect.js"></script>
-    <script src="assets/js/selmChat.js"></script>
-    <script src="assets/js/publicChat.js"></script>
-</body>
+        </main>
+        <script src="assets/js/typingEffect.js"></script>
+        <script src="assets/js/selmChat.js"></script>
+    </body>
 </html>
