@@ -7,7 +7,6 @@
     <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
     <link rel="stylesheet" href="assets/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script src="assets/js/deviceCheck.js"></script>
 </head>
 <body>
     <header>
@@ -26,67 +25,25 @@
     <main>
         <section id="about">
             <div class="content-container">
-                <img src="assets/images/selm.gif" alt="SELM Image" class="left-aligned-img">
+                <img src="https://github.com/user-attachments/assets/5d6383bd-2a36-44ea-a1c5-6b82dc28dee1" alt="SELM Image" class="left-aligned-img">
                 <div class="text-content">
                     <h2>selm - (Small Efficient Learning Model)</h2>
-                    <p id="about-description"></p> <!-- Placeholder for typing effect -->
+                    <p id="about-description"></p>
                 </div>
             </div>
         </section>
-        <div id="chatContainer" style="display:none;">
+        <div id="chatContainer" display="none">
             <div id="chatMessages">
                 <div id="messages"></div>
-                <div id="spinner" style="display:none; text-align:center; padding: 10px;">
-                    <img src="assets/images/spinner.gif" alt="Loading..." />
-                </div>
             </div>
             <div id="inputBox">
                 <input type="text" id="chatInput" placeholder="Type a message...">
-                <button id="uploadFile" class="icon-button">
-                    <img src="assets/images/paperclip.png" alt="Upload" />
-                </button>
-                <button id="chatModeBtn" class="icon-button">
-                    <img src="assets/images/chat-mode.png" alt="Chat Mode" />
-                </button>
-                <button id="sendMessage" class="icon-button">
-                    <img src="assets/images/send.png" alt="Send" />
-                </button>
+                <button id="sendMessage"></button>
+                <button id="chatModeBtn"></button>
             </div>
         </div>
     </main>
-    <script type="module">
-        import { toggleChatMode } from './assets/js/chat.js';
-        import { sendMessage } from './assets/js/messageHandler.js';
-        
-        document.addEventListener("DOMContentLoaded", function () {
-            const chatModeBtn = document.getElementById('chatModeBtn');
-            const chatContainer = document.getElementById('chatContainer');
-            const chatInput = document.getElementById('chatInput');
-            const messages = document.getElementById('messages');
-            const spinner = document.getElementById('spinner');
-    
-            const conversationHistory = { selm: [], public: [], lastMessage: '' };
-            
-            // Initialize chat mode
-            const mode = toggleChatMode(chatModeBtn, messages, conversationHistory);
-    
-            // Event listener for the send message button
-            document.getElementById('sendMessage').addEventListener('click', () => {
-                sendMessage(chatInput, messages, spinner, conversationHistory, mode);
-            });
-    
-            // Event listener for the Enter key in the chat input
-            chatInput.addEventListener('keypress', (event) => {
-                if (event.key === 'Enter') {
-                    sendMessage(chatInput, messages, spinner, conversationHistory, mode);
-                }
-            });
-            
-            // Polling function to check for recent chat updates
-            setInterval(pollRecentChat, 5000);
-        });
-    </script>
-    <!--<script src="assets/js/support.js"></script>-->
     <script src="assets/js/typingEffect.js"></script>
+    <script src="assets/js/selmChat.js"></script>
 </body>
 </html>
