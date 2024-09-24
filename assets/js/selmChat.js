@@ -45,6 +45,22 @@ document.addEventListener("DOMContentLoaded", function () {
             .replace(/\n/g, '<br>');
     };
 
+    // Function to get geolocation
+    const getGeolocation = () => {
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const { latitude, longitude } = position.coords;
+                    resolve({ latitude, longitude });
+                }, () => {
+                    reject('Geolocation not enabled');
+                });
+            } else {
+                reject('Geolocation not supported');
+            }
+        });
+    };
+
     // Function to send message
     const sendMessage = () => {
         const message = chatInput.value.trim();
@@ -77,51 +93,104 @@ document.addEventListener("DOMContentLoaded", function () {
                 url = `https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)}`;
             }
 
-            // Send GET request with the message
-            fetch(url)
-                .then(response => response.json())  // Expect the response as JSON
-                .then(data => {
-                    // Hide the spinner after receiving the response
-                    spinner.style.display = 'none';
+            // Check if the message is "weather" and get geolocation
+            if (message.toLowerCase() === 'weather') {
+                getGeolocation()
+                    .then(({ latitude, longitude }) => {
+                        // Append geolocation to the URL
+                        url += `&lat=${latitude}&lon=${longitude}`;
+                        return fetch(url);
+                    })
+                    .then(response => response.json())  // Expect the response as JSON
+                    .then(data => {
+                        // Hide the spinner after receiving the response
+                        spinner.style.display = 'none';
 
-                    // Extract the "responses" field from the JSON response
-                    const responseMessages = data.responses || [];
+                        // Extract the "responses" field from the JSON response
+                        const responseMessages = data.responses || [];
 
-                    responseMessages.forEach(responseMessage => {
-                        // Only append the server's response to the chat log if it's new
-                        if (responseMessage !== conversationHistory.lastMessage) {
-                            conversationHistory[mode].push({
-                                sender: mode === 'selm' ? 'Selm' : 'Public',
-                                message: responseMessage,
-                            });
+                        responseMessages.forEach(responseMessage => {
+                            // Only append the server's response to the chat log if it's new
+                            if (responseMessage !== conversationHistory.lastMessage) {
+                                conversationHistory[mode].push({
+                                    sender: mode === 'selm' ? 'Selm' : 'Public',
+                                    message: responseMessage,
+                                });
 
-                            // Append the server's response to the chat log
-                            messages.innerHTML += `<div>${sanitizeMessage(responseMessage)}</div>`;
+                                // Append the server's response to the chat log
+                                messages.innerHTML += `<div>${sanitizeMessage(responseMessage)}</div>`;
 
-                            // Update the last message for public mode
-                            if (mode === 'public') {
-                                conversationHistory.lastMessage = responseMessage;
+                                // Update the last message for public mode
+                                if (mode === 'public') {
+                                    conversationHistory.lastMessage = responseMessage;
+                                }
                             }
-                        }
+                        });
+
+                        scrollToBottom();  // Scroll to the bottom after new messages
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        spinner.style.display = 'none';  // Hide spinner on error
+                        const errorMessage = 'Unable to send message';
+
+                        messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
+
+                        // Save the error to the conversation history
+                        conversationHistory[mode].push({
+                            sender: 'System',
+                            message: errorMessage,
+                        });
+
+                        scrollToBottom();  // Scroll to the bottom after an error
                     });
+            } else {
+                // Send GET request without geolocation
+                fetch(url)
+                    .then(response => response.json())  // Expect the response as JSON
+                    .then(data => {
+                        // Hide the spinner after receiving the response
+                        spinner.style.display = 'none';
 
-                    scrollToBottom();  // Scroll to the bottom after new messages
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    spinner.style.display = 'none';  // Hide spinner on error
-                    const errorMessage = 'Unable to send message';
+                        // Extract the "responses" field from the JSON response
+                        const responseMessages = data.responses || [];
 
-                    messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
+                        responseMessages.forEach(responseMessage => {
+                            // Only append the server's response to the chat log if it's new
+                            if (responseMessage !== conversationHistory.lastMessage) {
+                                conversationHistory[mode].push({
+                                    sender: mode === 'selm' ? 'Selm' : 'Public',
+                                    message: responseMessage,
+                                });
 
-                    // Save the error to the conversation history
-                    conversationHistory[mode].push({
-                        sender: 'System',
-                        message: errorMessage,
+                                // Append the server's response to the chat log
+                                messages.innerHTML += `<div>${sanitizeMessage(responseMessage)}</div>`;
+
+                                // Update the last message for public mode
+                                if (mode === 'public') {
+                                    conversationHistory.lastMessage = responseMessage;
+                                }
+                            }
+                        });
+
+                        scrollToBottom();  // Scroll to the bottom after new messages
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        spinner.style.display = 'none';  // Hide spinner on error
+                        const errorMessage = 'Unable to send message';
+
+                        messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
+
+                        // Save the error to the conversation history
+                        conversationHistory[mode].push({
+                            sender: 'System',
+                            message: errorMessage,
+                        });
+
+                        scrollToBottom();  // Scroll to the bottom after an error
                     });
-
-                    scrollToBottom();  // Scroll to the bottom after an error
-                });
+            }
         }
     };
 
