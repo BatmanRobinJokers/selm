@@ -104,6 +104,26 @@ button:hover {
     box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
 }
 
+/* Styling for the paperclip icon */
+.paperclip-icon {
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    padding: 10px;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.paperclip-icon:hover {
+    background-color: #f0f0f0;
+}
+
+/* Hidden file input */
+input[type="file"] {
+    display: none;
+}
+
 #chatContainer {
     position: relative;
     height: 700px; /* Adjust as needed */
