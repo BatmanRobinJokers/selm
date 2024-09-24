@@ -70,7 +70,8 @@ main {
 section {
     margin: 2rem 0;
     padding: 1rem;
-    background-color: rgba(0, 26, 51, 0.8);
+    /* background-color: rgba(0, 26, 51, 0.8); */
+    background-color: #262d40;
     border: 1px solid #00ffff;
     border-radius: 8px;
     box-shadow: 0 0 15px #00ffff;
