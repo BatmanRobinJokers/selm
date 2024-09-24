@@ -178,7 +178,7 @@ input[type="text"]:focus {
     outline: none;
 }
 
-#sendMessage, #chatModeBtn {
+#uploadFile, #sendMessage, #chatModeBtn {
     /* background-color: #00ffff; */
     color: #001a33;
     border: 2px solid #00ffff;
