@@ -1,5 +1,7 @@
 // chat.js
 
+import { sanitizeMessage, scrollToBottom } from './utils.js';
+
 export const toggleChatMode = (chatModeBtn, messages, conversationHistory) => {
     let mode = "selm";  // Default mode is 'selm'
 
