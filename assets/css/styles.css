@@ -104,21 +104,6 @@ button:hover {
     box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
 }
 
-/* Styling for the paperclip icon */
-.paperclip-icon {
-    cursor: pointer;
-    font-size: 24px;
-    color: #333;
-    padding: 10px;
-    border: 2px solid transparent;
-    border-radius: 50%;
-    transition: background-color 0.3s ease;
-}
-
-.paperclip-icon:hover {
-    background-color: #f0f0f0;
-}
-
 /* Hidden file input */
 input[type="file"] {
     display: none;
@@ -178,7 +163,7 @@ input[type="text"]:focus {
     outline: none;
 }
 
-#uploadFile, #sendMessage, #chatModeBtn {
+#uploadFile, #chatModeBtn, #sendMessage {
     /* background-color: #00ffff; */
     color: #001a33;
     border: 2px solid #00ffff;
@@ -189,7 +174,7 @@ input[type="text"]:focus {
     transition: background-color 0.3s ease;
 }
 
-#sendMessage:hover, #chatModeBtn:hover {
+#uploadFile, #chatModeBtn:hover, #sendMessage:hover {
     /* background-color: #00ccff; */
 }
 
