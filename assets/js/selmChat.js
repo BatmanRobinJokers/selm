@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded", function () {
         mode = (mode === "selm") ? "public" : "selm";
 
         // Notify the user of the mode change
-        messages.innerHTML += `<div><strong>System:</strong> Chat mode switched to ${mode}.</div>`;
+        messages.innerHTML += <div><strong>System:</strong> Chat mode switched to ${mode}.</div>;
 
         // Display the conversation history for the current mode
         conversationHistory[mode].forEach(entry => {
-            messages.innerHTML += `<div>${sanitizeMessage(entry.message)}</div>`;
+            messages.innerHTML += <div>${sanitizeMessage(entry.message)}</div>;
         });
 
         scrollToBottom();  // Scroll to the bottom after mode switch
@@ -88,9 +88,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // Decide server endpoint based on mode
             let url;
             if (mode === "selm") {
-                url = `https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(message)}`;
+                url = https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(message)};
             } else if (mode === "public") {
-                url = `https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)}`;
+                url = https://selmai.pythonanywhere.com/?public_chat=${encodeURIComponent(message)};
             }
     
             // Check if the message is "weather" and get geolocation
@@ -98,8 +98,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 getGeolocation()
                     .then(({ latitude, longitude }) => {
                         // Include latitude and longitude in the message
-                        const geoMessage = `weather ${latitude} ${longitude}`;
-                        url = `https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(geoMessage)}`;
+                        const geoMessage = weather ${latitude} ${longitude};
+                        url = https://selmai.pythonanywhere.com/?selm_chat=${encodeURIComponent(geoMessage)};
                         return fetch(url);
                     })
                     .then(response => response.json())  // Expect the response as JSON
@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 });
     
                                 // Append the server's response to the chat log
-                                messages.innerHTML += `<div>${sanitizeMessage(responseMessage)}</div>`;
+                                messages.innerHTML += <div>${sanitizeMessage(responseMessage)}</div>;
     
                                 // Update the last message for public mode
                                 if (mode === 'public') {
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         spinner.style.display = 'none';  // Hide spinner on error
                         const errorMessage = 'Unable to send message';
     
-                        messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
+                        messages.innerHTML += <div><strong>Error:</strong> ${errorMessage}</div>;
     
                         // Save the error to the conversation history
                         conversationHistory[mode].push({
@@ -165,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 });
     
                                 // Append the server's response to the chat log
-                                messages.innerHTML += `<div>${sanitizeMessage(responseMessage)}</div>`;
+                                messages.innerHTML += <div>${sanitizeMessage(responseMessage)}</div>;
     
                                 // Update the last message for public mode
                                 if (mode === 'public') {
@@ -181,7 +181,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         spinner.style.display = 'none';  // Hide spinner on error
                         const errorMessage = 'Unable to send message';
     
-                        messages.innerHTML += `<div><strong>Error:</strong> ${errorMessage}</div>`;
+                        messages.innerHTML += <div><strong>Error:</strong> ${errorMessage}</div>;
     
                         // Save the error to the conversation history
                         conversationHistory[mode].push({
@@ -207,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     // Ensure the message is not already in conversation history
                     if (!conversationHistory.public.some(entry => entry.message === message)) {
                         conversationHistory.public.push({ sender: 'Public', message });
-                        messages.innerHTML += `<div>${sanitizeMessage(message)}</div>`;
+                        messages.innerHTML += <div>${sanitizeMessage(message)}</div>;
                     }
                 });
 
