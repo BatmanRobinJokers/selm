@@ -58,7 +58,6 @@ main {
 }
 
 #about-image {
-    background-image: url('assets/images/selm.gif');
     max-width: 300px;
     border: 1px solid #00ffff;
     box-shadow: 0 0 10px #00ffff;
