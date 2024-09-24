@@ -71,18 +71,22 @@
     
             const conversationHistory = { selm: [], public: [], lastMessage: '' };
             
+            // Initialize chat mode
             const mode = toggleChatMode(chatModeBtn, messages, conversationHistory);
     
+            // Event listener for the send message button
             document.getElementById('sendMessage').addEventListener('click', () => {
                 sendMessage(chatInput, messages, spinner, conversationHistory, mode);
             });
     
+            // Event listener for the Enter key in the chat input
             chatInput.addEventListener('keypress', (event) => {
                 if (event.key === 'Enter') {
                     sendMessage(chatInput, messages, spinner, conversationHistory, mode);
                 }
             });
             
+            // Polling function to check for recent chat updates
             setInterval(pollRecentChat, 5000);
         });
     </script>
