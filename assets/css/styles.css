@@ -57,10 +57,13 @@ main {
     margin: 20px 0;
 }
 
-.left-aligned-img {
+#about-image {
+    background-image: url('../images/selm.gif');
     max-width: 300px;
     border: 1px solid #00ffff;
     box-shadow: 0 0 10px #00ffff;
+    margin-left: 0;
+    margin-right: auto;
 }
 
 .text-content {
@@ -102,28 +105,28 @@ button:hover {
     box-shadow: 0 0 10px #00ffff, 0 0 20px #00ff99;
 }
 
-/* Hidden file input */
 input[type="file"] {
     display: none;
 }
 
 #chatContainer {
     position: relative;
-    height: 700px; /* Adjust as needed */
-    border: 2px solid #f500f2; /* Neon bright purple */
+    height: 700px;
+    border: 2px solid #f500f2;
     border-radius: 10px;
-    overflow: hidden; /* Ensure no overflow */
+    overflow: hidden;
     box-shadow: 0 0 15px #f500f2;
-    background-image: url('../images/chat.png'); /* Your image path */
-    background-size: cover; /* Ensure the image covers the entire chatbox */
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Prevent the image from repeating */
+
+    background-image: url('../images/chat.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 #chatMessages {
     position: relative;
     color: #02f5e9;
-    height: 635px; /* Slightly shorter to leave space for the input box */
+    height: 635px;
     width: 92%;
     overflow-y: auto;
     padding: 10px;
@@ -136,9 +139,9 @@ input[type="file"] {
     width: 100%;
     padding: 10px;
     box-sizing: border-box;
-    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent background for input */
+    background-color: rgba(0, 0, 0, 0.6);
     display: flex;
-    gap: 10px; /* Space between buttons and input */
+    gap: 10px;
 }
 
 input[type="text"] {
@@ -148,6 +151,7 @@ input[type="text"] {
     padding: 0.5rem;
     border-radius: 4px;
     width: 100%;
+    box-shadow: none;
     transition: box-shadow 0.3s ease;
 }
 
@@ -159,17 +163,12 @@ input[type="text"]:focus {
 #uploadFile, #chatModeBtn, #sendMessage {
     color: #001a33;
     border: 2px solid #00ffff;
-    padding: 0.5rem 1rem;
+    padding: 0.0rem 1rem;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
-#uploadFile:hover, #chatModeBtn:hover, #sendMessage:hover {
-    background-color: #00ccff; /* Add hover effect */
-}
-
-/* Responsive Design */
 @media (max-width: 300px) {
     .nav-links {
         flex-direction: column;
@@ -193,3 +192,21 @@ input[type="text"]:focus {
         padding: 0 1rem;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
