@@ -32,7 +32,7 @@ header {
 }
 
 .nav-links li:last-child a {
-    color: #8675309;
+    color: #867530; /* 9 */
 }
 
 a {
