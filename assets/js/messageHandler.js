@@ -1,6 +1,7 @@
 // messageHandler.js
-import { sanitizeMessage, scrollToBottom } from './assets/js/utils.js';
-import { handleWeatherCommand } from './assets/js/weatherHandler.js';
+
+import { sanitizeMessage, scrollToBottom } from './utils.js';
+import { handleWeatherCommand } from './weatherHandler.js';
 
 export const sendMessage = (chatInput, messages, spinner, conversationHistory, mode) => {
     const message = chatInput.value.trim();
