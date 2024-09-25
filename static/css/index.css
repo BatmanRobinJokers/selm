@@ -10,16 +10,17 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f4f4f9; /* Light background for a clean look */
     color: #333; /* Dark text color for contrast */
+    height: 100vh; /* Full height of the viewport */
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full height for centering */
+    flex-direction: column; /* Stack children vertically */
 }
 
 /* Main chat app container */
 #chat-app-container {
-    width: 100%;
-    max-width: 800px; /* Limit width for better readability */
+    flex: 1; /* Take full height available */
+    display: flex;
+    flex-direction: column; /* Stack chat window and input box vertically */
+    width: 100%; /* Full width */
     background-color: #ffffff; /* White background for the chat */
     border-radius: 8px; /* Rounded corners for a softer look */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
@@ -56,7 +57,7 @@ body {
 }
 
 #message-input {
-    width: 100%;
+    width: 100%; /* Full width of the container */
     padding: 10px; /* Padding inside the input */
     border: 1px solid #ccc; /* Light border */
     border-radius: 4px; /* Rounded corners */
@@ -114,18 +115,17 @@ body.dark-mode #chat-input-container {
     }
 
     #chat-input-container {
-        flex-direction: column; /* Stack input and buttons */
-        align-items: stretch; /* Stretch to fill width */
+        flex-direction: row; /* Keep input and buttons in a row */
+        align-items: center; /* Center align */
     }
 
     #chat-button-container {
         flex-direction: row; /* Keep buttons in a row */
-        flex-wrap: wrap; /* Allow wrapping on smaller screens */
-        justify-content: space-between; /* Space between buttons */
+        justify-content: flex-end; /* Align buttons to the right */
     }
 
     .chat-btn {
-        flex: 1; /* Allow buttons to grow equally */
-        margin: 5px; /* Space around buttons */
+        flex: 0; /* Do not grow buttons */
+        margin: 0 5px; /* Space around buttons */
     }
 }
