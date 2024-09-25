@@ -92,6 +92,21 @@ body {
     transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #333; /* Dark background for dark mode */
+    color: #f4f4f9; /* Light text color for contrast */
+}
+
+body.dark-mode #chat-app-container {
+    background-color: #444; /* Darker chat app background */
+}
+
+body.dark-mode #chat-input-container {
+    background-color: #555; /* Darker input container */
+    border-top-color: #666; /* Darker border color */
+}
+
 /* Responsive design */
 @media (max-width: 600px) {
     #chat-app-container {
