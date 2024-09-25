@@ -28,7 +28,7 @@ body {
 
 /* Chat window */
 #chat-window {
-    height: calc(100vh - 120px); /* Dynamic height for the chat window */
+    flex: 1; /* Allow the chat window to grow */
     overflow-y: auto; /* Enable scrolling for messages */
     padding: 20px; /* Padding around messages */
     background-color: #f9f9f9; /* Slightly darker background for contrast */
