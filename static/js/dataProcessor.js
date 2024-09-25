@@ -1,9 +1,23 @@
 // Function to send a message to the server
 export const sendMessage = (message) => {
-    // Here we would send the message to the server
-    // Placeholder for actual fetch request
     console.log(`Sending message: ${message}`);
-    // Example: fetch('/send', { method: 'POST', body: JSON.stringify({ message }) });
+
+    // Replace this with the actual fetch request to your server
+    fetch('/send', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Message sent successfully:', data);
+        // Handle response (e.g., update UI with server's reply)
+    })
+    .catch(error => {
+        console.error('Error sending message:', error);
+    });
 };
 
 // Function to initialize data-related event listeners
@@ -35,6 +49,21 @@ export const initDataProcessing = () => {
 // Placeholder function to handle file upload to server
 export const sendFileToServer = (file) => {
     console.log(`Sending file: ${file.name}`);
-    // Placeholder for actual file upload logic
-    // Example: fetch('/upload', { method: 'POST', body: file });
+
+    // Replace this with the actual fetch request to handle file uploads
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('/upload', {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('File uploaded successfully:', data);
+        // Handle server response if needed
+    })
+    .catch(error => {
+        console.error('Error uploading file:', error);
+    });
 };
