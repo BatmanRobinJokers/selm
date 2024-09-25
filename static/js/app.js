@@ -1,4 +1,3 @@
-// static/js/app.js
 import { initUI } from './uiManager.js';
 import { initDataProcessing } from './dataProcessor.js';
 
