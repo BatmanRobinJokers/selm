@@ -75,7 +75,7 @@ const handleFileUpload = () => {
 // Function to initialize UI-related event listeners
 export const initUI = () => {
     const viewModeButton = document.getElementById('view-mode-button');
-    const uploadButton = document.getElementById('upload-button'); // Assuming you have an upload button
+    const uploadButton = document.getElementById('file-upload-button'); // Assuming you have an upload button
 
     // Event listener for light/dark mode toggle
     viewModeButton.addEventListener('click', toggleMode);
