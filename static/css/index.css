@@ -64,7 +64,6 @@ body {
     font-size: 16px; /* Font size for readability */
     outline: none; /* Remove default outline */
     transition: border-color 0.3s; /* Smooth transition for focus effect */
-    resize: both; /* Allow the input box to be resized both horizontally and vertically */
     min-height: 40px; /* Minimum height for the input box */
 }
 
@@ -75,7 +74,9 @@ body {
 /* Button container styles */
 #chat-button-container {
     display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
+    flex-direction: row; /* Keep buttons in a row */
+    justify-content: space-between; /* Distribute space evenly */
+    width: 100%; /* Full width for button container */
     margin-top: 10px; /* Space above button container */
 }
 
@@ -85,8 +86,9 @@ body {
     border: none; /* Remove default border */
     border-radius: 4px; /* Rounded corners for buttons */
     color: white; /* White text for buttons */
-    padding: 10px 15px; /* Padding for buttons */
-    margin-left: 5px; /* Space between buttons */
+    flex: 1; /* Allow buttons to grow and fill the space */
+    padding: 10px; /* Padding for buttons */
+    margin: 0 5px; /* Space between buttons */
     cursor: pointer; /* Change cursor to pointer */
     transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
 }
@@ -128,11 +130,11 @@ body.dark-mode #chat-input-container {
 
     #chat-button-container {
         flex-direction: row; /* Keep buttons in a row */
-        justify-content: flex-end; /* Align buttons to the right */
+        justify-content: space-between; /* Distribute space evenly */
     }
 
     .chat-btn {
-        flex: 0; /* Do not grow buttons */
+        flex: 1; /* Allow buttons to grow and fill the space */
         margin: 0 5px; /* Space around buttons */
     }
 }
