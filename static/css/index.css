@@ -64,8 +64,8 @@ body {
     font-size: 16px; /* Font size for readability */
     outline: none; /* Remove default outline */
     transition: border-color 0.3s; /* Smooth transition for focus effect */
-    resize: both; /* Allow resizing in both directions */
-    overflow: auto; /* Show scrollbars if content overflows */
+    resize: both; /* Allow the input box to be resized both horizontally and vertically */
+    min-height: 40px; /* Minimum height for the input box */
 }
 
 #message-input:focus {
