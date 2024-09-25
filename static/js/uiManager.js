@@ -52,3 +52,36 @@ export const initUI = () => {
         }
     });
 };
+
+// Function to handle file upload
+const handleFileUpload = () => {
+    const fileInput = document.getElementById('file-upload-input');
+    
+    // Trigger the file dialog when the upload button is clicked
+    fileInput.click();
+
+    // Add event listener for file selection
+    fileInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            console.log(`File selected: ${file.name}`);
+            // Placeholder for sending the file to the server
+            // You can implement the fetch request here later
+            // Example: sendFileToServer(file);
+        }
+    });
+};
+
+// Function to initialize UI-related event listeners
+export const initUI = () => {
+    const viewModeButton = document.getElementById('view-mode-button');
+    const uploadButton = document.getElementById('upload-button'); // Assuming you have an upload button
+
+    // Event listener for light/dark mode toggle
+    viewModeButton.addEventListener('click', toggleMode);
+
+    // Event listener for file upload button
+    uploadButton.addEventListener('click', handleFileUpload);
+    
+    // Other event listeners (like sending messages) go here...
+};
