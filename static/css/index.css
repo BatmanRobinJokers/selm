@@ -44,7 +44,7 @@ body {
 /* Chat input container */
 #chat-input-container {
     display: flex;
-    align-items: center;
+    flex-direction: column; /* Stack input box and button container vertically */
     background-color: #ffffff; /* Match the chat app background */
     border-top: 1px solid #eaeaea; /* Subtle border for separation */
     padding: 10px; /* Padding for input box and buttons */
@@ -53,7 +53,7 @@ body {
 /* Input box styles */
 #chat-input-box {
     flex-grow: 1; /* Allow input box to take available space */
-    margin-right: 10px; /* Space between input and buttons */
+    margin-bottom: 10px; /* Space between input box and buttons */
 }
 
 #message-input {
@@ -119,8 +119,8 @@ body.dark-mode #chat-input-container {
     }
 
     #chat-input-container {
-        flex-direction: row; /* Keep input and buttons in a row */
-        align-items: center; /* Center align */
+        flex-direction: column; /* Stack input and button container vertically */
+        align-items: stretch; /* Stretch items to full width */
     }
 
     #chat-button-container {
