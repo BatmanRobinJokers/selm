@@ -31,3 +31,10 @@ export const initDataProcessing = () => {
         }
     });
 };
+
+// Placeholder function to handle file upload to server
+export const sendFileToServer = (file) => {
+    console.log(`Sending file: ${file.name}`);
+    // Placeholder for actual file upload logic
+    // Example: fetch('/upload', { method: 'POST', body: file });
+};
