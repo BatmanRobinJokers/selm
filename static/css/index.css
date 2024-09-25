@@ -73,7 +73,8 @@ body {
 /* Button container styles */
 #chat-button-container {
     display: flex;
-    align-items: center; /* Center buttons vertically */
+    justify-content: flex-end; /* Align buttons to the right */
+    margin-top: 10px; /* Space above button container */
 }
 
 /* Button styles */
