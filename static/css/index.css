@@ -52,7 +52,6 @@ body {
 
 /* Input box styles */
 #chat-input-box {
-    flex-grow: 1; /* Allow input box to take available space */
     margin-bottom: 10px; /* Space between input box and buttons */
 }
 
@@ -77,7 +76,6 @@ body {
     flex-direction: row; /* Keep buttons in a row */
     justify-content: space-between; /* Distribute space evenly */
     width: 100%; /* Full width for button container */
-    margin-top: 10px; /* Space above button container */
 }
 
 /* Button styles */
