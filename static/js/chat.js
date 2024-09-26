@@ -5,6 +5,7 @@ export function initChat() {
     const fileInput = document.getElementById('fileUpload'); // Reference to the hidden file input
     const copyChatButton = document.getElementById('copy-chat-button'); // Reference to the copy button
     const switchChatButton = document.getElementById('switch-chat-button'); // Reference to the switch chat button
+    const viewModeButton = document.getElementById('view-mode-button'); // Reference to the view mode button
 
     let currentChatMode = 'public'; // Track the current chat mode
     let publicChatMessages = []; // Array to hold public chat messages
@@ -26,7 +27,7 @@ export function initChat() {
         const chatMessages = document.getElementById('chat-messages');
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message';
-        messageDiv.innerText = `${mode === 'public' ? 'User' : 'SELM API'}: ${message}`;
+        messageDiv.innerText = `${mode === 'public' ? 'User' : 'SEL API'}: ${message}`;
 
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to bottom
@@ -63,7 +64,7 @@ export function initChat() {
             loadChatHistory(selmChatMessages);
         } else {
             currentChatMode = 'public';
-            switchChatButton.innerText = 'SELM Chat'; // Update button text
+            switchChatButton.innerText = 'SEL Chat'; // Update button text
             messageInput.placeholder = 'Type your message for public chat...'; // Change placeholder
             // Load Public chat history if needed
             loadChatHistory(publicChatMessages);
@@ -78,11 +79,17 @@ export function initChat() {
         messages.forEach(message => {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message';
-            messageDiv.innerText = `${currentChatMode === 'public' ? 'User' : 'SELM API'}: ${message}`;
+            messageDiv.innerText = `${currentChatMode === 'public' ? 'User' : 'SEL API'}: ${message}`;
             chatMessages.appendChild(messageDiv);
         });
 
         chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to bottom
+    }
+
+    // Function to toggle dark/light mode
+    function toggleViewMode() {
+        document.body.classList.toggle('dark-mode');
+        viewModeButton.innerText = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
     }
 
     // Event listener for sending message on button click
@@ -106,4 +113,7 @@ export function initChat() {
 
     // Add event listener for the switch chat button
     switchChatButton.addEventListener('click', switchChatMode);
+
+    // Add event listener for the view mode button (Dark/Light mode toggle)
+    viewModeButton.addEventListener('click', toggleViewMode);
 }
