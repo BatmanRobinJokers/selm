@@ -12,13 +12,41 @@ export function initChat() {
     let publicChatMessages = []; // Array to hold public chat messages
     let selmChatMessages = []; // Array to hold SELM chat messages
 
+    // Function to handle commands that start with a period
+    function handleCommand(message) {
+        const tokens = message.split(' ');
+        const firstToken = tokens[0];
+        const firstTokenMinusPeriod = firstToken.substring(1); // Remove the leading period
+        const everythingFollowedAfterFirstToken = tokens.slice(1).join(' '); // Get the rest of the message
+    
+        // Construct the URL with params
+        const url = `https://selmai.pythonanywhere.com/?type=command&get=${encodeURIComponent(firstTokenMinusPeriod)}&params=${encodeURIComponent(everythingFollowedAfterFirstToken)}`;
+    
+        // Send the request to the external endpoint
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server (display it in the chat)
+                appendMessage(currentChatMode, data.processed_message || 'No response from server');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                appendMessage(currentChatMode, 'Error processing the command.');
+            });
+    }
+
     // Function to send the message
     function sendMessage() {
         const message = messageInput.value.trim(); // Get trimmed message
-
+    
         if (message) {
-            // Append message to chat and store in appropriate chat history
-            appendMessage(currentChatMode, message);
+            if (message.startsWith('.')) {
+                // If the message starts with a period, it's a command
+                handleCommand(message);
+            } else {
+                // Otherwise, append message to chat and store in appropriate chat history
+                appendMessage(currentChatMode, message);
+            }
             messageInput.value = ''; // Clear the input after sending
         }
     }
