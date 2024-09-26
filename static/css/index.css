@@ -40,9 +40,14 @@ body {
     display: flex; /* Align items in a row */
     align-items: center; /* Center items vertically */
     margin-bottom: 10px; /* Space between messages */
-    padding: 5px; /* Padding around the message */
+    padding: 10px; /* Padding around the message */
     background-color: #e9e9e9; /* Light background for messages */
     border-radius: 5px; /* Rounded corners for messages */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.chat-message:hover {
+    background-color: #d9d9d9; /* Darker background on hover */
 }
 
 /* Copy link button styles */
@@ -126,27 +131,23 @@ body.dark-mode #chat-window {
 
 body.dark-mode #chat-input-container {
     background-color: #666; /* Darker input container */
-    border-top-color: #777; /* Darker border color */
+    border-top-color: #777; /* Darker border for input container */
 }
 
-/* Responsive design */
+body.dark-mode .chat-message {
+    background-color: #777; /* Darker background for messages */
+}
+
+body.dark-mode .chat-message:hover {
+    background-color: #888; /* Slightly lighter on hover in dark mode */
+}
+
+/* Responsive styles */
 @media (max-width: 600px) {
-    #chat-app-container {
-        width: 100%; /* Full width on smaller screens */
-    }
-
-    #chat-input-container {
-        flex-direction: column; /* Stack input and button container vertically */
-        align-items: stretch; /* Stretch items to full width */
-    }
-
     #chat-button-container {
-        flex-direction: row; /* Keep buttons in a row */
-        justify-content: space-between; /* Distribute space evenly */
+        flex-direction: column; /* Stack buttons vertically on small screens */
     }
-
     .chat-btn {
-        flex: 1; /* Allow buttons to grow and fill the space */
-        margin: 0 5px; /* Space around buttons */
+        margin: 5px 0; /* Space between vertically stacked buttons */
     }
 }
