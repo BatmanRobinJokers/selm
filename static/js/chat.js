@@ -52,7 +52,7 @@ export function initChat() {
             const encodedMessage = encodeURIComponent(lastMessage);
     
             // Send the GET request with the message as a query string parameter
-            fetch(`https://selmai.pythonanywhere.com/?mode=${currentChatMode}&message=${encodedMessage}`)
+            fetch(`https://selmai.pythonanywhere.com/?type=run&mode=${currentChatMode}&message=${encodedMessage}`)
                 .then(response => response.json())
                 .then(data => {
                     // Handle the response from the server (display it in the chat)
