@@ -1,6 +1,8 @@
 export function initChat() {
     const messageInput = document.getElementById('message-input');
     const sendButton = document.getElementById('send-message-button');
+    const fileUploadButton = document.getElementById('file-upload-button'); // Reference to the upload button
+    const fileInput = document.getElementById('fileUpload'); // Reference to the hidden file input
 
     // Function to send the message
     function sendMessage() {
@@ -32,5 +34,10 @@ export function initChat() {
             sendMessage(); // Call sendMessage when Enter is pressed
             event.preventDefault(); // Prevent default behavior of the Enter key
         }
+    });
+
+    // Add event listener for the file upload button
+    fileUploadButton.addEventListener('click', function() {
+        fileInput.click(); // Open the file dialog when the button is clicked
     });
 }
