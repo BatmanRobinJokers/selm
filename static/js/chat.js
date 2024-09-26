@@ -6,7 +6,7 @@ export function initChat() {
     const copyChatButton = document.getElementById('copy-chat-button'); // Reference to the copy button
     const switchChatButton = document.getElementById('switch-chat-button'); // Reference to the switch chat button
     const viewModeButton = document.getElementById('view-mode-button'); // Reference to the view mode button
-    const runButton = document.getElementById('run-button'); // Reference to the run button
+    const runButton = document.getElementById('run-command-button'); // Reference to the run button
 
     let currentChatMode = 'public'; // Track the current chat mode
     let publicChatMessages = []; // Array to hold public chat messages
