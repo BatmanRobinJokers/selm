@@ -55,7 +55,7 @@ body {
 
 /* Input box styles */
 #chat-input-box {
-    margin-bottom: 10px; /* Space between input box and buttons */
+    margin-bottom: 1px; /* Space between input box and buttons */
     width: 100%; /* Full width of the container */
 }
 
