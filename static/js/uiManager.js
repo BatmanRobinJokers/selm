@@ -40,7 +40,11 @@ export function initUI() {
     viewModeButton.addEventListener('click', toggleViewMode);
 
     // Trigger file input click when the upload button is pressed
-    fileUploadButton.addEventListener('click', () => fileUploadInput.click());
+    fileUploadButton.addEventListener('click', (event) => {
+        event.preventDefault(); // Prevent default behavior if inside a form
+        console.log('File upload button clicked'); // Debug log
+        fileUploadInput.click(); // Open file dialog
+    });
 
     // Handle file upload when a file is selected
     fileUploadInput.addEventListener('change', (event) => {
