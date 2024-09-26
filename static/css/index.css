@@ -49,7 +49,7 @@ body {
     flex-direction: column; /* Stack input box and button container vertically */
     background-color: #ffffff; /* Match the chat app background */
     border-top: 1px solid #eaeaea; /* Subtle border for separation */
-    padding: 10px; /* Padding for input box and buttons */
+    padding: 1px; /* Padding for input box and buttons */
     width: 100%; /* Ensure full width */
 }
 
