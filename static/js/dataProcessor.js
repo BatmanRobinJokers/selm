@@ -18,10 +18,12 @@ export const sendMessage = (message) => {
     })
     .then(data => {
         console.log('Message sent successfully:', data);
-        // You can handle the server's response here (e.g., update UI)
+        // Handle the server's response here (e.g., update UI)
+        appendMessage('Server', data.reply); // Assuming 'reply' is the field with the server's response
     })
     .catch(error => {
         console.error('Error sending message:', error);
+        alert('Failed to send message. Please try again.'); // User feedback
     });
 };
 
