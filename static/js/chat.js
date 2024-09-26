@@ -64,7 +64,7 @@ export function initChat() {
             loadChatHistory(selmChatMessages);
         } else {
             currentChatMode = 'public';
-            switchChatButton.innerText = 'SELM Chat'; // Update button text
+            switchChatButton.innerText = 'Selm Chat'; // Update button text
             messageInput.placeholder = 'Type your message for public chat...'; // Change placeholder
             // Load Public chat history if needed
             loadChatHistory(publicChatMessages);
