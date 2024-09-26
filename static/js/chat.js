@@ -41,32 +41,27 @@ export function initChat() {
         }
     }
 
-    // Function to send the last message to the PythonAnywhere endpoint
+    // Function to send the last message to the PythonAnywhere endpoint using a URL query
     function runLastMessage() {
         const lastMessage = currentChatMode === 'public'
             ? publicChatMessages[publicChatMessages.length - 1]
             : selmChatMessages[selmChatMessages.length - 1];
-
+    
         if (lastMessage) {
-            fetch('https://selmai.pythonanywhere.com/process_chat', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    mode: currentChatMode, // 'public' or 'selm'
-                    message: lastMessage,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle the response from the server (display it in the chat)
-                appendMessage(currentChatMode, data.response || 'No response from server');
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                appendMessage(currentChatMode, 'Error processing the message.');
-            });
+            // Encode the message for the URL query
+            const encodedMessage = encodeURIComponent(lastMessage);
+    
+            // Send the GET request with the message as a query string parameter
+            fetch(`https://selmai.pythonanywhere.com/?mode=${currentChatMode}&message=${encodedMessage}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response from the server (display it in the chat)
+                    appendMessage(currentChatMode, data.processed_message || 'No response from server');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    appendMessage(currentChatMode, 'Error processing the message.');
+                });
         }
     }
 
