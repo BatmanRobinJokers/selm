@@ -4,26 +4,39 @@ export function initChat() {
     const fileUploadButton = document.getElementById('file-upload-button'); // Reference to the upload button
     const fileInput = document.getElementById('fileUpload'); // Reference to the hidden file input
     const copyChatButton = document.getElementById('copy-chat-button'); // Reference to the copy button
+    const switchChatButton = document.getElementById('switch-chat-button'); // Reference to the switch chat button
+
+    let currentChatMode = 'public'; // Track the current chat mode
+    let publicChatMessages = []; // Array to hold public chat messages
+    let selmChatMessages = []; // Array to hold SELM chat messages
 
     // Function to send the message
     function sendMessage() {
         const message = messageInput.value.trim(); // Get trimmed message
 
         if (message) {
-            // Append message to chat
-            appendMessage('User', message);
+            // Append message to chat and store in appropriate chat history
+            appendMessage(currentChatMode, message);
             messageInput.value = ''; // Clear the input after sending
         }
     }
 
     // Function to append messages to the chat window
-    function appendMessage(sender, message) {
+    function appendMessage(mode, message) {
         const chatMessages = document.getElementById('chat-messages');
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message';
-        messageDiv.innerText = `${sender}: ${message}`;
+        messageDiv.innerText = `${mode === 'public' ? 'User' : 'SEL API'}: ${message}`;
+
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to bottom
+
+        // Store the message in the appropriate chat history
+        if (mode === 'public') {
+            publicChatMessages.push(message);
+        } else {
+            selmChatMessages.push(message);
+        }
     }
 
     // Function to copy chat messages to clipboard
@@ -38,6 +51,38 @@ export function initChat() {
         }).catch(err => {
             console.error('Failed to copy: ', err);
         });
+    }
+
+    // Function to switch chat modes
+    function switchChatMode() {
+        if (currentChatMode === 'public') {
+            currentChatMode = 'selm';
+            switchChatButton.innerText = 'Public Chat'; // Update button text
+            messageInput.placeholder = 'Type your message for SELM...'; // Change placeholder
+            // Load SELM chat history if needed
+            loadChatHistory(selmChatMessages);
+        } else {
+            currentChatMode = 'public';
+            switchChatButton.innerText = 'SEL Chat'; // Update button text
+            messageInput.placeholder = 'Type your message for public chat...'; // Change placeholder
+            // Load Public chat history if needed
+            loadChatHistory(publicChatMessages);
+        }
+    }
+
+    // Function to load chat history into the chat window
+    function loadChatHistory(messages) {
+        const chatMessages = document.getElementById('chat-messages');
+        chatMessages.innerHTML = ''; // Clear current chat messages
+
+        messages.forEach(message => {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message';
+            messageDiv.innerText = `${currentChatMode === 'public' ? 'User' : 'SEL API'}: ${message}`;
+            chatMessages.appendChild(messageDiv);
+        });
+
+        chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to bottom
     }
 
     // Event listener for sending message on button click
@@ -58,4 +103,7 @@ export function initChat() {
 
     // Add event listener for the copy button
     copyChatButton.addEventListener('click', copyChatToClipboard);
+
+    // Add event listener for the switch chat button
+    switchChatButton.addEventListener('click', switchChatMode);
 }
