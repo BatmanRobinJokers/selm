@@ -1,4 +1,4 @@
- /* Reset some default styles */
+/* Reset some default styles */
 * {
     margin: 0;
     padding: 0;
@@ -13,6 +13,8 @@ body {
     height: 100vh; /* Full height of the viewport */
     display: flex;
     flex-direction: column; /* Stack children vertically */
+    width: 100vw; /* Full width of the viewport */
+    overflow: hidden;
 }
 
 /* Main chat app container */
@@ -48,11 +50,13 @@ body {
     background-color: #ffffff; /* Match the chat app background */
     border-top: 1px solid #eaeaea; /* Subtle border for separation */
     padding: 10px; /* Padding for input box and buttons */
+    width: 100%; /* Ensure full width */
 }
 
 /* Input box styles */
 #chat-input-box {
     margin-bottom: 10px; /* Space between input box and buttons */
+    width: 100%; /* Full width of the container */
 }
 
 #message-input {
@@ -82,11 +86,11 @@ body {
 .chat-btn {
     background-color: #007bff; /* Primary button color */
     border: none; /* Remove default border */
-    border-radius: 4px; /* Rounded corners for buttons */
+    border-radius: 0px; /* Remove rounding */
     color: white; /* White text for buttons */
     flex: 1; /* Allow buttons to grow and fill the space */
     padding: 10px; /* Padding for buttons */
-    margin: 0 5px; /* Space between buttons */
+    margin: 0; /* Remove margin between buttons */
     cursor: pointer; /* Change cursor to pointer */
     transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
 }
@@ -94,6 +98,11 @@ body {
 .chat-btn:hover {
     background-color: #0056b3; /* Darker shade on hover */
     transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+/* Ensure buttons appear as a solid unit */
+.chat-btn:not(:first-child) {
+    border-left: 1px solid white; /* Add a white border between buttons */
 }
 
 /* Dark mode styles */
@@ -133,6 +142,6 @@ body.dark-mode #chat-input-container {
 
     .chat-btn {
         flex: 1; /* Allow buttons to grow and fill the space */
-        margin: 0 5px; /* Space around buttons */
+        margin: 0; /* Remove margins between buttons */
     }
 }
