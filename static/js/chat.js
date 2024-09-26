@@ -6,6 +6,7 @@ export function initChat() {
     const copyChatButton = document.getElementById('copy-chat-button'); // Reference to the copy button
     const switchChatButton = document.getElementById('switch-chat-button'); // Reference to the switch chat button
     const viewModeButton = document.getElementById('view-mode-button'); // Reference to the view mode button
+    const runButton = document.getElementById('run-button'); // Reference to the run button
 
     let currentChatMode = 'public'; // Track the current chat mode
     let publicChatMessages = []; // Array to hold public chat messages
@@ -37,6 +38,35 @@ export function initChat() {
             publicChatMessages.push(message);
         } else {
             selmChatMessages.push(message);
+        }
+    }
+
+    // Function to send the last message to the PythonAnywhere endpoint
+    function runLastMessage() {
+        const lastMessage = currentChatMode === 'public'
+            ? publicChatMessages[publicChatMessages.length - 1]
+            : selmChatMessages[selmChatMessages.length - 1];
+
+        if (lastMessage) {
+            fetch('https://selmai.pythonanywhere.com/process_chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    mode: currentChatMode, // 'public' or 'selm'
+                    message: lastMessage,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server (display it in the chat)
+                appendMessage(currentChatMode, data.response || 'No response from server');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                appendMessage(currentChatMode, 'Error processing the message.');
+            });
         }
     }
 
@@ -116,4 +146,7 @@ export function initChat() {
 
     // Add event listener for the view mode button (Dark/Light mode toggle)
     viewModeButton.addEventListener('click', toggleViewMode);
+
+    // Event listener for the Run button
+    runButton.addEventListener('click', runLastMessage);
 }
