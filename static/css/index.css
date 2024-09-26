@@ -8,31 +8,31 @@
 /* Body styles */
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #f4f4f9; /* Light background */
-    color: #333; /* Dark text color */
-    height: 100vh; /* Full viewport height */
+    background-color: #f4f4f9; /* Light background for a clean look */
+    color: #333; /* Dark text color for contrast */
+    height: 100vh; /* Full height of the viewport */
     display: flex;
     flex-direction: column; /* Stack children vertically */
 }
 
 /* Main chat app container */
 #chat-app-container {
-    flex: 1; /* Take available height */
+    flex: 1; /* Take full height available */
     display: flex;
-    flex-direction: column; /* Stack chat window and input box */
+    flex-direction: column; /* Stack chat window and input box vertically */
     width: 100%; /* Full width */
-    background-color: #ffffff; /* White background */
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    overflow: hidden; /* Hide overflow */
+    background-color: #ffffff; /* White background for the chat */
+    border-radius: 8px; /* Rounded corners for a softer look */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    overflow: hidden; /* Prevent overflow of children */
 }
 
 /* Chat window */
 #chat-window {
-    flex: 1; /* Allow chat window to grow */
+    flex: 1; /* Allow the chat window to grow */
     overflow-y: auto; /* Enable scrolling for messages */
     padding: 20px; /* Padding around messages */
-    background-color: #f9f9f9; /* Slightly darker background */
+    background-color: #f9f9f9; /* Slightly darker background for contrast */
 }
 
 /* Chat messages area */
@@ -41,29 +41,19 @@ body {
     flex-direction: column;
 }
 
-/* Chat message styles */
-.chat-message {
-    margin-bottom: 10px; /* Space between messages */
-    padding: 10px; /* Padding for messages */
-    border-radius: 5px; /* Rounded corners for messages */
-    background-color: #e0e0e0; /* Light gray background for messages */
-    max-width: 70%; /* Limit message width */
-    word-wrap: break-word; /* Break long words */
-}
-
 /* Chat input container */
 #chat-input-container {
     display: flex;
-    flex-direction: row; /* Place input box and buttons side by side */
-    background-color: #ffffff; /* White background */
-    border-top: 1px solid #eaeaea; /* Subtle border */
+    flex-direction: column; /* Stack input box and button container vertically */
+    background-color: #ffffff; /* Match the chat app background */
+    border-top: 1px solid #eaeaea; /* Subtle border for separation */
     padding: 10px; /* Padding for input box and buttons */
 }
 
 /* Input box styles */
 #chat-input-box {
-    flex: 1; /* Allow input box to grow */
-    margin-right: 10px; /* Space between input box and buttons */
+    flex-grow: 1; /* Allow input box to take available space */
+    margin-bottom: 10px; /* Space between input box and buttons */
 }
 
 #message-input {
@@ -85,17 +75,20 @@ body {
 #chat-button-container {
     display: flex;
     flex-direction: row; /* Keep buttons in a row */
-    align-items: center; /* Vertically center buttons */
+    justify-content: space-between; /* Distribute space evenly */
+    width: 100%; /* Full width for button container */
+    margin-top: 10px; /* Space above button container */
 }
 
 /* Button styles */
 .chat-btn {
     background-color: #007bff; /* Primary button color */
     border: none; /* Remove default border */
-    border-radius: 4px; /* Rounded corners */
-    color: white; /* White text */
-    padding: 10px 15px; /* Padding for buttons */
-    margin-right: 10px; /* Space between buttons */
+    border-radius: 4px; /* Rounded corners for buttons */
+    color: white; /* White text for buttons */
+    flex: 1; /* Allow buttons to grow and fill the space */
+    padding: 10px; /* Padding for buttons */
+    margin: 0 5px; /* Space between buttons */
     cursor: pointer; /* Change cursor to pointer */
     transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
 }
@@ -105,26 +98,10 @@ body {
     transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-/* File upload button styles */
-#file-upload-button {
-    position: relative; /* Needed for absolute positioning of the file input */
-    overflow: hidden; /* Hide the file input visually */
-}
-
-#file-upload-input {
-    position: absolute; /* Position over the button */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0; /* Hide the file input */
-    cursor: pointer; /* Change cursor to pointer */
-}
-
 /* Dark mode styles */
 body.dark-mode {
-    background-color: #333; /* Dark background */
-    color: #f4f4f9; /* Light text color */
+    background-color: #333; /* Dark background for dark mode */
+    color: #f4f4f9; /* Light text color for contrast */
 }
 
 body.dark-mode #chat-app-container {
@@ -141,7 +118,7 @@ body.dark-mode #chat-input-container {
 }
 
 /* Responsive design */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     #chat-app-container {
         width: 100%; /* Full width on smaller screens */
     }
@@ -158,6 +135,6 @@ body.dark-mode #chat-input-container {
 
     .chat-btn {
         flex: 1; /* Allow buttons to grow and fill the space */
-        margin: 5px; /* Space around buttons */
+        margin: 0 5px; /* Space around buttons */
     }
 }
