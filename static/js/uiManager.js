@@ -1,35 +1,6 @@
-// Function to handle file upload to the server
-export const sendFileToServer = (file) => {
-    console.log(`Uploading file: ${file.name}`);
+// uiManager.js
 
-    // Create FormData to send the file
-    const formData = new FormData();
-    formData.append('file', file);
-
-    // Fetch request to handle file uploads
-    fetch('/upload', {
-        method: 'POST',
-        body: formData, // Send the form data
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Server error: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('File uploaded successfully:', data);
-        alert('File uploaded successfully!'); // User feedback
-        // Handle the server response after successful upload
-    })
-    .catch(error => {
-        console.error('Error uploading file:', error);
-        alert('Failed to upload file. Please try again.'); // User feedback
-    });
-};
-
-// Function to initialize UI-related functionality
-export function initUI() {
+export const initUI = () => {
     const viewModeButton = document.getElementById('view-mode-button');
     const chatMessagesContainer = document.getElementById('chat-messages');
     const fileUploadButton = document.getElementById('file-upload-button');
@@ -41,9 +12,8 @@ export function initUI() {
 
     // Trigger file input click when the upload button is pressed
     fileUploadButton.addEventListener('click', (event) => {
-        event.preventDefault(); // Prevent default behavior if inside a form
-        console.log('File upload button clicked'); // Debug log
-        fileUploadInput.click(); // Open file dialog
+        event.preventDefault();
+        fileUploadInput.click();
     });
 
     // Handle file upload when a file is selected
@@ -65,16 +35,16 @@ export function initUI() {
     // Toggle light and dark mode
     function toggleViewMode() {
         document.body.classList.toggle('dark-mode');
-        viewModeButton.innerText = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+        viewModeButton.textContent = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
     }
 
     // Append a message to the chat window
     function appendMessage(sender, message) {
         const messageElement = document.createElement('div');
         messageElement.classList.add('chat-message');
-        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        messageElement.textContent = `${sender}: ${message}`;
         chatMessagesContainer.appendChild(messageElement);
-        scrollToBottom(); // Scroll to the bottom after appending
+        scrollToBottom();
     }
 
     // Handle sending the message
@@ -82,9 +52,9 @@ export function initUI() {
         const messageInput = document.getElementById('message-input');
         const message = messageInput.value.trim();
         if (message) {
-            appendMessage('You', message); // Add message to the chat window
-            sendMessage(message); // Send the message to the server
-            messageInput.value = ''; // Clear the input box after sending
+            appendMessage('You', message);
+            sendMessage(message); // Call the sendMessage function
+            messageInput.value = '';
         }
     }
-}
+};
