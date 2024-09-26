@@ -27,7 +27,7 @@ export function initChat() {
         const chatMessages = document.getElementById('chat-messages');
         const messageDiv = document.createElement('div');
         messageDiv.className = 'message';
-        messageDiv.innerText = `${mode === 'public' ? 'User' : 'SELM API'}: ${message}`;
+        messageDiv.innerText = `${mode === 'public' ? 'Public' : 'Selm'}: ${message}`;
 
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to bottom
@@ -59,7 +59,7 @@ export function initChat() {
         if (currentChatMode === 'public') {
             currentChatMode = 'selm';
             switchChatButton.innerText = 'Public Chat'; // Update button text
-            messageInput.placeholder = 'Type your message for SELM...'; // Change placeholder
+            messageInput.placeholder = 'Type your message for selm...'; // Change placeholder
             // Load SELM chat history if needed
             loadChatHistory(selmChatMessages);
         } else {
@@ -79,7 +79,7 @@ export function initChat() {
         messages.forEach(message => {
             const messageDiv = document.createElement('div');
             messageDiv.className = 'message';
-            messageDiv.innerText = `${currentChatMode === 'public' ? 'User' : 'SELM API'}: ${message}`;
+            messageDiv.innerText = `${currentChatMode === 'public' ? 'Public' : 'Selm'}: ${message}`;
             chatMessages.appendChild(messageDiv);
         });
 
