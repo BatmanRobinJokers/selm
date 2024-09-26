@@ -2,7 +2,7 @@
 export const sendMessage = (message) => {
     console.log(`Sending message: ${message}`);
 
-    // Replace this with the actual fetch request to your server
+    // Fetch request to send the message to the server
     fetch('/send', {
         method: 'POST',
         headers: {
@@ -10,10 +10,15 @@ export const sendMessage = (message) => {
         },
         body: JSON.stringify({ message }),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(data => {
         console.log('Message sent successfully:', data);
-        // Handle response (e.g., update UI with server's reply)
+        // You can handle the server's response here (e.g., update UI)
     })
     .catch(error => {
         console.error('Error sending message:', error);
@@ -34,7 +39,7 @@ export const initDataProcessing = () => {
         }
     });
 
-    // Send message on Enter key press
+    // Send message on pressing the Enter key
     messageInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             const message = messageInput.value.trim();
@@ -43,27 +48,5 @@ export const initDataProcessing = () => {
                 messageInput.value = ''; // Clear the input after sending
             }
         }
-    });
-};
-
-// Placeholder function to handle file upload to server
-export const sendFileToServer = (file) => {
-    console.log(`Sending file: ${file.name}`);
-
-    // Replace this with the actual fetch request to handle file uploads
-    const formData = new FormData();
-    formData.append('file', file);
-
-    fetch('/upload', {
-        method: 'POST',
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('File uploaded successfully:', data);
-        // Handle server response if needed
-    })
-    .catch(error => {
-        console.error('Error uploading file:', error);
     });
 };
