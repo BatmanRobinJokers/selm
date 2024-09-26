@@ -19,10 +19,12 @@ export const sendFileToServer = (file) => {
     })
     .then(data => {
         console.log('File uploaded successfully:', data);
+        alert('File uploaded successfully!'); // User feedback
         // Handle the server response after successful upload
     })
     .catch(error => {
         console.error('Error uploading file:', error);
+        alert('Failed to upload file. Please try again.'); // User feedback
     });
 };
 
@@ -77,6 +79,7 @@ export function initUI() {
         const message = messageInput.value.trim();
         if (message) {
             appendMessage('You', message); // Add message to the chat window
+            sendMessage(message); // Send the message to the server
             messageInput.value = ''; // Clear the input box after sending
         }
     }
