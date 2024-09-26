@@ -6,6 +6,7 @@ export const initUI = () => {
     const fileUploadButton = document.getElementById('file-upload-button');
     const fileUploadInput = document.getElementById('file-upload-input');
     const sendMessageButton = document.getElementById('send-message-button');
+    const messageInput = document.getElementById('message-input');
 
     // Toggle between light and dark mode
     viewModeButton.addEventListener('click', toggleViewMode);
@@ -26,6 +27,14 @@ export const initUI = () => {
 
     // Handle message sending functionality
     sendMessageButton.addEventListener('click', handleSendMessage);
+
+    // Send message on Enter key press
+    messageInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault(); // Prevent default form submission
+            handleSendMessage(); // Call the same function as the button
+        }
+    });
 
     // Scroll to the bottom after each message is added to the chat
     function scrollToBottom() {
@@ -49,12 +58,11 @@ export const initUI = () => {
 
     // Handle sending the message
     function handleSendMessage() {
-        const messageInput = document.getElementById('message-input');
         const message = messageInput.value.trim();
         if (message) {
             appendMessage('You', message);
             sendMessage(message); // Call the sendMessage function
-            messageInput.value = '';
+            messageInput.value = ''; // Clear the input after sending
         }
     }
 };
