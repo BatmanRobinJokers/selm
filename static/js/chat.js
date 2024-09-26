@@ -1,36 +1,65 @@
-export function initChat() {
+export function initUI() {
+    const viewModeButton = document.getElementById('view-mode-button');
+    const switchChatButton = document.getElementById('switch-chat-button');
+    const sendMessageButton = document.getElementById('send-message-button');
     const messageInput = document.getElementById('message-input');
-    const sendButton = document.getElementById('send-message-button');
+    const chatMessagesContainer = document.getElementById('chat-messages');
 
-    // Function to send the message
-    function sendMessage() {
-        const message = messageInput.value.trim(); // Get trimmed message
+    // Toggle dark/light mode
+    viewModeButton.addEventListener('click', () => {
+        document.body.classList.toggle('dark-mode');
+        viewModeButton.innerText = document.body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+    });
 
-        if (message) {
-            // Append message to chat
-            appendMessage('User', message);
-            messageInput.value = ''; // Clear the input after sending
-        }
-    }
+    // Switch between chat modes
+    switchChatButton.addEventListener('click', () => {
+        console.log('Switched chat modes');
+        // Logic for clearing chat messages and switching modes can go here
+        chatMessagesContainer.innerHTML = ''; // Clear messages for demonstration
+    });
 
-    // Function to append messages to the chat window
-    function appendMessage(sender, message) {
-        const chatMessages = document.getElementById('chat-messages');
-        const messageDiv = document.createElement('div');
-        messageDiv.className = 'message';
-        messageDiv.innerText = `${sender}: ${message}`;
-        chatMessages.appendChild(messageDiv);
-        chatMessages.scrollTop = chatMessages.scrollHeight; // Auto-scroll to bottom
-    }
-
-    // Event listener for sending message on button click
-    sendButton.addEventListener('click', sendMessage);
-
-    // Event listener for sending message on Enter key press
-    messageInput.addEventListener('keypress', (event) => {
-        if (event.key === 'Enter') {
-            sendMessage(); // Call sendMessage when Enter is pressed
-            event.preventDefault(); // Prevent default behavior of the Enter key
+    // Send message functionality
+    sendMessageButton.addEventListener('click', () => {
+        const messageText = messageInput.value.trim();
+        if (messageText) {
+            addMessageToChat('User', messageText);
+            messageInput.value = ''; // Clear input box after sending
+            // Simulate AI response for demonstration
+            setTimeout(() => addMessageToChat('AI', 'This is a simulated response!'), 500);
         }
     });
+
+    // Function to add a message to the chat
+    function addMessageToChat(sender, text) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('chat-message');
+
+        const copyButton = document.createElement('button');
+        copyButton.classList.add('copy-link-button');
+        copyButton.innerHTML = '📋';
+        copyButton.addEventListener('click', () => copyToClipboard(text));
+
+        const messageText = document.createElement('span');
+        messageText.innerText = `${sender}: ${text}`;
+
+        messageDiv.appendChild(copyButton);
+        messageDiv.appendChild(messageText);
+        chatMessagesContainer.appendChild(messageDiv);
+
+        // Scroll to the bottom of the chat
+        chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+    }
+
+    // Function to copy text to clipboard
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            console.log('Copied to clipboard: ' + text);
+            // Optionally, show a temporary confirmation message to the user
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+        });
+    }
 }
+
+// Initialize the UI when the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', initUI);
