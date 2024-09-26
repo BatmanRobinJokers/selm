@@ -1,9 +1,9 @@
 export function initUI() {
     const viewModeButton = document.getElementById('view-mode-button');
     const switchChatButton = document.getElementById('switch-chat-button');
-    const sendMessageButton = document.getElementById('send-message-button');
+    const sendMessageButton = document.getElementById('send-message-button'); // Assuming you have this button in your HTML
     const messageInput = document.getElementById('message-input');
-    const chatMessagesContainer = document.getElementById('chat-messages');
+    const chatMessagesContainer = document.getElementById('chatMessages'); // Update to match your HTML id
 
     // Toggle dark/light mode
     viewModeButton.addEventListener('click', () => {
@@ -14,7 +14,7 @@ export function initUI() {
     // Switch between chat modes
     switchChatButton.addEventListener('click', () => {
         console.log('Switched chat modes');
-        // Logic for clearing chat messages and switching modes can go here
+        // Logic for switching chat modes can go here
         chatMessagesContainer.innerHTML = ''; // Clear messages for demonstration
     });
 
@@ -36,7 +36,7 @@ export function initUI() {
 
         const copyButton = document.createElement('button');
         copyButton.classList.add('copy-link-button');
-        copyButton.innerHTML = '📋';
+        copyButton.innerHTML = '📋'; // Copy icon
         copyButton.addEventListener('click', () => copyToClipboard(text));
 
         const messageText = document.createElement('span');
@@ -54,7 +54,6 @@ export function initUI() {
     function copyToClipboard(text) {
         navigator.clipboard.writeText(text).then(() => {
             console.log('Copied to clipboard: ' + text);
-            // Optionally, show a temporary confirmation message to the user
         }).catch(err => {
             console.error('Failed to copy: ', err);
         });
