@@ -7,29 +7,29 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="A responsive chat application with AI and public chat modes, file uploads, light/dark mode, and more.">
-    <meta name="keywords" content="chat app, responsive, AI chatbot, file upload, light dark mode, real-time messaging">
+    <meta name="description" content="A responsive chat application interface supporting AI and public chat modes with file uploads, light/dark mode, and various interactive features.">
+    <meta name="keywords" content="chat app, responsive chat, AI chatbot, file upload, light mode, dark mode, real-time messaging">
     <meta name="robots" content="index, follow">
     <meta name="author" content="SelmAI Team">
 
     <!-- Open Graph Meta Tags for Social Media -->
-    <meta property="og:title" content="Advanced Chat Application">
-    <meta property="og:description" content="A feature-rich chat interface with real-time messaging and file sharing.">
+    <meta property="og:title" content="Advanced Responsive Chat Application">
+    <meta property="og:description" content="A feature-rich, responsive chat interface supporting real-time messaging and file sharing.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-app-url.com/">
-    <meta property="og:image" content="https://your-app-url.com/chat-thumbnail.png">
+    <meta property="og:url" content="https://selmai.pythonanywhere.com/">
+    <meta property="og:image" content="https://selmai.pythonanywhere.com/chat-thumbnail.png">
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Advanced Chat Interface">
-    <meta name="twitter:description" content="A modern chat interface with AI integration and public modes.">
-    <meta name="twitter:image" content="https://your-app-url.com/chat-thumbnail.png">
+    <meta name="twitter:title" content="Advanced Responsive Chat Interface">
+    <meta name="twitter:description" content="A sleek, feature-rich chat interface with AI integration and public modes.">
+    <meta name="twitter:image" content="https://selmai.pythonanywhere.com/chat-thumbnail.png">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="styles.css">
-
+    <link rel="stylesheet" href="static/css/index.css">
+    
     <!-- Title -->
-    <title>Selm Chat</title>
+    <title>Selm (Small Efficient Learning Model)</title>
 </head>
 <body>
 
@@ -52,7 +52,7 @@
                 <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off">
             </div>
 
-            <!-- Button container: holds all buttons next to the input box -->
+            <!-- Button container: holds all seven buttons next to the input box -->
             <div id="chat-button-container">
                 
                 <!-- Button for switching between light and dark mode -->
@@ -60,8 +60,7 @@
 
                 <!-- Button for file upload attachments -->
                 <button id="file-upload-button" class="chat-btn">Upload</button>
-                <input type="file" id="file-upload-input" style="display:none;" />
-                
+
                 <!-- Button for downloading the chat conversation -->
                 <button id="download-chat-button" class="chat-btn">Download</button>
 
@@ -82,10 +81,6 @@
         </div>
 
     </div>
-
-    <!-- JavaScript files -->
-    <script type="module" src="uiManager.js"></script>
-    <script type="module" src="dataProcessor.js"></script>
-    <script type="module" src="index.js"></script>
+    <script type="module" src="static/js/app.js"></script>
 </body>
 </html>
