@@ -1,11 +1,6 @@
-import { initUI } from './uiManager.js';
-import { initDataProcessing } from './dataProcessor.js';
+import { initUI } from './ui.js';
+import { initChat } from './chat.js';
 
-// Initialize the application
-const initApp = () => {
-    initUI();
-    initDataProcessing();
-};
-
-// Run the initialization
-document.addEventListener('DOMContentLoaded', initApp);
+// Initialize the UI and Chat functionalities
+initUI();
+initChat();
