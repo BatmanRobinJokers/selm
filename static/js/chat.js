@@ -16,11 +16,11 @@ export function initChat() {
     function handleCommand(message) {
         const tokens = message.split(' ');
         const firstToken = tokens[0];
-        const firstTokenMinusPeriod = firstToken.substring(1); // Remove the leading period
-        const everythingFollowedAfterFirstToken = tokens.slice(1).join(' '); // Get the rest of the message
+        const commandName = firstToken.substring(1); // Remove the leading period
+        const commandParams = tokens.slice(1).join(' '); // Get the rest of the message
     
         // Construct the URL with params
-        const url = `https://selmai.pythonanywhere.com/?type=command&name=${encodeURIComponent(firstTokenMinusPeriod)}&params=${encodeURIComponent(everythingFollowedAfterFirstToken)}`;
+        const url = `https://selmai.pythonanywhere.com/?type=command&name=${encodeURIComponent(commandName)}&params=${encodeURIComponent(commandParams)}`;
     
         // Send the request to the external endpoint
         fetch(url)
