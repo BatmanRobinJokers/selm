@@ -20,7 +20,7 @@ export function initChat() {
         const everythingFollowedAfterFirstToken = tokens.slice(1).join(' '); // Get the rest of the message
     
         // Construct the URL with params
-        const url = `https://selmai.pythonanywhere.com/?type=command&get=${encodeURIComponent(firstTokenMinusPeriod)}&params=${encodeURIComponent(everythingFollowedAfterFirstToken)}`;
+        const url = `https://selmai.pythonanywhere.com/?type=command&name=${encodeURIComponent(firstTokenMinusPeriod)}&params=${encodeURIComponent(everythingFollowedAfterFirstToken)}`;
     
         // Send the request to the external endpoint
         fetch(url)
